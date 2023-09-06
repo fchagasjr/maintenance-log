@@ -1,5 +1,6 @@
 require "sinatra"
 
 get "/" do
-  "Hello world!"
+  @now = Time.now(in: "-04:00") #Time now UTC -04:00
+  erb :index
 end
