@@ -1,6 +1,9 @@
-require "sinatra"
+require 'sinatra'
+require 'sinatra/activerecord'
 
-get "/" do
-  @now = Time.now(in: "-04:00") #Time now UTC -04:00
-  erb :index
+class App < Sinatra::Base
+  get "/" do
+    @now = Time.now(in: "-04:00") #Time now UTC -04:00
+    erb :index
+  end
 end

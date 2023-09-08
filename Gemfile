@@ -2,6 +2,11 @@
 
 source "https://rubygems.org"
 
+# Server related:
 gem "sinatra"
 gem "puma"
-gem "rerun"
+gem "rake"
+
+# Database related:
+gem "pg"
+gem "sinatra-activerecord"
