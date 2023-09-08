@@ -72,10 +72,12 @@ class App < Sinatra::Base
   end
 
   post "/entity" do
+    assembly_id =
     @entity = Entity.new(id: params[:id],
-                         description: params[:description],
-                         assembly_id: params[:assembly_id],
-                         equipment_id: params[:equipment_id])
+                         description: params[:description])
+
+    @entity.assembly_id = params[:assembly_id] if params[:assembly_id] != "null"
+    @entity.equipment_id = params[:equipment_id] if params[:equipment_id] != "null"
     unless @entity.valid?
       flash[:info] = "Invalid data supplied. Information not saved to database"
       redirect "/entities/new"

@@ -6,12 +6,14 @@
   <input type="text" name="description"><br>
   <label for="equipment_id">Equipment</label>
   <select name="equipment_id">
+    <option value="null"></option>
     <% @equipment.each do |equipment| %>
       <option value=<%= equipment.id %>><%= equipment.description %></option>
     <% end %>
   </select><br>
   <label for="assembly_id">Assembly</label>
   <select name="assembly_id">
+    <option value="null"></option>
     <% @assemblies.each do |assembly| %>
       <option value=<%= assembly.id %>><%= assembly.description %></option>
     <% end %>
