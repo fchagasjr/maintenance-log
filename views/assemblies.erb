@@ -1,0 +1,9 @@
+<h3>Assemblies list:</h3>
+<ul>
+  <% @assemblies.each do |assembly| %>
+   <li>
+    <h4><%= assembly.description %></h4>
+   </li>
+  <% end %>
+</ul>
+<a href="/assemblies/new">New assembly</a>

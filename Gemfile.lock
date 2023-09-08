@@ -34,6 +34,8 @@ GEM
     sinatra-activerecord (2.0.26)
       activerecord (>= 4.1)
       sinatra (>= 1.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     tilt (2.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -47,6 +49,7 @@ DEPENDENCIES
   rake
   sinatra
   sinatra-activerecord
+  sinatra-flash
 
 BUNDLED WITH
    2.4.14

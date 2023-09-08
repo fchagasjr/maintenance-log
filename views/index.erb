@@ -1,36 +1,6 @@
 <h1>Maintenance Log</h1>
 
 <p>This is the main page of the application</p>
-<h2>Enter new assembly below</h2>
-<form method="post" action="/assemblies">
-  <label for="description">Description</label>
-  <input type="text" name="description"><br>
-  <input type="submit" name="submit">
-</form>
-
-<h2>Enter new equipment below</h2>
-<form method="post" action="/equipment">
-  <label for="description">Description</label>
-  <input type="text" name="description"><br>
-  <label for="manufacturer">Manufacturer</label>
-  <input type="text" name="manufacturer"><br>
-  <label for="model">Model</label>
-  <input type="text" name="model"><br>
-  <input type="submit" name="submit">
-</form>
-
-<h3>Equipment list:</h3>
-<ul>
-  <% @equipment.each do |equipment| %>
-   <li><%= equipment.description %></li>
-  <% end %>
-</ul>
-<h3>Assemblies list:</h3>
-<ul>
-  <% @assemblies.each do |assembly| %>
-   <li><%= assembly.description %></li>
-  <% end %>
-</ul>
 
 
 <p>Time: <%= @now.strftime("%H:%M") %></p>

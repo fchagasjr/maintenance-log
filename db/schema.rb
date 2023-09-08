@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_08_021009) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_08_142055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "assemblies", force: :cascade do |t|
     t.string "description", null: false
+  end
+
+  create_table "entities", id: :string, force: :cascade do |t|
+    t.string "description", null: false
+    t.bigint "equipment_id"
+    t.bigint "assembly_id"
+    t.index ["assembly_id"], name: "index_entities_on_assembly_id"
+    t.index ["equipment_id"], name: "index_entities_on_equipment_id"
   end
 
   create_table "equipment", force: :cascade do |t|
@@ -24,4 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_021009) do
     t.string "model"
   end
 
+  add_foreign_key "entities", "assemblies"
+  add_foreign_key "entities", "equipment"
 end

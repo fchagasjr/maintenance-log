@@ -1,30 +1,87 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'sinatra/flash'
 require_relative 'lib/equipment'
 require_relative 'lib/assembly'
+require_relative 'lib/entity'
 
 class App < Sinatra::Base
+  enable :sessions
+  register Sinatra::Flash
+
+  # Shared routes
   get "/" do
-    @assemblies = Assembly.all
-    @equipment = Equipment.all
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
   end
 
+  # Equipment routes
+  get "/equipment" do
+    @equipment = Equipment.all
+    erb :equipment
+  end
+
+  get "/equipment/new" do
+    erb :new_equipment
+  end
+
   post "/equipment" do
-    description = params[:description]
-    model = params[:model]
-    manufacturer = params[:manufacturer]
-    @equipment = Equipment.new(description: description, manufacturer: manufacturer, model:model)
-    @equipment.save
-    redirect "/"
+    @equipment = Equipment.new(description: params[:description],
+                               manufacturer: params[:manufacturer],
+                               model: params[:model])
+    unless @equipment.valid?
+      flash[:info] = "Invalid data supplied. Information not saved to database"
+      redirect "/equipment/new"
+    else
+      @equipment.save
+      redirect "/equipment"
+    end
   end
 
-  post "/assemblies" do
-    description = params[:description]
-    @assembly = Assembly.new(description: description)
-    @assembly.save
-    redirect "/"
+  # Assemblies routes
+  get "/assemblies" do
+    @assemblies = Assembly.all
+    erb :assemblies
   end
 
+  get "/assemblies/new" do
+    erb :new_assembly
+  end
+
+  post "/assembly" do
+    @assembly = Assembly.new(description: params[:description])
+    unless @assembly.valid?
+      flash[:info] = "Invalid data supplied. Information not saved to database"
+      redirect "/assemblies/new"
+    else
+      @assembly.save
+      redirect "/assemblies"
+    end
+  end
+
+  # Entities routes
+  get "/entities" do
+    @entities = Entity.all
+    erb :entities
+  end
+
+  get "/entities/new" do
+    @assemblies = Assembly.all
+    @equipment = Equipment.all
+    erb :new_entity
+  end
+
+  post "/entity" do
+    @entity = Entity.new(id: params[:id],
+                         description: params[:description],
+                         assembly_id: params[:assembly_id],
+                         equipment_id: params[:equipment_id])
+    unless @entity.valid?
+      flash[:info] = "Invalid data supplied. Information not saved to database"
+      redirect "/entities/new"
+    else
+      @entity.save
+      redirect "/entities"
+    end
+  end
 end

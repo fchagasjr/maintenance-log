@@ -1,0 +1,20 @@
+<h2>Enter new entity below</h2>
+<form method="post" action="/entity">
+  <label for="id">Entity ID</label>
+  <input type="text" name="id"><br>
+  <label for="description">Description</label>
+  <input type="text" name="description"><br>
+  <label for="equipment_id">Equipment</label>
+  <select name="equipment_id">
+    <% @equipment.each do |equipment| %>
+      <option value=<%= equipment.id %>><%= equipment.description %></option>
+    <% end %>
+  </select><br>
+  <label for="assembly_id">Assembly</label>
+  <select name="assembly_id">
+    <% @assemblies.each do |assembly| %>
+      <option value=<%= assembly.id %>><%= assembly.description %></option>
+    <% end %>
+  </select><br>
+  <input type="submit" name="submit">
+</form>

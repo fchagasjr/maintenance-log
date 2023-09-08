@@ -1,0 +1,14 @@
+<h3>Entity list:</h3>
+<ul>
+  <% @entities.each do |entity| %>
+   <li>
+     <h4><%= entity.id %></h4>
+     <h4><%= entity.description %></h4>
+     <ul>
+       <li>Equipment: <%= Equipment.find(entity.equipment_id).description %></li>
+       <li>Assembly: <%= Assembly.find(entity.assembly_id).description %></li>
+     </ul>
+   </li>
+  <% end %>
+</ul>
+<a href="/entities/new">New entity</a>

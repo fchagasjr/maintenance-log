@@ -1,0 +1,13 @@
+<h3>Equipment list:</h3>
+<ul>
+  <% @equipment.each do |equipment| %>
+   <li>
+     <h4><%= equipment.description %></h4>
+     <ul>
+       <li>Manufacturer: <%= equipment.manufacturer %></li>
+       <li>Model: <%= equipment.model %></li>
+     </ul>
+   </li>
+  <% end %>
+</ul>
+<a href="/equipment/new">New equipment</a>
