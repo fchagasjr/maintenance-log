@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_021009) do
     t.string "description", null: false
   end
 
-  create_table "equipments", force: :cascade do |t|
+  create_table "equipment", force: :cascade do |t|
     t.string "description", null: false
     t.string "manufacturer"
     t.string "model"
