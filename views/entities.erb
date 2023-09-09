@@ -5,8 +5,8 @@
      <h4><%= entity.id %></h4>
      <h4><%= entity.description %></h4>
      <ul>
-       <li>Equipment: <%= Equipment.find(entity.equipment_id).description  if entity.equipment_id %></li>
-       <li>Assembly: <%= Assembly.find(entity.assembly_id).description if entity.assembly_id %></li>
+       <li>Equipment: <%= Equipment.find_by(id: entity.equipment_id)&.description %></li>
+       <li>Assembly: <%= Assembly.find_by(id: entity.assembly_id)&.description %></li>
      </ul>
    </li>
   <% end %>
