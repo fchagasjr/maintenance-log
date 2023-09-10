@@ -4,7 +4,7 @@ class CreateServiceEntries < ActiveRecord::Migration[7.0]
       t.string :type, null: false
       t.text :description, null: false
       t.date :closed_at
-      t.references :entity, null: false, foreign_key: true
+      t.references :entity, type: :string, null: false, foreign_key: true
 
       t.timestamps
     end
