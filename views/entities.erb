@@ -5,8 +5,8 @@
      <h4><%= entity.id %></h4>
      <h4><%= entity.description %></h4>
      <ul>
-       <li>Equipment: <%= Equipment.find_by(id: entity.equipment_id)&.description %></li>
-       <li>Assembly: <%= Assembly.find_by(id: entity.assembly_id)&.description %></li>
+       <li>Equipment: <%= entity.equipment&.description %></li>
+       <li>Assembly: <%= entity.assembly&.description %></li>
      </ul>
    </li>
   <% end %>
