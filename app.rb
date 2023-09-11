@@ -4,6 +4,8 @@ require 'sinatra/flash'
 require_relative 'lib/assembly'
 require_relative 'lib/group'
 require_relative 'lib/entity'
+require_relative 'lib/service'
+require_relative 'lib/log_entry'
 
 class App < Sinatra::Base
   enable :sessions
@@ -11,6 +13,7 @@ class App < Sinatra::Base
 
   # Shared routes
   get "/" do
+    @log_entries = LogEntry.all
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
   end
@@ -33,7 +36,7 @@ class App < Sinatra::Base
       flash[:info] = "Invalid data supplied. Information not saved to database"
       redirect "/assemblies/new"
     else
-      @equipment.save
+      @assembly.save
       redirect "/assemblies"
     end
   end

@@ -1,8 +1,12 @@
 
 <h1>Maintenance Log</h1>
+<p>Today is <%= @now.strftime("%F") %></p>
+<a href="/new">New log entry</a>
+<ul>
+  <% @log_entries.each do |log_entry| %>
+    <li>
+      <%= log_entry.created_at %> | <%= log_entry.entity.description %> | <%= log_entry.open_description %>
+    </li>
+  <% end %>
+</ul>
 
-<p>This is the main page of the application</p>
-
-
-<p>Time: <%= @now.strftime("%H:%M") %></p>
-<p>Date: <%= @now.strftime("%F") %></p>
