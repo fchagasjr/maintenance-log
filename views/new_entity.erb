@@ -4,18 +4,18 @@
   <input type="text" name="id"><br>
   <label for="description">Description</label>
   <input type="text" name="description"><br>
-  <label for="equipment_id">Equipment</label>
-  <select name="equipment_id">
-    <option value="null"></option>
-    <% @equipment.each do |equipment| %>
-      <option value=<%= equipment.id %>><%= equipment.description %></option>
-    <% end %>
-  </select><br>
   <label for="assembly_id">Assembly</label>
   <select name="assembly_id">
     <option value="null"></option>
     <% @assemblies.each do |assembly| %>
       <option value=<%= assembly.id %>><%= assembly.description %></option>
+    <% end %>
+  </select><br>
+  <label for="group_id">Group/label>
+  <select name="group_id">
+    <option value="null"></option>
+    <% @groups.each do |group| %>
+      <option value=<%= group.id %>><%= group.description %></option>
     <% end %>
   </select><br>
   <input type="submit" name="submit">

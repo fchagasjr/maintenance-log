@@ -1,8 +1,8 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
-require_relative 'lib/equipment'
 require_relative 'lib/assembly'
+require_relative 'lib/group'
 require_relative 'lib/entity'
 
 class App < Sinatra::Base
@@ -15,30 +15,7 @@ class App < Sinatra::Base
     erb :index
   end
 
-  # Equipment routes
-  get "/equipment" do
-    @equipment = Equipment.all
-    erb :equipment
-  end
-
-  get "/equipment/new" do
-    erb :new_equipment
-  end
-
-  post "/equipment" do
-    @equipment = Equipment.new(description: params[:description],
-                               manufacturer: params[:manufacturer],
-                               model: params[:model])
-    unless @equipment.valid?
-      flash[:info] = "Invalid data supplied. Information not saved to database"
-      redirect "/equipment/new"
-    else
-      @equipment.save
-      redirect "/equipment"
-    end
-  end
-
-  # Assemblies routes
+  # Assembly routes
   get "/assemblies" do
     @assemblies = Assembly.all
     erb :assemblies
@@ -49,13 +26,36 @@ class App < Sinatra::Base
   end
 
   post "/assembly" do
-    @assembly = Assembly.new(description: params[:description])
+    @assembly = Assembly.new(description: params[:description],
+                               manufacturer: params[:manufacturer],
+                               model: params[:model])
     unless @assembly.valid?
       flash[:info] = "Invalid data supplied. Information not saved to database"
       redirect "/assemblies/new"
     else
-      @assembly.save
+      @equipment.save
       redirect "/assemblies"
+    end
+  end
+
+  # Group routes
+  get "/groups" do
+    @groups = Group.all
+    erb :groups
+  end
+
+  get "/groups/new" do
+    erb :new_group
+  end
+
+  post "/group" do
+    @group = Group.new(description: params[:description])
+    unless @group.valid?
+      flash[:info] = "Invalid data supplied. Information not saved to database"
+      redirect "/groups/new"
+    else
+      @group.save
+      redirect "/groups"
     end
   end
 
@@ -66,18 +66,17 @@ class App < Sinatra::Base
   end
 
   get "/entities/new" do
+    @groups = Group.all
     @assemblies = Assembly.all
-    @equipment = Equipment.all
     erb :new_entity
   end
 
   post "/entity" do
-    assembly_id =
     @entity = Entity.new(id: params[:id],
                          description: params[:description])
 
+    @entity.group_id = params[:group_id] if params[:group_id] != "null"
     @entity.assembly_id = params[:assembly_id] if params[:assembly_id] != "null"
-    @entity.equipment_id = params[:equipment_id] if params[:equipment_id] != "null"
     unless @entity.valid?
       flash[:info] = "Invalid data supplied. Information not saved to database"
       redirect "/entities/new"

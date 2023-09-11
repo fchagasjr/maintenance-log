@@ -1,8 +1,12 @@
-<h3>Assemblies list:</h3>
+<h3>Equipment list:</h3>
 <ul>
   <% @assemblies.each do |assembly| %>
    <li>
-    <h4><%= assembly.description %></h4>
+     <h4><%= assembly.description %></h4>
+     <ul>
+       <li>Manufacturer: <%= assembly.manufacturer %></li>
+       <li>Model: <%= assembly.model %></li>
+     </ul>
    </li>
   <% end %>
 </ul>
