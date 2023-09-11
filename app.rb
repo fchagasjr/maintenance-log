@@ -18,11 +18,11 @@ class App < Sinatra::Base
   # Assembly routes
   get "/assemblies" do
     @assemblies = Assembly.all
-    erb :assemblies
+    erb :"assemblies/index"
   end
 
   get "/assemblies/new" do
-    erb :new_assembly
+    erb :"assemblies/new"
   end
 
   post "/assembly" do
@@ -41,11 +41,11 @@ class App < Sinatra::Base
   # Group routes
   get "/groups" do
     @groups = Group.all
-    erb :groups
+    erb :"groups/index"
   end
 
   get "/groups/new" do
-    erb :new_group
+    erb :"groups/new"
   end
 
   post "/group" do
@@ -62,13 +62,13 @@ class App < Sinatra::Base
   # Entities routes
   get "/entities" do
     @entities = Entity.all
-    erb :entities
+    erb :"entities/index"
   end
 
   get "/entities/new" do
     @groups = Group.all
     @assemblies = Assembly.all
-    erb :new_entity
+    erb :"entities/new"
   end
 
   post "/entity" do

@@ -16,47 +16,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_135556) do
 
   create_table "assemblies", force: :cascade do |t|
     t.string "description", null: false
-  end
-
-  create_table "entities", id: :string, force: :cascade do |t|
-    t.string "description", null: false
-    t.bigint "equipment_id"
-    t.bigint "assembly_id"
-    t.index ["assembly_id"], name: "index_entities_on_assembly_id"
-    t.index ["equipment_id"], name: "index_entities_on_equipment_id"
-  end
-
-  create_table "equipment", force: :cascade do |t|
-    t.string "description", null: false
     t.string "manufacturer"
     t.string "model"
   end
 
-  create_table "fault_entries", force: :cascade do |t|
-    t.text "description"
-    t.string "entity_id", null: false
-    t.bigint "service_entry_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["entity_id", "updated_at"], name: "index_fault_entries_on_entity_id_and_updated_at"
-    t.index ["entity_id"], name: "index_fault_entries_on_entity_id"
-    t.index ["service_entry_id"], name: "index_fault_entries_on_service_entry_id"
+  create_table "entities", id: :string, force: :cascade do |t|
+    t.string "description", null: false
+    t.bigint "assembly_id"
+    t.bigint "group_id"
+    t.index ["assembly_id"], name: "index_entities_on_assembly_id"
+    t.index ["group_id"], name: "index_entities_on_group_id"
   end
 
-  create_table "service_entries", force: :cascade do |t|
-    t.string "type", null: false
-    t.text "description", null: false
+  create_table "groups", force: :cascade do |t|
+    t.string "description", null: false
+  end
+
+  create_table "log_entries", force: :cascade do |t|
+    t.text "open_description"
+    t.bigint "service_id"
+    t.text "close_description"
     t.date "closed_at"
     t.string "entity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["entity_id", "updated_at"], name: "index_service_entries_on_entity_id_and_updated_at"
-    t.index ["entity_id"], name: "index_service_entries_on_entity_id"
+    t.index ["entity_id"], name: "index_log_entries_on_entity_id"
+    t.index ["service_id"], name: "index_log_entries_on_service_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "description", null: false
   end
 
   add_foreign_key "entities", "assemblies"
-  add_foreign_key "entities", "equipment"
-  add_foreign_key "fault_entries", "entities"
-  add_foreign_key "fault_entries", "service_entries"
-  add_foreign_key "service_entries", "entities"
+  add_foreign_key "entities", "groups"
+  add_foreign_key "log_entries", "entities"
+  add_foreign_key "log_entries", "services"
 end
