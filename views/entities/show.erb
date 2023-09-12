@@ -13,17 +13,18 @@
 
 <table class="table log_entries-table">
   <tr class="table-header">
-    <th>Closed at</th>
-    <th>Fault Description</th>
-    <th>Service Description</th>
+    <th>Created at</th>
+    <th>Request Description</th>
+    <th>Service</th>
     <th>Additional Information</th>
   </tr>
   <% @entity.log_entries.each do |log_entry| %>
   <tr class="table-row">
-    <td><%= log_entry.closed_at %></td>
-    <td><%= log_entry.fault %></td>
-    <td><%= log_entry.service %></td>
-    <td><%= log_entry.details %></td>
+    <td><%= log_entry.created_at.strftime("%F") %></td>
+    <td><%= log_entry.request&.description %></td>
+    <td><%= log_entry.service_record&.service.description %></td>
+    <td><%= log_entry.service_record&.details %></td>
+    <td><%= log_entry.service_record&.closed_at %></td>
   </tr>
   <% end %>
 </table>

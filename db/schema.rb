@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_153636) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_201213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,15 +28,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_153636) do
 
   create_table "log_entries", force: :cascade do |t|
     t.string "entity_id", null: false
-    t.string "fault"
-    t.string "service"
+    t.text "info"
+    t.index ["entity_id"], name: "index_log_entries_on_entity_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.bigint "log_entry_id", null: false
+    t.string "description"
     t.text "details"
     t.date "closed_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["entity_id"], name: "index_log_entries_on_entity_id"
+    t.index ["log_entry_id"], name: "index_services_on_log_entry_id"
   end
 
   add_foreign_key "entities", "assemblies"
   add_foreign_key "log_entries", "entities"
+  add_foreign_key "services", "log_entries"
 end
