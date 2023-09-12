@@ -68,6 +68,11 @@ class App < Sinatra::Base
     erb :"entities/index"
   end
 
+  get "/entities/:id" do
+    @entity = Entity.find(params["id"].to_s)
+    erb :"entities/show"
+  end
+
   get "/entities/new" do
     @groups = Group.all
     @assemblies = Assembly.all

@@ -1,0 +1,18 @@
+<h1><%= @entity.id %> | <%= @entity.description %></h1>
+<% if @entity.assembly %>
+  <h3>
+    Assembly:
+    <a href="/assemblies/<%= @entity.assembly.id %>">
+      <%= @entity.assembly.description %>
+    </a>
+  </h3>
+<% end %>
+<% if @entity.group %>
+  <h3>
+    Group:
+    <a href="/groups/<%= @entity.group.id %>">
+      <%= @entity.group.description %>
+    </a>
+  </h3>
+<% end %>
+

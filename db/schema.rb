@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_135556) do
   end
 
   create_table "log_entries", force: :cascade do |t|
-    t.text "open_description"
+    t.text "fault_description"
     t.bigint "service_id"
     t.text "close_description"
     t.date "closed_at"

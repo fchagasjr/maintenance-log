@@ -1,7 +1,7 @@
 class CreateLogEntries < ActiveRecord::Migration[7.0]
   def change
     create_table :log_entries do |t|
-      t.text :open_description
+      t.text :fault_description
       t.references :service, foreign_key: true
       t.text :close_description
       t.date :closed_at

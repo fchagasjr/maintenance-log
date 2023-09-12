@@ -1,14 +1,14 @@
-<h3>Entity list:</h3>
-<ul>
+<table class="table entities-table">
+  <tr class="table-header">
+    <th>Entity</th>
+    <th>Assembly</th>
+    <th>Group</th>
+  </tr>
   <% @entities.each do |entity| %>
-   <li>
-     <h4><%= entity.id %></h4>
-     <h4><%= entity.description %></h4>
-     <ul>
-       <li>Assembly: <%= entity.assembly&.description %></li>
-       <li>Group: <%= entity.group&.description %></li>
-     </ul>
-   </li>
+  <tr class="table-row">
+    <td><a href="entities/<%= entity.id %>" ><%= entity.id %> | <%= entity.description %></a></td>
+    <td><%= entity.assembly&.description %></td>
+    <td><%= entity.group&.description %></td>
+  </tr>
   <% end %>
-</ul>
 <a href="/entities/new">New entity</a>

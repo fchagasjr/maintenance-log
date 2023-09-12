@@ -39,3 +39,18 @@
 .navbar-link:hover {
 	color: orange;
 }
+
+/* Tables */
+
+.table {
+  width: 100%;
+  padding: 1em;
+}
+
+.table-row {
+  border: 1px solid;
+}
+
+.table-row a {
+  text-decoration: none;
+}

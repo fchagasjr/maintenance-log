@@ -1,13 +1,19 @@
-<h3>Assemblies list:</h3>
-<ul>
-  <% @assemblies.each do |assembly| %>
-   <li>
-     <h4><%= assembly.description %></h4>
-     <ul>
-       <li>Manufacturer: <%= assembly.manufacturer %></li>
-       <li>Model: <%= assembly.model %></li>
-     </ul>
-   </li>
+<% @assemblies.each do |assembly| %>
+<table class="table assembly-table">
+  <tr class="table-header">
+    <th colspan="2"><%= assembly.description %> (<%= assembly.manufacturer %>) </th>
+  </tr>
+  <tr class="table-header">
+    <th>Entity</th>
+    <th>Group</th>
+  </tr>
+  <% assembly.entities.each do |entity| %>
+  <tr class="table-row">
+    <td><a href="entities/<%= entity.id %>" ><%= entity.id %> | <%= entity.description %></a></td>
+    <td><%= entity.group&.description %></td>
+  </tr>
   <% end %>
-</ul>
+</table>
+<% end %>
+
 <a href="/assemblies/new">New assembly</a>
