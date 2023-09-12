@@ -1,14 +1,19 @@
+<div class="new_entry">
+  <a href="/entities/new">Add New Entity</a>
+</div>
 <table class="table entities-table">
   <tr class="table-header">
     <th>Entity</th>
-    <th>Assembly</th>
-    <th>Group</th>
+    <th>Description</th>
+    <th>Manufacturer</th>
+    <th>Model</th>
   </tr>
   <% @entities.each do |entity| %>
   <tr class="table-row">
-    <td><a href="entities/<%= entity.id %>" ><%= entity.id %> | <%= entity.description %></a></td>
-    <td><%= entity.assembly&.description %></td>
-    <td><%= entity.group&.description %></td>
+    <td><a href="entities/<%= entity.id %>" ><%= entity.id %></a></td>
+    <td><%= entity.description %></td>
+    <td><%= entity.assembly&.manufacturer %></td>
+    <td><%= entity.assembly&.model %></td>
   </tr>
   <% end %>
-<a href="/entities/new">New entity</a>
+</table>

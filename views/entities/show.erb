@@ -1,18 +1,30 @@
 <h1><%= @entity.id %> | <%= @entity.description %></h1>
 <% if @entity.assembly %>
   <h3>
-    Assembly:
-    <a href="/assemblies/<%= @entity.assembly.id %>">
-      <%= @entity.assembly.description %>
-    </a>
+    Assembly: <%= @entity.assembly.description %>
   </h3>
-<% end %>
-<% if @entity.group %>
   <h3>
-    Group:
-    <a href="/groups/<%= @entity.group.id %>">
-      <%= @entity.group.description %>
-    </a>
+    Manufacturer: <%= @entity.assembly.manufacturer %>
+  </h3>
+  <h3>
+    Model: <%= @entity.assembly.model %>
   </h3>
 <% end %>
+
+<table class="table log_entries-table">
+  <tr class="table-header">
+    <th>Closed at</th>
+    <th>Fault Description</th>
+    <th>Service Description</th>
+    <th>Additional Information</th>
+  </tr>
+  <% @entity.log_entries.each do |log_entry| %>
+  <tr class="table-row">
+    <td><%= log_entry.closed_at %></td>
+    <td><%= log_entry.fault %></td>
+    <td><%= log_entry.service %></td>
+    <td><%= log_entry.details %></td>
+  </tr>
+  <% end %>
+</table>
 

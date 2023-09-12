@@ -4,7 +4,6 @@ class CreateEntities < ActiveRecord::Migration[7.0]
       t.string :id, primary_key: true
       t.string :description, null: false
       t.references :assembly, foreign_key: true
-      t.references :group, foreign_key: true
     end
   end
 end

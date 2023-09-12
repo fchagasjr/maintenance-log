@@ -2,9 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
 require_relative 'lib/assembly'
-require_relative 'lib/group'
 require_relative 'lib/entity'
-require_relative 'lib/service'
 require_relative 'lib/log_entry'
 
 class App < Sinatra::Base
@@ -41,31 +39,15 @@ class App < Sinatra::Base
     end
   end
 
-  # Group routes
-  get "/groups" do
-    @groups = Group.all
-    erb :"groups/index"
-  end
-
-  get "/groups/new" do
-    erb :"groups/new"
-  end
-
-  post "/group" do
-    @group = Group.new(description: params[:description])
-    unless @group.valid?
-      flash[:info] = "Invalid data supplied. Information not saved to database"
-      redirect "/groups/new"
-    else
-      @group.save
-      redirect "/groups"
-    end
-  end
-
   # Entities routes
   get "/entities" do
     @entities = Entity.all
     erb :"entities/index"
+  end
+
+  get "/entities/new" do
+    @assemblies = Assembly.all
+    erb :"entities/new"
   end
 
   get "/entities/:id" do
@@ -73,17 +55,11 @@ class App < Sinatra::Base
     erb :"entities/show"
   end
 
-  get "/entities/new" do
-    @groups = Group.all
-    @assemblies = Assembly.all
-    erb :"entities/new"
-  end
 
   post "/entity" do
     @entity = Entity.new(id: params[:id],
                          description: params[:description])
 
-    @entity.group_id = params[:group_id] if params[:group_id] != "null"
     @entity.assembly_id = params[:assembly_id] if params[:assembly_id] != "null"
     unless @entity.valid?
       flash[:info] = "Invalid data supplied. Information not saved to database"

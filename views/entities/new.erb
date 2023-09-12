@@ -11,12 +11,5 @@
       <option value=<%= assembly.id %>><%= assembly.description %></option>
     <% end %>
   </select><br>
-  <label for="group_id">Group</label>
-  <select name="group_id">
-    <option value="null"></option>
-    <% @groups.each do |group| %>
-      <option value=<%= group.id %>><%= group.description %></option>
-    <% end %>
-  </select><br>
   <input type="submit" name="submit">
 </form>

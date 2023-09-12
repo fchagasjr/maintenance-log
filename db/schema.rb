@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_10_135556) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_153636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,33 +23,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_135556) do
   create_table "entities", id: :string, force: :cascade do |t|
     t.string "description", null: false
     t.bigint "assembly_id"
-    t.bigint "group_id"
     t.index ["assembly_id"], name: "index_entities_on_assembly_id"
-    t.index ["group_id"], name: "index_entities_on_group_id"
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.string "description", null: false
   end
 
   create_table "log_entries", force: :cascade do |t|
-    t.text "fault_description"
-    t.bigint "service_id"
-    t.text "close_description"
-    t.date "closed_at"
     t.string "entity_id", null: false
+    t.string "fault"
+    t.string "service"
+    t.text "details"
+    t.date "closed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["entity_id"], name: "index_log_entries_on_entity_id"
-    t.index ["service_id"], name: "index_log_entries_on_service_id"
-  end
-
-  create_table "services", force: :cascade do |t|
-    t.string "description", null: false
   end
 
   add_foreign_key "entities", "assemblies"
-  add_foreign_key "entities", "groups"
   add_foreign_key "log_entries", "entities"
-  add_foreign_key "log_entries", "services"
 end

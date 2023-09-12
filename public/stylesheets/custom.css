@@ -42,12 +42,27 @@
 
 /* Tables */
 
+.new_entry {
+  background-color: gray;
+  text-align: right;
+}
+
+.new_entry a {
+  text-decoration: none;
+  color: #FFF;
+}
+
 .table {
   width: 100%;
   padding: 1em;
+  border: solid;
 }
 
-.table-row {
+.table th {
+  border: 2px solid;
+}
+
+.table-row td {
   border: 1px solid;
 }
 
