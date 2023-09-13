@@ -4,18 +4,20 @@
 <table class="table log_entries-table">
   <tr class="table-header">
     <th>Entity</th>
+    <th>Request Type</th>
     <th>Request Information</th>
-    <th>Service</th>
-    <th>Additional Information</th>
+    <th>Service Type</th>
+    <th>Service Information</th>
     <th>Closed at</th>
   </tr>
-  <% @log_entries.each do |log_entry| %>
+  <% @request_records.each do |request_record| %>
   <tr class="table-row">
-    <td><a href="entities/<%= log_entry.entity.id %>" ><%= log_entry.entity.description %></a></td>
-    <td><%= log_entry.info %></td>
-    <td><%= log_entry.service&.description %></td>
-    <td><%= log_entry.service&.details %></td>
-    <td><%= log_entry.service&.closed_at %></td>
+    <td><a href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.description %></a></td>
+    <td><%= request_record.request_type.description %></td>
+    <td><%= request_record.description %></td>
+    <td><%= request_record.service_record&.service_type.description %></td>
+    <td><%= request_record.service_record&.description %></td>
+    <td><%= request_record.service_record&.closed_at %></td>
   </tr>
   <% end %>
 </table>

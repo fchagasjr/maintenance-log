@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_201213) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_13_155728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,21 +26,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_201213) do
     t.index ["assembly_id"], name: "index_entities_on_assembly_id"
   end
 
-  create_table "log_entries", force: :cascade do |t|
+  create_table "request_records", force: :cascade do |t|
     t.string "entity_id", null: false
-    t.text "info"
-    t.index ["entity_id"], name: "index_log_entries_on_entity_id"
+    t.bigint "request_type_id", null: false
+    t.text "description"
+    t.index ["entity_id"], name: "index_request_records_on_entity_id"
+    t.index ["request_type_id"], name: "index_request_records_on_request_type_id"
   end
 
-  create_table "services", force: :cascade do |t|
-    t.bigint "log_entry_id", null: false
+  create_table "request_types", force: :cascade do |t|
     t.string "description"
-    t.text "details"
+  end
+
+  create_table "service_records", force: :cascade do |t|
+    t.bigint "request_record_id", null: false
+    t.bigint "service_type_id", null: false
+    t.text "description"
     t.date "closed_at"
-    t.index ["log_entry_id"], name: "index_services_on_log_entry_id"
+    t.index ["request_record_id"], name: "index_service_records_on_request_record_id"
+    t.index ["service_type_id"], name: "index_service_records_on_service_type_id"
+  end
+
+  create_table "service_types", force: :cascade do |t|
+    t.string "description"
   end
 
   add_foreign_key "entities", "assemblies"
-  add_foreign_key "log_entries", "entities"
-  add_foreign_key "services", "log_entries"
+  add_foreign_key "request_records", "entities"
+  add_foreign_key "request_records", "request_types"
+  add_foreign_key "service_records", "request_records"
+  add_foreign_key "service_records", "service_types"
 end

@@ -69,3 +69,29 @@
 .table-row a {
   text-decoration: none;
 }
+
+/* Forms */
+
+form {
+  background-color: lightgray;
+}
+
+form label {
+  display: block;
+  padding: 1em 1em 0.5em;
+  text-transform: uppercase;
+}
+
+form input {
+  border: 1px solid;
+  margin: 0.5em 1em;
+  min-width: 50vw;
+  padding: 0.5em;
+}
+
+form select {
+  border: 1px solid;
+  margin: 0.5em 1em;
+  min-width: 50vw;
+  padding: 0.5em;
+}

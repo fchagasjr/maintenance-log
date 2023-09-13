@@ -3,7 +3,11 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require_relative 'lib/assembly'
 require_relative 'lib/entity'
-require_relative 'lib/log_entry'
+require_relative 'lib/request_record'
+require_relative 'lib/request_type'
+require_relative 'lib/service_record'
+require_relative 'lib/service_type'
+
 
 class App < Sinatra::Base
   enable :sessions
@@ -11,7 +15,7 @@ class App < Sinatra::Base
 
   # Shared routes
   get "/" do
-    @log_entries = LogEntry.all
+    @request_records = RequestRecord.all
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
   end
