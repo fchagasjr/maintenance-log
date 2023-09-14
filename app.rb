@@ -73,4 +73,28 @@ class App < Sinatra::Base
       redirect "/entities"
     end
   end
+
+  # Requests routes
+
+  get "/request_records/new" do
+    @request_type = RequestType.all
+    @entities = Entity.all
+    erb :"requests/new"
+  end
+
+  post "/request_record" do
+    @request_record = RequestRecord.new(entity_id: params[:entity_id],
+                                        request_type_id: params[:request_type_id],
+                                        description: params[:description],
+                                        )
+
+    unless @request_record.valid?
+      flash[:info] = "Invalid data supplied. Information not saved to database"
+      redirect "/request_records/new"
+    else
+      @request_record.save
+      redirect "/"
+    end
+  end
+
 end

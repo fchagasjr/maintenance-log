@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_13_155728) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_14_153126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_155728) do
     t.string "entity_id", null: false
     t.bigint "request_type_id", null: false
     t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_request_records_on_created_at", order: :desc
     t.index ["entity_id"], name: "index_request_records_on_entity_id"
     t.index ["request_type_id"], name: "index_request_records_on_request_type_id"
   end
@@ -43,6 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_155728) do
     t.bigint "service_type_id", null: false
     t.text "description"
     t.date "closed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["request_record_id"], name: "index_service_records_on_request_record_id"
     t.index ["service_type_id"], name: "index_service_records_on_service_type_id"
   end
