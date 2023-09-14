@@ -1,0 +1,25 @@
+<h2>Enter new Service Rcord</h2>
+<form method="post" action="/request">
+  <label for="entity_id">Entity</label>
+  <select name="entity_id">
+    <% @entities.each do |entity| %>
+      <option value=<%= entity.id %>><%= entity.description %></option>
+    <% end %>
+  </select><br>
+  <label for="request_type_id">Type</label>
+  <select name="request_type_id">
+    <% @request_types.each do |request_type| %>
+      <option value=<%= request_type.id %>><%= request_type.description %></option>
+    <% end %>
+  </select><br>
+  <label for="request_description">Description</label>
+  <input type="text" name="request_description"><br>
+  <select name="service_type_id">
+    <% @service_types.each do |service_type| %>
+      <option value=<%= service_type.id %>><%= service_type.description %></option>
+    <% end %>
+  </select><br>
+  <label for="service_description">Description</label>
+  <input type="text" name="service_description"><br>
+  <input type="submit" name="submit">
+</form>
