@@ -8,6 +8,8 @@ require_relative 'lib/request_type'
 require_relative 'lib/service_record'
 require_relative 'lib/service_type'
 
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
+
 
 class App < Sinatra::Base
   enable :sessions
