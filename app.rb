@@ -63,7 +63,8 @@ class App < Sinatra::Base
   post "/entity" do
     @entity = Entity.new(id: params[:id],
                          description: params[:description],
-                         assembly_id: params[:assembly_id])
+                         assembly_id: params[:assembly_id],
+                         serial: params[:serial])
 
     unless @entity.valid?
       flash[:info] = @entity.errors.full_messages
