@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_14_153126) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_022043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_153126) do
 
   create_table "entities", id: :string, force: :cascade do |t|
     t.string "description", null: false
-    t.bigint "assembly_id"
+    t.bigint "assembly_id", null: false
+    t.string "serial"
     t.index ["assembly_id"], name: "index_entities_on_assembly_id"
   end
 

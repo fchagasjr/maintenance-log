@@ -1,15 +1,16 @@
 <h1><%= @entity.id %> | <%= @entity.description %></h1>
-<% if @entity.assembly %>
-  <h3>
-    Assembly: <%= @entity.assembly.description %>
-  </h3>
-  <h3>
-    Manufacturer: <%= @entity.assembly.manufacturer %>
-  </h3>
-  <h3>
-    Model: <%= @entity.assembly.model %>
-  </h3>
-<% end %>
+<h3>
+  Assembly: <%= @entity.assembly.description %>
+</h3>
+<h3>
+  Manufacturer: <%= @entity.assembly.manufacturer %>
+</h3>
+<h3>
+  Model: <%= @entity.assembly.model %>
+</h3>
+<h3>
+  Serial Number: <%= @entity.serial %>
+</h3>
 
 <table class="table log_entries-table">
   <tr class="table-header">
