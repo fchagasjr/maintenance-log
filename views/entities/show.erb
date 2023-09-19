@@ -18,14 +18,19 @@
     <th>Request Description</th>
     <th>Service</th>
     <th>Additional Information</th>
+    <th>Closed At</th>
   </tr>
-  <% @entity.log_entries.each do |log_entry| %>
+  <% @entity.request_records.each do |request_record| %>
   <tr class="table-row">
-    <td><%= log_entry.created_at.strftime("%F") %></td>
-    <td><%= log_entry.request&.description %></td>
-    <td><%= log_entry.service_record&.service.description %></td>
-    <td><%= log_entry.service_record&.details %></td>
-    <td><%= log_entry.service_record&.closed_at %></td>
+    <td><%= request_record.created_at.strftime("%F") %></td>
+    <td><%= request_record.request_type&.description %></td>
+    <% if request_record.service_record %>
+      <td><%= request_record.service_record.service_type.description %></td>
+      <td><%= request_record.service_record.description %></td>
+      <td><%= request_record.service_record.closed_at %></td>
+    <% else %>
+      <td></td><td></td><td></td>
+    <% end %>
   </tr>
   <% end %>
 </table>

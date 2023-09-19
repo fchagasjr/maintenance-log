@@ -1,5 +1,6 @@
 class Entity < ActiveRecord::Base
   belongs_to :assembly
+  has_many :request_records
 
   validates :id, presence: true, uniqueness: true
   validates :description, presence: true
