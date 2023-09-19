@@ -30,6 +30,11 @@ class App < Sinatra::Base
     erb :"assemblies/new"
   end
 
+  get "/assemblies/:id" do
+    @assembly = Assembly.find(params[:id])
+    "Page for #{@assembly.manufacturer}'s #{@assembly.description} under development"
+  end
+
   post "/assembly" do
     @assembly = Assembly.new(description: params[:description],
                                manufacturer: params[:manufacturer],
