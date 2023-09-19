@@ -1,3 +1,3 @@
-class ServiceTypes < ActiveRecord::Base
+class ServiceType < ActiveRecord::Base
   has_many :service_records, dependent: :destroy
 end

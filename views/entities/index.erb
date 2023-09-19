@@ -5,6 +5,7 @@
   <tr class="table-header">
     <th>Entity</th>
     <th>Description</th>
+    <th>Assembly</th>
     <th>Manufacturer</th>
     <th>Model</th>
   </tr>
@@ -12,6 +13,7 @@
   <tr class="table-row">
     <td><a href="entities/<%= entity.id %>" ><%= entity.id %></a></td>
     <td><%= entity.description %></td>
+    <td><%= entity.assembly&.description %></td>
     <td><%= entity.assembly&.manufacturer %></td>
     <td><%= entity.assembly&.model %></td>
   </tr>

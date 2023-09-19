@@ -35,7 +35,7 @@ class App < Sinatra::Base
                                manufacturer: params[:manufacturer],
                                model: params[:model])
     unless @assembly.valid?
-      flash[:info] = "Invalid data supplied. Information not saved to database"
+      flash[:info] = @assembly.errors.full_messages
       redirect "/assemblies/new"
     else
       @assembly.save
@@ -62,11 +62,11 @@ class App < Sinatra::Base
 
   post "/entity" do
     @entity = Entity.new(id: params[:id],
-                         description: params[:description])
+                         description: params[:description],
+                         assembly_id: params[:assembly_id])
 
-    @entity.assembly_id = params[:assembly_id] if params[:assembly_id] != "null"
     unless @entity.valid?
-      flash[:info] = "Invalid data supplied. Information not saved to database"
+      flash[:info] = @entity.errors.full_messages
       redirect "/entities/new"
     else
       @entity.save
@@ -77,7 +77,7 @@ class App < Sinatra::Base
   # Requests routes
 
   get "/request_records/new" do
-    @request_type = RequestType.all
+    @request_types = RequestType.all
     @entities = Entity.all
     erb :"requests/new"
   end
@@ -89,7 +89,7 @@ class App < Sinatra::Base
                                         )
 
     unless @request_record.valid?
-      flash[:info] = "Invalid data supplied. Information not saved to database"
+      flash[:info] = @request_record.errors.full_messages
       redirect "/request_records/new"
     else
       @request_record.save
@@ -97,4 +97,37 @@ class App < Sinatra::Base
     end
   end
 
+  # Service routes
+
+  get "/service_records/new" do
+    @request_types = RequestType.all
+    @service_types = ServiceType.all
+    @entities = Entity.all
+    erb :"services/new"
+  end
+
+  post "/service_record" do
+    @request_record = RequestRecord.new(entity_id: params[:entity_id],
+                                        request_type_id: params[:request_type_id],
+                                        description: params[:request_description],
+                                        )
+
+    unless @request_record.valid?
+      flash[:info] = @request_record.errors.full_messages
+      redirect "/service_records/new"
+    else
+      @request_record.save
+      @service_record = @request_record.create_service_record(service_type_id: params[:service_type_id],
+                                     description: params[:service_description],
+                                     closed_at: params[:closed_at]
+                                    )
+      unless @service_record.valid?
+        @request_record.destroy
+        flash[:info] = @service_record.errors.full_messages
+        redirect "/service_records/new"
+      else
+        redirect "/"
+      end
+    end
+  end
 end

@@ -70,6 +70,10 @@
   text-decoration: none;
 }
 
+.log-row {
+  background-color: red;
+}
+
 /* Forms */
 
 form {
@@ -92,6 +96,14 @@ form input {
 form select {
   border: 1px solid;
   margin: 0.5em 1em;
+  min-width: 50vw;
+  padding: 0.5em;
+}
+
+form textarea {
+  border: 1px solid;
+  margin: 0.5em 1em;
+  min-height: 10vh;
   min-width: 50vw;
   padding: 0.5em;
 }

@@ -1,5 +1,5 @@
 class RequestRecord < ActiveRecord::Base
-  belongs_to :entities
+  belongs_to :entity
   belongs_to :request_type
   has_one :service_record
   

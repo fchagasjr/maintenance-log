@@ -3,6 +3,7 @@ class Entity < ActiveRecord::Base
 
   validates :id, presence: true, uniqueness: true
   validates :description, presence: true
+  validates :assembly_id, presence: true
 
   before_save :upcase_id
 

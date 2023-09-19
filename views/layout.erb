@@ -8,10 +8,17 @@
 </head>
 <body>
   <%= erb :navbar %>
-  <% flash.keys.each do |type| %>
+  <% flash.each do |type, message| %>
     <div data-alert class="flash <%= type %> alert-box radius">
-      <%= flash[type] %>
-      <a href="#" class="close">&times;</a>
+      <% if message.kind_of?(Array) %>
+        <ul>
+          <% message.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <%= message %>
+      <% end %>
     </div>
   <% end %>
   <%= yield %>
