@@ -6,7 +6,6 @@
   <input type="text" name="description"><br>
   <label for="assembly_id">Assembly</label>
   <select name="assembly_id">
-    <option value="null"></option>
     <% @assemblies.each do |assembly| %>
       <option value=<%= assembly.id %>>
         <%= assembly.model %> | <%= assembly.description %> | <%= assembly.manufacturer %></option>
