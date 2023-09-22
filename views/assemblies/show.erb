@@ -1,0 +1,22 @@
+<h1>
+  <%= @assembly.manufacturer %>
+</h1>
+<h3>
+  Description: <%= @assembly.description %>
+</h3>
+<h3>
+  Model: <%= @assembly.model %>
+</h3>
+
+<table class="table entities-table">
+  <tr class="table-header">
+    <th>Entity</th>
+    <th>Description</th>
+  </tr>
+  <% @assembly.entities.each do |entity| %>
+  <tr class="table-row">
+    <td><a href="/entities/<%= entity.id %>" ><%= entity.id %></a></td>
+    <td><%= entity.description %></td>
+  </tr>
+  <% end %>
+</table>

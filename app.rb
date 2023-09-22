@@ -32,7 +32,7 @@ class App < Sinatra::Base
 
   get "/assemblies/:id" do
     @assembly = Assembly.find(params[:id])
-    "Page for #{@assembly.manufacturer}'s #{@assembly.description} under development"
+    erb :"assemblies/show"
   end
 
   post "/assembly" do
