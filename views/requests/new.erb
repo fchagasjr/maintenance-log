@@ -3,7 +3,9 @@
   <label for="entity_id">Entity</label>
   <select name="entity_id">
     <% @entities.each do |entity| %>
-      <option value=<%= entity.id %>><%= entity.description %></option>
+      <option value=<%= entity.id %>>
+        <%= entity.id %> | <%= entity.description %>
+      </option>
     <% end %>
   </select><br>
   <label for="request_type_id">Type</label>

@@ -40,6 +40,11 @@
 	color: orange;
 }
 
+.admin-navbar {
+  display: flex;
+}
+
+
 /* Tables */
 
 .new_entry {

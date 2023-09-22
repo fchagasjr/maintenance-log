@@ -6,7 +6,7 @@ class Entity < ActiveRecord::Base
   validates :description, presence: true
   validates :assembly_id, presence: true
 
-  before_save :upcase_id
+  before_validation :upcase_id
 
   private
   def upcase_id

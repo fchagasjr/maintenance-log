@@ -8,7 +8,7 @@
   <select name="assembly_id">
     <% @assemblies.each do |assembly| %>
       <option value=<%= assembly.id %>>
-        <%= assembly.model %> | <%= assembly.description %> | <%= assembly.manufacturer %></option>
+        <%= assembly.manufacturer %> | <%= assembly.description %> | <%=  assembly.model %></option>
     <% end %>
   </select><br>
   <label for="serial">Serial Number</label>
