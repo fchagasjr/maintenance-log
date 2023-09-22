@@ -10,6 +10,14 @@ require_relative 'lib/service_type'
 
 
 class App < Sinatra::Base
+  configure :development, :test do
+    set :force_ssl, true
+  end
+
+  configure :production, :staging do
+    set :force_ssl, true
+  end
+
   enable :sessions
   register Sinatra::Flash
 
