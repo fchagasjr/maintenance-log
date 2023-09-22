@@ -11,7 +11,7 @@ require_relative 'lib/service_type'
 
 class App < Sinatra::Base
   configure :development, :test do
-    set :force_ssl, true
+    set :force_ssl, false
   end
 
   configure :production, :staging do
