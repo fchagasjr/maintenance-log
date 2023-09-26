@@ -8,6 +8,9 @@ gem "puma"
 gem "rake"
 gem "sinatra-flash"
 
+# Encryption
+gem "bcrypt"
+
 # Database related:
 gem "pg"
 gem "sinatra-activerecord"

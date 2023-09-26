@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
+require_relative 'lib/user'
 require_relative 'lib/assembly'
 require_relative 'lib/entity'
 require_relative 'lib/request_record'
