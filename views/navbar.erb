@@ -7,12 +7,14 @@
       <li class="navbar-item">
         <a class="navbar-link" href="/logout">Logout</a>
       </li>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/service_records/new">New Service</a>
-      </li>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/request_records/new">New Request</a>
-      </li>
+      <% if current_user.active? %>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/service_records/new">New Service</a>
+        </li>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/request_records/new">New Request</a>
+        </li>
+      <% end %>
       <li class="navbar-item">
         <a class="navbar-link" href="/assemblies">Assemblies</a>
       </li>
@@ -28,4 +30,10 @@
       </li>
     <% end %>
   </ul>
+  <% if current_user&.admin? %>
+    <div class="new_entry">
+      <a href="/assemblies/new">Add New Assembly</a>
+      <a href="/entities/new">Add New Entity</a>
+    </div>
+  <% end%>
 </nav>

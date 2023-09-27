@@ -102,6 +102,10 @@ class App < Sinatra::Base
   end
 
   post "/assembly" do
+    unless current_user.admin?
+      flash[:info] = "Operation cancelled! Only administrators can create assemblies"
+      redirect "/assemblies"
+    end
     @assembly = Assembly.new(description: params[:description],
                                manufacturer: params[:manufacturer],
                                model: params[:model])
@@ -132,6 +136,10 @@ class App < Sinatra::Base
 
 
   post "/entity" do
+    unless current_user.admin?
+      flash[:info] = "Operation cancelled! Only administrators can create entities"
+      redirect "/entities"
+    end
     @entity = Entity.new(id: params[:id],
                          description: params[:description],
                          assembly_id: params[:assembly_id],
@@ -155,6 +163,10 @@ class App < Sinatra::Base
   end
 
   post "/request_record" do
+    unless current_user.active?
+      flash[:info] = "Operation cancelled! Only active users can create service requests"
+      redirect "/"
+    end
     @request_record = RequestRecord.new(entity_id: params[:entity_id],
                                         request_type_id: params[:request_type_id],
                                         description: params[:description],
@@ -179,6 +191,10 @@ class App < Sinatra::Base
   end
 
   post "/service_record" do
+    unless current_user.active?
+      flash[:info] = "Operation cancelled! Only active users can create service records"
+      redirect "/"
+    end
     @request_record = RequestRecord.new(entity_id: params[:entity_id],
                                         request_type_id: params[:request_type_id],
                                         description: params[:request_description],

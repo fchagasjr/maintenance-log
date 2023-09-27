@@ -28,8 +28,8 @@ To run this app locally, follow these steps:
 1. Clone the repository: `git clone https://github.com/your-username/maintenance-log.git`
 2. Change into the project directory: `cd maintenance-log`
 3. Install dependencies: `bundle install`
-4. Set up your database and tables: `bundle exec rake db:create` (create the database)
-5. Run database migrations: `bundle exec rake db:migrate`
+4. Set up your database and tables: `rake db:create` (create the database)
+5. Run database migrations: `rake db:migrate`
 6. Start the app: `bundle exec rackup`
 
 ## Usage

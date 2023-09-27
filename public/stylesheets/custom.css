@@ -53,8 +53,9 @@
 }
 
 .new_entry a {
+  display: block;
   text-decoration: none;
-  color: #FFF;
+  color: #F00;
 }
 
 .table {
