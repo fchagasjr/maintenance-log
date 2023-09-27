@@ -5,7 +5,7 @@ h1, h2, h3 {
 
 /* Navbar */
 .navbar {
-  background-color: #333; /* Set your desired background color */
+  background-color: #000080;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
@@ -16,10 +16,14 @@ h1, h2, h3 {
   top: 0;
   width: 100%;
 }
-
+.navbar-right {
+  display: flex;
+  flex-direction: column;
+}
 .navbar-list {
   float: right;
   list-style-type: none;
+  text-align: center;
 }
 
 .navbar-item {
@@ -32,8 +36,19 @@ h1, h2, h3 {
 .navbar-item:first-child {
   border: none;
 }
+
 .navbar-item:hover {
-  background-color: #555;
+  background-color: #00F;
+}
+
+.navbar-link {
+  color: #FFF;
+  display: block;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  color: #FFA500;
 }
 
 .navbar-item-logo {
@@ -44,35 +59,25 @@ h1, h2, h3 {
   text-transform: uppercase;
 }
 
-.navbar-item-logo:hover {
-  background-color: #555;
-}
-
-
-.navbar-link {
-  color: #fff;
+.navbar-item-logo .navbar-link {
+  color: #FF8C00;
   display: block;
   text-decoration: none;
 }
 
-
-.navbar-link:hover {
-	color: orange;
+.navbar-item-logo .navbar-link:hover {
+  color: #FFF;
 }
 
-
-/* Tables */
-
-.new_entry {
-  background-color: gray;
-  text-align: right;
-}
-
-.new_entry a {
-  display: block;
-  text-decoration: none;
+.navbar-admin .navbar-link {
   color: #F00;
 }
+
+.navbar-admin .navbar-link:hover {
+	color: #F0F;
+}
+
+/* Tables */
 
 .table {
   font-size: 1.7vw;

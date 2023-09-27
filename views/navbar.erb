@@ -2,38 +2,40 @@
   <div class="navbar-item-logo">
     <a class="navbar-link" href="/">Maintenance Log</a>
   </div>
-  <ul class="navbar-list">
-    <% if logged_in? %>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/entities">Entities</a>
-      </li>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/assemblies">Assemblies</a>
-      </li>
-      <% if current_user.active? %>
+  <div class="navbar-right">
+    <ul class="navbar-list">
+      <% if logged_in? %>
         <li class="navbar-item">
-          <a class="navbar-link" href="/request_records/new">New Request</a>
+          <a class="navbar-link" href="/entities">Entities</a>
         </li>
         <li class="navbar-item">
-          <a class="navbar-link" href="/service_records/new">New Service</a>
+          <a class="navbar-link" href="/assemblies">Assemblies</a>
+        </li>
+        <% if current_user.active? %>
+          <li class="navbar-item">
+            <a class="navbar-link" href="/request_records/new">New Request</a>
+          </li>
+          <li class="navbar-item">
+            <a class="navbar-link" href="/service_records/new">New Service</a>
+          </li>
+        <% end %>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/logout">Logout</a>
+        </li>
+      <% else %>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/login">Login</a>
+        </li>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/signup">Signup</a>
         </li>
       <% end %>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/logout">Logout</a>
-      </li>
-    <% else %>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/login">Login</a>
-      </li>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/signup">Signup</a>
-      </li>
-    <% end %>
-  </ul>
-  <% if current_user&.admin? %>
-    <div class="new_entry">
-      <a href="/assemblies/new">Add New Assembly</a>
-      <a href="/entities/new">Add New Entity</a>
-    </div>
-  <% end%>
+    </ul>
+    <% if current_user&.admin? %>
+      <ul class="navbar-list navbar-admin">
+        <li class="navbar-item"><a class="navbar-link" href="/assemblies/new">New Assembly</a></li>
+        <li class="navbar-item"><a class="navbar-link" href="/entities/new">New Entity</a></li>
+      </ul>
+    <% end%>
+  </div>
 </nav>
