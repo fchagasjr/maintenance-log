@@ -80,6 +80,33 @@ h1, h2, h3 {
 	color: #F0F;
 }
 
+/* Footer */
+.footer {
+  background-color: #000080;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-item-logo {
+  border: none;
+  padding: 2vw;
+  font-size: 1.5vw;
+  text-transform: uppercase;
+}
+
+.footer-item-logo .footer-link {
+  color: #FF8C00;
+  display: block;
+  text-decoration: none;
+}
+
+.footer-item-logo .footer-link:hover {
+  color: #FFF;
+}
+
 /* Tables */
 
 .table {
