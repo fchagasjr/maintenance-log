@@ -1,3 +1,6 @@
+body {
+  margin: 0.3vw;
+}
 h1, h2, h3 {
   text-transform: uppercase;
   padding: 0.2vw;
@@ -80,7 +83,7 @@ h1, h2, h3 {
 /* Tables */
 
 .table {
-  font-size: 1.7vw;
+  font-size: 1.65vw;
   width: 100%;
   padding: 0.1vw;
   border: solid;
