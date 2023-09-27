@@ -3,17 +3,29 @@
     <li class="navbar-item">
       <a class="navbar-link" href="/">Maintenance Log</a>
     </li>
-    <li class="navbar-item">
-      <a class="navbar-link" href="/service_records/new">New Service</a>
-    </li>
-    <li class="navbar-item">
-      <a class="navbar-link" href="/request_records/new">New Request</a>
-    </li>
-    <li class="navbar-item">
-      <a class="navbar-link" href="/assemblies">Assemblies</a>
-    </li>
-    <li class="navbar-item">
-      <a class="navbar-link" href="/entities">Entities</a>
-    </li>
+    <% if logged_in? %>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/logout">Logout</a>
+      </li>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/service_records/new">New Service</a>
+      </li>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/request_records/new">New Request</a>
+      </li>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/assemblies">Assemblies</a>
+      </li>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/entities">Entities</a>
+      </li>
+    <% else %>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/signup">Signup</a>
+      </li>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/login">Login</a>
+      </li>
+    <% end %>
   </ul>
 </nav>

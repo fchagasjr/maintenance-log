@@ -11,16 +11,25 @@ require_relative 'lib/service_type'
 
 
 class App < Sinatra::Base
-  configure :development, :test do
-    set :force_ssl, false
-  end
+  helpers do
+    def logged_in?
+      !current_user.nil?
+    end
 
-  configure :production, :staging do
-    set :force_ssl, true
+    def current_user
+      @current_user ||= User.find_by(id: session[:user_id])
+    end
   end
 
   enable :sessions
   register Sinatra::Flash
+
+  before /\/(?!(login|logout|signup)).*/ do
+    unless logged_in?
+      flash[:info] = "You need to login first!"
+      redirect "/login"
+    end
+  end
 
   # Shared routes
   get "/" do
@@ -28,6 +37,54 @@ class App < Sinatra::Base
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
   end
+
+  # Users
+
+  get '/login' do
+    erb :"users/login"
+  end
+
+  post '/login' do
+    @user = User.find_by(email: params[:email])
+
+    if !@user.nil? && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      flash[:info] = "Welcome back, #{current_user.first_name}!"
+      redirect '/'
+    else
+      flash[:info] = "Email and password combination not matching"
+      redirect "/login"
+    end
+  end
+
+  get '/logout' do
+    session[:user_id] = nil
+    redirect "/login"
+  end
+
+  get '/signup' do
+    erb :"users/signup"
+  end
+
+  post '/signup' do
+    @user = User.new(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email],
+      password: params[:password],
+      password_confirmation: params[:password_confirmation]
+    )
+
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:info] = "Welcome, #{current_user.first_name}!"
+      redirect '/'
+    else
+     flash[:info] = @user.errors.full_messages
+     redirect "/signup"
+    end
+  end
+
 
   # Assembly routes
   get "/assemblies" do
