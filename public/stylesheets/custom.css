@@ -1,33 +1,53 @@
-/* Navbar */
+h1, h2, h3 {
+  text-transform: uppercase;
+  padding: 0.2vw;
+}
 
-.navbar-list {
-  background-color: #222;
-	margin: 0;
-  list-style-type: none;
+/* Navbar */
+.navbar {
+  background-color: #333; /* Set your desired background color */
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
   padding: 0;
   position: static;
-  overflow: hidden;
   top: 0;
   width: 100%;
 }
 
+.navbar-list {
+  float: right;
+  list-style-type: none;
+}
+
 .navbar-item {
 	border-left: 2px solid #888;
-	float: right;
-	padding: 1em;
+  display: inline-block;
+  font-size: 1.8vw;
+	padding: 0.2em;
 	text-transform: uppercase;
 }
-
 .navbar-item:first-child {
-	border: none;
-  float: left;
-  padding-left: 2em;
-  padding-right: 2em;
+  border: none;
 }
-
 .navbar-item:hover {
   background-color: #555;
 }
+
+.navbar-item-logo {
+	border: none;
+  float: left;
+  padding: 0.2em 0.3em;
+  font-size: 2.5vw;
+  text-transform: uppercase;
+}
+
+.navbar-item-logo:hover {
+  background-color: #555;
+}
+
 
 .navbar-link {
   color: #fff;
@@ -38,10 +58,6 @@
 
 .navbar-link:hover {
 	color: orange;
-}
-
-.admin-navbar {
-  display: flex;
 }
 
 
@@ -59,8 +75,9 @@
 }
 
 .table {
+  font-size: 1.7vw;
   width: 100%;
-  padding: 1em;
+  padding: 0.1vw;
   border: solid;
 }
 
@@ -91,21 +108,46 @@ form label {
 form input {
   border: 1px solid;
   margin: 0.5em 1em;
-  min-width: 50vw;
+  max-width: 80vw;
+  min-width: 40vw;
   padding: 0.5em;
 }
 
 form select {
   border: 1px solid;
   margin: 0.5em 1em;
-  min-width: 50vw;
+  max-width: 80vw;
   padding: 0.5em;
 }
 
 form textarea {
   border: 1px solid;
   margin: 0.5em 1em;
+  max-width: 90vw;
   min-height: 10vh;
-  min-width: 50vw;
+  min-width: 70vw;
   padding: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  /* For screens smaller than 600px (e.g., mobile devices) */
+  .navbar-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-item {
+    border: none;
+    font-size: 3vw;
+    padding: 10px;
+  }
+
+  .navbar-item-logo {
+    font-size: 4.3vw;
+  }
+
+  .table {
+    font-size: 2.8vw;
+  }
 }

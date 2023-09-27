@@ -1,32 +1,32 @@
 <nav class="navbar">
+  <div class="navbar-item-logo">
+    <a class="navbar-link" href="/">Maintenance Log</a>
+  </div>
   <ul class="navbar-list">
-    <li class="navbar-item">
-      <a class="navbar-link" href="/">Maintenance Log</a>
-    </li>
     <% if logged_in? %>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/logout">Logout</a>
-      </li>
-      <% if current_user.active? %>
-        <li class="navbar-item">
-          <a class="navbar-link" href="/service_records/new">New Service</a>
-        </li>
-        <li class="navbar-item">
-          <a class="navbar-link" href="/request_records/new">New Request</a>
-        </li>
-      <% end %>
-      <li class="navbar-item">
-        <a class="navbar-link" href="/assemblies">Assemblies</a>
-      </li>
       <li class="navbar-item">
         <a class="navbar-link" href="/entities">Entities</a>
       </li>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/assemblies">Assemblies</a>
+      </li>
+      <% if current_user.active? %>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/request_records/new">New Request</a>
+        </li>
+        <li class="navbar-item">
+          <a class="navbar-link" href="/service_records/new">New Service</a>
+        </li>
+      <% end %>
+      <li class="navbar-item">
+        <a class="navbar-link" href="/logout">Logout</a>
+      </li>
     <% else %>
       <li class="navbar-item">
-        <a class="navbar-link" href="/signup">Signup</a>
+        <a class="navbar-link" href="/login">Login</a>
       </li>
       <li class="navbar-item">
-        <a class="navbar-link" href="/login">Login</a>
+        <a class="navbar-link" href="/signup">Signup</a>
       </li>
     <% end %>
   </ul>
