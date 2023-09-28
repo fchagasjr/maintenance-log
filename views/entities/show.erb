@@ -14,16 +14,19 @@
 
 <table class="table log_entries-table">
   <tr class="table-header">
-    <th>Created at</th>
+    <th>Request Type</th>
     <th>Request Description</th>
-    <th>Service</th>
-    <th>Additional Information</th>
+    <th>Service Type</th>
+    <th>Service Information</th>
     <th>Closed At</th>
   </tr>
-  <% @entity.request_records.each do |request_record| %>
+  <% @entity.request_records
+            .left_outer_joins(:service_record)
+            .reverse
+            .each do |request_record| %>
   <tr class="table-row">
-    <td><%= request_record.created_at.strftime("%F") %></td>
     <td><%= request_record.request_type.description %></td>
+    <td><%= request_record.description %></td>
     <td><%= request_record.service_record&.service_type&.description %></td>
     <td><%= request_record.service_record&.description %></td>
     <td><%= request_record.service_record&.closed_at %></td>

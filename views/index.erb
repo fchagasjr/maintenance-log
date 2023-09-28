@@ -7,7 +7,7 @@
     <th>Service Information</th>
     <th>Closed at</th>
   </tr>
-  <% @request_records.each do |request_record| %>
+  <% @request_records.left_outer_joins(:service_record).reverse.each do |request_record| %>
     <tr class="log-row table-row">
       <td><a href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.id %></a></td>
       <td><%= request_record.request_type.description %></td>

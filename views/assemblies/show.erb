@@ -17,10 +17,12 @@
     <th>Service Information</th>
     <th>Closed at</th>
   </tr>
-  <% request_records = @assembly.entities.map(&:request_records).flatten %>
-  <% request_records.each do |request_record| %>
+  <% RequestRecord.joins(:entity)
+                  .where(entity: { assembly_id: @assembly.id })
+                  .left_outer_joins(:service_record)
+                  .reverse.each do |request_record| %>
     <tr class="log-row table-row">
-      <td><a href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.description %></a></td>
+      <td><a href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.id %></a></td>
       <td><%= request_record.request_type.description %></td>
       <td><%= request_record.description %></td>
       <td><%= request_record.service_record&.service_type&.description %></td>
