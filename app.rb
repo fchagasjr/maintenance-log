@@ -33,7 +33,6 @@ class App < Sinatra::Base
 
   # Shared routes
   get "/" do
-    @request_records = RequestRecord.all
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
   end

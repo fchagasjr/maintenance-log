@@ -20,10 +20,7 @@
     <th>Service Information</th>
     <th>Closed At</th>
   </tr>
-  <% @entity.request_records
-            .left_outer_joins(:service_record)
-            .reverse
-            .each do |request_record| %>
+  <% RequestRecord.by_entity(@entity).each do |request_record| %>
   <tr class="table-row">
     <td><%= request_record.request_type.description %></td>
     <td><%= request_record.description %></td>
