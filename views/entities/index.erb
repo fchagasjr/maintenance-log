@@ -6,7 +6,7 @@
     <th>Manufacturer</th>
     <th>Model</th>
   </tr>
-  <% @entities.each do |entity| %>
+  <% @entities.order(:id).each do |entity| %>
   <tr class="table-row">
     <td><a href="entities/<%= entity.id %>" ><%= entity.id %></a></td>
     <td><%= entity.description %></td>

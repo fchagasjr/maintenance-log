@@ -4,7 +4,7 @@
     <th>Manufacturer</th>
     <th>Model</th>
   </tr>
-  <% @assemblies.each do |assembly| %>
+  <% @assemblies.order(:description, :manufacturer).each do |assembly| %>
   <tr class="table-row">
     <td><a href="assemblies/<%= assembly.id %>" ><%= assembly.description %></a></td>
     <td><%= assembly.manufacturer %></td>
