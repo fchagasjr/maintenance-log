@@ -5,4 +5,5 @@ class ServiceRecord < ActiveRecord::Base
 
   validates :request_record_id, presence: true
   validates :service_type_id, presence: true
+  validates :user_id, presence: true
 end

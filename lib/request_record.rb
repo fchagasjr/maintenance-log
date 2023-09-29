@@ -6,6 +6,7 @@ class RequestRecord < ActiveRecord::Base
   
   validates :entity_id, presence: true
   validates :request_type, presence: true
+  validates :user_id, presence: true
 
   def self.by_assembly(assembly)
     self.joins(:entity)
