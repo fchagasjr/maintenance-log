@@ -169,6 +169,7 @@ class App < Sinatra::Base
     @request_record = RequestRecord.new(entity_id: params[:entity_id],
                                         request_type_id: params[:request_type_id],
                                         description: params[:description],
+                                        user_id: current_user.id
                                         )
 
     unless @request_record.valid?
@@ -197,6 +198,7 @@ class App < Sinatra::Base
     @request_record = RequestRecord.new(entity_id: params[:entity_id],
                                         request_type_id: params[:request_type_id],
                                         description: params[:request_description],
+                                        user_id: current_user.id
                                         )
 
     unless @request_record.valid?
@@ -206,7 +208,8 @@ class App < Sinatra::Base
       @request_record.save
       @service_record = @request_record.create_service_record(service_type_id: params[:service_type_id],
                                      description: params[:service_description],
-                                     closed_at: params[:closed_at]
+                                     closed_at: params[:closed_at],
+                                     user_id: current_user.id
                                     )
       unless @service_record.valid?
         @request_record.destroy

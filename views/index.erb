@@ -7,7 +7,7 @@
     <th>Service Information</th>
     <th>Closed at</th>
   </tr>
-  <% RequestRecord.all_by_priority.each do |request_record| %>
+  <% RequestRecord.refresh.each do |request_record| %>
     <tr class="log-row table-row">
       <td><a href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.id %></a></td>
       <td><%= request_record.request_type.description %></td>

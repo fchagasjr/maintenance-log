@@ -1,0 +1,30 @@
+<form method="patch" action="/service_record">
+  <label for="entity_id">Entity</label>
+  <select name="entity_id">
+    <% @entities.each do |entity| %>
+      <option value=<%= entity.id %>>
+        <%= entity.id %> | <%= entity.description %>
+      </option>
+    <% end %>
+  </select><br>
+  <h3>Request Info</h3>
+  <label for="request_type_id">Type</label>
+  <select name="request_type_id">
+    <% @request_types.each do |request_type| %>
+      <option value=<%= request_type.id %>><%= request_type.description %></option>
+    <% end %>
+  </select><br>
+  <label for="request_description">Description</label>
+  <textarea type="text" name="request_description"></textarea><br>
+  <h3>Service Info</h3>
+  <select name="service_type_id">
+    <% @service_types.each do |service_type| %>
+      <option value=<%= service_type.id %>><%= service_type.description %></option>
+    <% end %>
+  </select><br>
+  <label for="service_description">Description</label>
+  <textarea type="text" name="service_description"></textarea><br>
+  <label for="closed_at">Close Date</label>
+  <input type="date" name="closed_at"><br>
+  <input type="submit" name="submit">
+</form>
