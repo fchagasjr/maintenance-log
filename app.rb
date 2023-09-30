@@ -161,6 +161,11 @@ class App < Sinatra::Base
     erb :"requests/new"
   end
 
+  get "/request_records/:id" do
+    @request_record = RequestRecord.find(params[:id])
+    erb :"requests/show"
+  end
+
   post "/request_record" do
     unless current_user.active?
       flash[:info] = "Operation cancelled! Only active users can create service requests"

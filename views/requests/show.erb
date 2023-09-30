@@ -1,0 +1,21 @@
+<div class="request-info"><h4>Request #<%= @request_record.id %></h4>
+  <h5>Entity:</h5>
+  <p><%= @request_record.entity.id %></p>
+  <h5>Type:</h5>
+  <p><%= @request_record.request_type.description %></p>
+  <h5>Description:</h5>
+  <p><%= @request_record.description %></p>
+</div>
+<% if service_record = @request_record.service_record %>
+  <div class="service-info">
+    <h4>Service #<%= service_record.id %></h4>
+    <h5>Type:</h5>
+    <p><%= service_record.service_type.description %></p>
+    <h5>Description:</h5>
+    <p><%= service_record.description %></p>
+    <h5>Closed at:</h5>
+    <p><%= service_record.closed_at %></p>
+  </div>
+<% else %>
+  <button class="create-service">Create Service Record</button>
+<% end %>
