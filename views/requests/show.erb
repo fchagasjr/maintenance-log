@@ -1,4 +1,5 @@
-<div class="request-info"><h4>Request #<%= @request_record.id %></h4>
+<div class="info request-info">
+  <h4>Request #<%= @request_record.id %></h4>
   <h5>Entity:</h5>
   <p><%= @request_record.entity.id %></p>
   <h5>Type:</h5>
@@ -7,7 +8,7 @@
   <p><%= @request_record.description %></p>
 </div>
 <% if service_record = @request_record.service_record %>
-  <div class="service-info">
+  <div class="info service-info">
     <h4>Service #<%= service_record.id %></h4>
     <h5>Type:</h5>
     <p><%= service_record.service_type.description %></p>
@@ -17,5 +18,8 @@
     <p><%= service_record.closed_at %></p>
   </div>
 <% else %>
-  <button class="create-service">Create Service Record</button>
+  <form method="get" action="/service_records/new">
+    <input type="hidden" name="request_record_id" value="<%=@request_record.id%>">
+    <input type="submit" value="Create Service" class="create-service">
+  </form>
 <% end %>

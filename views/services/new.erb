@@ -1,23 +1,14 @@
 <h2>New Service Record</h2>
+<div class="request-info"><h4>Request #<%= @request_record.id %></h4>
+  <h5>Entity:</h5>
+  <p><%= @request_record.entity.id %></p>
+  <h5>Type:</h5>
+  <p><%= @request_record.request_type.description %></p>
+  <h5>Description:</h5>
+  <p><%= @request_record.description %></p>
+</div>  <h3>Service Info</h3>
 <form method="post" action="/service_record">
-  <label for="entity_id">Entity</label>
-  <select name="entity_id">
-    <% @entities.each do |entity| %>
-      <option value=<%= entity.id %>>
-        <%= entity.id %> | <%= entity.description %>
-      </option>
-    <% end %>
-  </select><br>
-  <h3>Request Info</h3>
-  <label for="request_type_id">Type</label>
-  <select name="request_type_id">
-    <% @request_types.each do |request_type| %>
-      <option value=<%= request_type.id %>><%= request_type.description %></option>
-    <% end %>
-  </select><br>
-  <label for="request_description">Description</label>
-  <textarea type="text" name="request_description"></textarea><br>
-  <h3>Service Info</h3>
+  <input type="hidden" name="request_record_id" value="<%=@request_record.id%>">
   <select name="service_type_id">
     <% @service_types.each do |service_type| %>
       <option value=<%= service_type.id %>><%= service_type.description %></option>

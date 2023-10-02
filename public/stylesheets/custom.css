@@ -129,6 +129,22 @@ h1, h2, h3 {
   text-decoration: none;
 }
 
+/* Information Display */
+.info {
+  border: 1px solid;
+  margin: 1vw;
+  padding: 1vw;
+}
+
+.info h4 {
+  background-color: #000080;
+  border: 0.5px dashed;
+  color: #FFF;
+  display: block;
+  padding: 1vw;
+  text-align: center;
+}
+
 /* Forms */
 
 form {

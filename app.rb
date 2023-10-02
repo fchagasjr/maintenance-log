@@ -24,6 +24,7 @@ class App < Sinatra::Base
   enable :sessions
   register Sinatra::Flash
 
+  # Redirect not logged users from unauthorized pages
   before /\/(?!(login|logout|signup)).*/ do
     unless logged_in?
       flash[:info] = "You need to login first!"
@@ -32,6 +33,7 @@ class App < Sinatra::Base
   end
 
   # Shared routes
+
   get "/" do
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
@@ -49,7 +51,7 @@ class App < Sinatra::Base
     if !@user.nil? && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:info] = "Welcome back, #{current_user.first_name}!"
-      redirect '/'
+      redirect "/"
     else
       flash[:info] = "Email and password combination not matching"
       redirect "/login"
@@ -182,16 +184,15 @@ class App < Sinatra::Base
       redirect "/request_records/new"
     else
       @request_record.save
-      redirect "/"
+      redirect "/request_records/#{@request_record.id}"
     end
   end
 
   # Service routes
 
   get "/service_records/new" do
-    @request_types = RequestType.all
+    @request_record = RequestRecord.find(params[:request_record_id])
     @service_types = ServiceType.all
-    @entities = Entity.all
     erb :"services/new"
   end
 
@@ -200,29 +201,14 @@ class App < Sinatra::Base
       flash[:info] = "Operation cancelled! Only active users can create service records"
       redirect "/"
     end
-    @request_record = RequestRecord.new(entity_id: params[:entity_id],
-                                        request_type_id: params[:request_type_id],
-                                        description: params[:request_description],
-                                        user_id: current_user.id
-                                        )
-
-    unless @request_record.valid?
-      flash[:info] = @request_record.errors.full_messages
-      redirect "/service_records/new"
-    else
-      @request_record.save
-      @service_record = @request_record.create_service_record(service_type_id: params[:service_type_id],
-                                     description: params[:service_description],
-                                     closed_at: params[:closed_at],
-                                     user_id: current_user.id
-                                    )
-      unless @service_record.valid?
-        @request_record.destroy
-        flash[:info] = @service_record.errors.full_messages
-        redirect "/service_records/new"
-      else
-        redirect "/"
-      end
-    end
+    @request_record = RequestRecord.find(params[:request_record_id])
+    @service_record = @request_record
+                        .create_service_record(service_type_id: params[:service_type_id],
+                                               description: params[:service_description],
+                                               closed_at: params[:closed_at],
+                                               user_id: current_user.id
+                                               )
+    flash[:info] = @service_record.errors.full_messages unless @service_record.valid?
+    redirect "/request_records/#{@request_record.id}"
   end
 end
