@@ -10,6 +10,9 @@
 <% if service_record = @request_record.service_record %>
   <div class="info service-info">
     <h4>Service #<%= service_record.id %></h4>
+    <form class="action-form" method="get" action="/service_record/edit/<%= @request_record.service_record.id %>">
+      <input class="action-button" type="submit" value="Edit Service" class="edit-button edit-service">
+    </form>
     <h5>Type:</h5>
     <p><%= service_record.service_type.description %></p>
     <h5>Description:</h5>
@@ -19,7 +22,7 @@
   </div>
 <% else %>
   <form method="get" action="/service_records/new">
-    <input type="hidden" name="request_record_id" value="<%=@request_record.id%>">
-    <input type="submit" value="Create Service" class="create-service">
+    <input type="hidden" name="request_record_id" value=<%=@request_record.id%>>
+    <input type="submit" value="Create Service" class="new-button new-service">
   </form>
 <% end %>

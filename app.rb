@@ -211,4 +211,20 @@ class App < Sinatra::Base
     flash[:info] = @service_record.errors.full_messages unless @service_record.valid?
     redirect "/request_records/#{@request_record.id}"
   end
+
+  get "/service_record/edit/:id" do
+    @service_types = ServiceType.all
+    @service_record = ServiceRecord.find(params[:id])
+    erb :"services/edit"
+  end
+
+  post "/service_record/edit/:id" do
+    @service_record = ServiceRecord.find(params[:id])
+    @service_record.update(service_type_id: params[:service_type_id],
+                           description: params[:service_description],
+                           closed_at: params[:closed_at],
+                           user_id: current_user.id
+                           )
+    redirect "/request_records/#{@service_record.request_record.id}"
+  end
 end

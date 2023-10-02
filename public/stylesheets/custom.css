@@ -147,17 +147,17 @@ h1, h2, h3 {
 
 /* Forms */
 
-form {
+.new-element {
   background-color: lightgray;
 }
 
-form label {
+.new-element label {
   display: block;
   padding: 1em 1em 0.5em;
-  text-transform: uppercase;
+  text-trans.new-element: uppercase;
 }
 
-form input {
+.new-element input {
   border: 1px solid;
   margin: 0.5em 1em;
   max-width: 80vw;
@@ -165,20 +165,25 @@ form input {
   padding: 0.5em;
 }
 
-form select {
+.new-element select {
   border: 1px solid;
   margin: 0.5em 1em;
   max-width: 80vw;
   padding: 0.5em;
 }
 
-form textarea {
+.new-element textarea {
   border: 1px solid;
   margin: 0.5em 1em;
   max-width: 90vw;
   min-height: 10vh;
   min-width: 70vw;
   padding: 0.5em;
+}
+
+/* Action Button */
+.action-button {
+  float: right;
 }
 
 @media screen and (max-width: 600px) {
