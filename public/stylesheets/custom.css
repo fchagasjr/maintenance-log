@@ -147,17 +147,17 @@ h1, h2, h3 {
 
 /* Forms */
 
-.new-element {
+.form {
   background-color: lightgray;
 }
 
-.new-element label {
+.form label {
   display: block;
   padding: 1em 1em 0.5em;
-  text-trans.new-element: uppercase;
+  text-transform: uppercase;
 }
 
-.new-element input {
+.form input {
   border: 1px solid;
   margin: 0.5em 1em;
   max-width: 80vw;
@@ -165,14 +165,14 @@ h1, h2, h3 {
   padding: 0.5em;
 }
 
-.new-element select {
+.form select {
   border: 1px solid;
   margin: 0.5em 1em;
   max-width: 80vw;
   padding: 0.5em;
 }
 
-.new-element textarea {
+.form textarea {
   border: 1px solid;
   margin: 0.5em 1em;
   max-width: 90vw;

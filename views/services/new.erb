@@ -7,7 +7,7 @@
   <h5>Description:</h5>
   <p><%= @request_record.description %></p>
 </div>  <h3>Service Info</h3>
-<form class="new-element" method="post" action="/service_record">
+<form class="form new-element" method="post" action="/service_record">
   <input type="hidden" name="request_record_id" value="<%=@request_record.id%>">
   <select name="service_type_id">
     <% @service_types.each do |service_type| %>

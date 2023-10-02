@@ -1,5 +1,5 @@
 <h2>Edit Service Record</h2>
-<form class="new-element" method="post" action="/service_record/edit/<%= @service_record.id %>">
+<form class="form edit-element" method="post" action="/service_record/edit/<%= @service_record.id %>">
   <select name="service_type_id">
     <% @service_types.each do |service_type| %>
       <% if service_type == @service_record.service_type %>
