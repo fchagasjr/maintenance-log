@@ -110,6 +110,18 @@ h1, h2, h3 {
 
 /* Tables */
 
+.request-open {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+.service-open {
+  background-color: rgba(255, 255, 0, 0.3);
+}
+
+.service-closed {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
 .table {
   font-size: 1.65vw;
   width: 100%;
@@ -125,15 +137,18 @@ h1, h2, h3 {
   border: 1px solid;
 }
 
-.table-row a {
+.table-cell a {
+  color: #000;
   text-decoration: none;
 }
+
 
 /* Information Display */
 .info {
   border: 1px solid;
   margin: 1vw;
   padding: 1vw;
+  overflow: auto;
 }
 
 .info h4 {
@@ -181,10 +196,13 @@ h1, h2, h3 {
   padding: 0.5em;
 }
 
-/* Action Button */
-.action-button {
+/* Action Menu */
+.action-menu {
+  display: flex;
   float: right;
+  flex-direction: column;
 }
+
 
 @media screen and (max-width: 600px) {
   /* For screens smaller than 600px (e.g., mobile devices) */

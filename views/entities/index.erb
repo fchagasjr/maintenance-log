@@ -1,18 +1,38 @@
 <table class="table entities-table">
-  <tr class="table-header">
-    <th>Entity</th>
-    <th>Description</th>
-    <th>Assembly</th>
-    <th>Manufacturer</th>
-    <th>Model</th>
+  <tr class="table-row">
+    <th class="header-cell">Entity</th>
+    <th class="header-cell">Description</th>
+    <th class="header-cell">Assembly</th>
+    <th class="header-cell">Manufacturer</th>
+    <th class="header-cell">Model</th>
   </tr>
   <% @entities.order(:id).each do |entity| %>
   <tr class="table-row">
-    <td><a href="entities/<%= entity.id %>" ><%= entity.id %></a></td>
-    <td><%= entity.description %></td>
-    <td><%= entity.assembly&.description %></td>
-    <td><%= entity.assembly&.manufacturer %></td>
-    <td><%= entity.assembly&.model %></td>
+    <td class="table-cell">
+      <a href="entities/<%= entity.id %>">
+        <%= entity.id %>
+      </a>
+    </td>
+    <td class="table-cell">
+      <a href="entities/<%= entity.id %>">
+        <%= entity.description %>
+      </a>
+    </td>
+    <td class="table-cell">
+      <a href="entities/<%= entity.id %>">
+        <%= entity.assembly&.description %>
+      </a>
+    </td>
+    <td class="table-cell">
+      <a href="entities/<%= entity.id %>">
+        <%= entity.assembly&.manufacturer %>
+      </a>
+    </td>
+    <td class="table-cell">
+      <a href="entities/<%= entity.id %>">
+        <%= entity.assembly&.model %>
+      </a>
+    </td>
   </tr>
   <% end %>
 </table>

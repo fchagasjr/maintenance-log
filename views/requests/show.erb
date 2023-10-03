@@ -7,24 +7,31 @@
   <h5>Description:</h5>
   <p><%= @request_record.description %></p>
 </div>
-<% if service_record = @request_record.service_record %>
-  <div class="info service-info">
-    <h4>Service #<%= service_record.id %></h4>
-    <div class="action-menu">
-      <form class="action-form" method="get" action="/service_record/edit/<%= @request_record.service_record.id %>">
-        <input class="action-button" type="submit" value="Edit Service" class="edit-button edit-service">
-      </form>
-    </div>
-    <h5>Type:</h5>
-    <p><%= service_record.service_type.description %></p>
-    <h5>Description:</h5>
-    <p><%= service_record.description %></p>
-    <h5>Closed at:</h5>
-    <p><%= service_record.closed_at %></p>
-  </div>
-<% else %>
-  <form method="get" action="/service_records/new">
-    <input type="hidden" name="request_record_id" value=<%=@request_record.id%>>
-    <input type="submit" value="Create Service" class="new-button new-service">
-  </form>
-<% end %>
+<div class="info service-info">
+  <% if service_record = @request_record.service_record %>
+      <h4>Service #<%= service_record.id %></h4>
+      <% if current_user.active? %>
+        <div class="action-menu">
+          <button class="action-button" onclick="location.href='/service_record/edit/<%= @request_record.service_record.id %>';">
+            Edit Service
+          </button>
+        </div>
+      <% end %>
+      <h5>Type:</h5>
+      <p><%= service_record.service_type.description %></p>
+      <h5>Description:</h5>
+      <p><%= service_record.description %></p>
+      <h5>Closed at:</h5>
+      <p><%= service_record.closed_at %></p>
+  <% else %>
+    <h4>No service for this request</h4>
+    <% if current_user.active? %>
+      <div class="action-menu">
+        <form method="get" action="/service_records/new">
+          <input type="hidden" name="request_record_id" value=<%=@request_record.id%>>
+          <input class="action-button" type="submit" value="Create Service" class="new-button new-service">
+        </form>
+      </div>
+    <% end %>
+  <% end %>
+</div>

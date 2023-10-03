@@ -8,23 +8,5 @@
   Model: <%= @assembly.model %>
 </h3>
 
-<table class="table log_entries-table">
-  <tr class="table-header">
-    <th>Entity</th>
-    <th>Request Type</th>
-    <th>Request Information</th>
-    <th>Service Type</th>
-    <th>Service Information</th>
-    <th>Closed at</th>
-  </tr>
-  <% RequestRecord.by_assembly(@assembly).each do |request_record| %>
-    <tr class="log-row table-row">
-      <td><a href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.id %></a></td>
-      <td><%= request_record.request_type.description %></td>
-      <td><%= request_record.description %></td>
-      <td><%= request_record.service_record&.service_type&.description %></td>
-      <td><%= request_record.service_record&.description %></td>
-      <td><%= request_record.service_record&.closed_at %></td>
-    </tr>
-  <% end %>
-</table>
+<% @request_records = RequestRecord.by_assembly(@assembly) %>
+<%= erb :"shared/log_table" %>

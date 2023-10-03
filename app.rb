@@ -35,6 +35,7 @@ class App < Sinatra::Base
   # Shared routes
 
   get "/" do
+    @request_records = RequestRecord.all
     @now = Time.now(in: "-04:00") #Time now UTC -04:00
     erb :index
   end
@@ -104,8 +105,8 @@ class App < Sinatra::Base
 
   post "/assembly" do
     unless current_user.admin?
-      flash[:info] = "Operation cancelled! Only administrators can create assemblies"
-      redirect "/assemblies"
+      flash[:info] = "Operation cancelled! Only administrators can perform this action"
+      redirect back
     end
     @assembly = Assembly.new(description: params[:description],
                                manufacturer: params[:manufacturer],
@@ -138,8 +139,8 @@ class App < Sinatra::Base
 
   post "/entity" do
     unless current_user.admin?
-      flash[:info] = "Operation cancelled! Only administrators can create entities"
-      redirect "/entities"
+    flash[:info] = "Operation cancelled! Only administrators can perform this action"
+    redirect back
     end
     @entity = Entity.new(id: params[:id],
                          description: params[:description],
@@ -170,7 +171,7 @@ class App < Sinatra::Base
 
   post "/request_record" do
     unless current_user.active?
-      flash[:info] = "Operation cancelled! Only active users can create service requests"
+      flash[:info] = "Operation cancelled! Only active users can perform this action"
       redirect "/"
     end
     @request_record = RequestRecord.new(entity_id: params[:entity_id],
@@ -198,8 +199,8 @@ class App < Sinatra::Base
 
   post "/service_record" do
     unless current_user.active?
-      flash[:info] = "Operation cancelled! Only active users can create service records"
-      redirect "/"
+      flash[:info] = "Operation cancelled! Only active users can perform this action"
+      redirect back
     end
     @request_record = RequestRecord.find(params[:request_record_id])
     @service_record = @request_record
@@ -219,6 +220,10 @@ class App < Sinatra::Base
   end
 
   post "/service_record/edit/:id" do
+    unless current_user.active?
+      flash[:info] = "Operation cancelled! Only active users can perform this action"
+      redirect back
+    end
     @service_record = ServiceRecord.find(params[:id])
     @service_record.update(service_type_id: params[:service_type_id],
                            description: params[:service_description],

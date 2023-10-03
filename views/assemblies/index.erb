@@ -1,14 +1,26 @@
-<table class="table assemblies-table">
-  <tr class="table-header">
-    <th>Assembly</th>
-    <th>Manufacturer</th>
-    <th>Model</th>
+<table class="table">
+  <tr class="table-row">
+    <th class="header-cell">Assembly</th>
+    <th class="header-cell">Manufacturer</th>
+    <th class="header-cell">Model</th>
   </tr>
   <% @assemblies.order(:description, :manufacturer).each do |assembly| %>
   <tr class="table-row">
-    <td><a href="assemblies/<%= assembly.id %>" ><%= assembly.description %></a></td>
-    <td><%= assembly.manufacturer %></td>
-    <td><%= assembly.model %></td>
+    <td class="table-cell">
+      <a href="assemblies/<%= assembly.id %>" >
+        <%= assembly.description %>
+      </a>
+    </td>
+    <td class="table-cell">
+      <a href="assemblies/<%= assembly.id %>" >
+        <%= assembly.manufacturer %>
+      </a>
+    </td>
+    <td class="table-cell">
+      <a href="assemblies/<%= assembly.id %>" >
+        <%= assembly.model %>
+      </a>
+    </td>
   </tr>
   <% end %>
 </table>

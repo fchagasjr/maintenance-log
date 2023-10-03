@@ -12,22 +12,5 @@
   Serial Number: <%= @entity.serial %>
 </h3>
 
-<table class="table log_entries-table">
-  <tr class="table-header">
-    <th>Request Type</th>
-    <th>Request Description</th>
-    <th>Service Type</th>
-    <th>Service Information</th>
-    <th>Closed At</th>
-  </tr>
-  <% RequestRecord.by_entity(@entity).each do |request_record| %>
-  <tr class="table-row">
-    <td><%= request_record.request_type.description %></td>
-    <td><%= request_record.description %></td>
-    <td><%= request_record.service_record&.service_type&.description %></td>
-    <td><%= request_record.service_record&.description %></td>
-    <td><%= request_record.service_record&.closed_at %></td>
-  </tr>
-  <% end %>
-</table>
-
+<% @request_records = RequestRecord.by_entity(@entity) %>
+<%= erb :"shared/log_table" %>

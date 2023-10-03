@@ -1,0 +1,50 @@
+<table class="table log_entries-table">
+  <tr class="table-row log-header">
+    <th class="header-cell log-header-cell">Entity</th>
+    <th class="header-cell log-header-cell">Request Type</th>
+    <th class="header-cell log-header-cell">Request Information</th>
+    <th class="header-cell log-header-cell">Service Type</th>
+    <th class="header-cell log-header-cell">Service Information</th>
+    <th class="header-cell log-header-cell">Closed at</th>
+  </tr>
+  <% @request_records.refresh.each do |request_record| %>
+    <% if request_record.service_record %>
+      <% if request_record.service_record.closed_at %>
+        <tr class="log-row table-row service-closed">
+      <% else %>
+        <tr class="log-row table-row service-open">
+      <% end %>
+    <% else %>
+      <tr class="log-row table-row request-open">
+    <% end %>
+      <td class="table-cell log-cell">
+        <a class="table-link" href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.id %></a>
+      </td>
+      <td class="table-cell log-cell">
+        <a class="table-link" href="/request_records/<%= request_record.id %>">
+          <%= request_record.request_type.description %>
+        </a>
+      </td>
+      <td class="table-cell log-cell description-cell">
+        <a class="table-link" href="/request_records/<%= request_record.id %>">
+          <%= request_record.description %>
+        </a>
+      </td>
+      <td class="table-cell log-cell">
+        <a class="table-link" href="/request_records/<%= request_record.id %>">
+          <%= request_record.service_record&.service_type&.description %>
+        </a>
+      </td>
+      <td class="table-cell log-cell description-cell">
+        <a class="table-link" href="/request_records/<%= request_record.id %>">
+          <%= request_record.service_record&.description %>
+        </a>
+      </td>
+      <td class="table-cell log-cell">
+        <a class="table-link" href="/request_records/<%= request_record.id %>">
+          <%= request_record.service_record&.closed_at %>
+        </a>
+      </td>
+    </tr>
+  <% end %>
+</table>
