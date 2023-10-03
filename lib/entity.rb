@@ -8,6 +8,8 @@ class Entity < ActiveRecord::Base
 
   before_validation :upcase_id
 
+  default_scope { order(id: :asc) }
+
   private
   def upcase_id
     self.id.upcase!
