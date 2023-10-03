@@ -189,6 +189,27 @@ class App < Sinatra::Base
     end
   end
 
+  get "/request_record/edit/:id" do
+    @entities = Entity.all
+    @request_types = RequestType.all
+    @request_record = RequestRecord.find(params[:id])
+    erb :"requests/edit"
+  end
+
+  post "/request_record/edit/:id" do
+    unless current_user.active?
+      flash[:info] = "Operation cancelled! Only active users can perform this action"
+      redirect back
+    end
+    @request_record = RequestRecord.find(params[:id])
+    @request_record.update(entity_id: params[:entity_id],
+                           request_type_id: params[:request_type_id],
+                           description: params[:request_description],
+                           user_id: current_user.id
+                           )
+    redirect "/request_records/#{@request_record.id}"
+  end
+
   # Service routes
 
   get "/service_records/new" do

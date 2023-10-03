@@ -1,11 +1,19 @@
 <div class="info request-info">
   <h4>Request #<%= @request_record.id %></h4>
+  <% if current_user.active? %>
+    <div class="action-menu">
+      <button class="action-button" onclick="location.href='/request_record/edit/<%= @request_record.id %>';">
+        Edit Request
+      </button>
+    </div>
+  <% end %>
   <h5>Entity:</h5>
   <p><%= @request_record.entity.id %></p>
   <h5>Type:</h5>
   <p><%= @request_record.request_type.description %></p>
   <h5>Description:</h5>
   <p><%= @request_record.description %></p>
+  <p class="last-user">Last modified by: <%= @request_record.user.full_name %></p>
 </div>
 <div class="info service-info">
   <% if service_record = @request_record.service_record %>
@@ -23,6 +31,7 @@
       <p><%= service_record.description %></p>
       <h5>Closed at:</h5>
       <p><%= service_record.closed_at %></p>
+      <p class="last-user">Last modified by: <%= service_record.user.full_name %></p>
   <% else %>
     <h4>No service for this request</h4>
     <% if current_user.active? %>

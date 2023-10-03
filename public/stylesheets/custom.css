@@ -160,6 +160,10 @@ h1, h2, h3 {
   text-align: center;
 }
 
+.info .last-user {
+  float: right;
+  font-size: 0.8rem;
+}
 /* Forms */
 
 .form {

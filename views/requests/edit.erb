@@ -1,0 +1,28 @@
+<h2>Edit Request Record</h2>
+<form class="form edit-element" method="post" action="/request_record/edit/<%= @request_record.id %>">
+  <select name="entity_id">
+    <% @entities.each do |entity| %>
+      <% if @request_record.entity == entity %>
+        <option selected value=<%= entity.id %>>
+          <%= entity.id %> | <%= entity.description %>
+        </option>
+      <% else %>
+        <option value=<%= entity.id %>>
+          <%= entity.id %> | <%= entity.description %>
+        </option>
+      <% end %>
+    <% end %>
+  </select><br>
+  <select name="request_type_id">
+    <% @request_types.each do |request_type| %>
+      <% if request_type == @request_record.request_type %>
+        <option selected value=<%= request_type.id %>><%= request_type.description %></option>
+      <% else %>
+        <option value=<%= request_type.id %>><%= request_type.description %></option>
+      <% end %>
+    <% end %>
+  </select><br>
+  <label for="request_description">Description</label>
+  <textarea type="text" name="request_description"><%= @request_record.description %></textarea><br>
+  <input type="submit" name="submit">
+</form>
