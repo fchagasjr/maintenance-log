@@ -23,4 +23,16 @@ class RequestRecord < ActiveRecord::Base
     self.left_outer_joins(:service_record)
         .reverse_order
   end
+
+  def self.by_priority
+    order(
+      Arel.sql(
+        "CASE" \
+        "WHEN service_record_id IS NULL THEN 0 " \
+        "WHEN closed_at IS NULL THEN 1 " \
+        "ELSE 2 END, " \
+        "closed_at DESC NULLS LAST"
+        )
+      )
+  end
 end
