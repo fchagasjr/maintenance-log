@@ -7,7 +7,7 @@
     <th class="header-cell log-header-cell">Service Information</th>
     <th class="header-cell log-header-cell">Closed at</th>
   </tr>
-  <% @request_records.refresh.each do |request_record| %>
+  <% @request_records.by_priority.each do |request_record| %>
     <% if request_record.service_record %>
       <% if request_record.service_record.closed_at %>
         <tr class="log-row table-row service-closed">

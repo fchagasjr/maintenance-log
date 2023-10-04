@@ -11,12 +11,10 @@ class RequestRecord < ActiveRecord::Base
   def self.by_assembly(assembly)
     self.joins(:entity)
         .where(entity: { assembly_id: assembly.id })
-        .refresh
   end
 
   def self.by_entity(entity)
     self.where(entity_id: entity.id)
-        .refresh
   end
 
   def self.refresh
@@ -25,10 +23,11 @@ class RequestRecord < ActiveRecord::Base
   end
 
   def self.by_priority
-    order(
+    left_outer_joins(:service_record)
+    .order(
       Arel.sql(
-        "CASE" \
-        "WHEN service_record_id IS NULL THEN 0 " \
+        "CASE " \
+        "WHEN service_records.id IS NULL THEN 0 " \
         "WHEN closed_at IS NULL THEN 1 " \
         "ELSE 2 END, " \
         "closed_at DESC NULLS LAST"
