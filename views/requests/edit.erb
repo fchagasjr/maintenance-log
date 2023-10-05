@@ -1,5 +1,5 @@
 <h2>Edit Request Record</h2>
-<form class="form edit-element" method="post" action="/request_record/edit/<%= @request_record.id %>">
+<form class="form edit-element" method="post" action="/request_records/edit/<%= @request_record.id %>">
   <select name="entity_id">
     <% @entities.each do |entity| %>
       <% if @request_record.entity == entity %>

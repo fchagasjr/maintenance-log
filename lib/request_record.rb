@@ -17,11 +17,6 @@ class RequestRecord < ActiveRecord::Base
     self.where(entity_id: entity.id)
   end
 
-  def self.refresh
-    self.left_outer_joins(:service_record)
-        .reverse_order
-  end
-
   def self.by_priority
     left_outer_joins(:service_record)
     .order(

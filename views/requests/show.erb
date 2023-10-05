@@ -1,8 +1,8 @@
-<div class="info request-info">
+<div class="information request-info">
   <h4>Request #<%= @request_record.id %></h4>
   <% if current_user.active? %>
     <div class="action-menu">
-      <button class="action-button" onclick="location.href='/request_record/edit/<%= @request_record.id %>';">
+      <button class="action-button" onclick="location.href='/request_records/edit/<%= @request_record.id %>';">
         Edit Request
       </button>
     </div>
@@ -15,12 +15,12 @@
   <p><%= @request_record.description %></p>
   <p class="last-user">Last modified by: <%= @request_record.user.full_name %></p>
 </div>
-<div class="info service-info">
+<div class="information service-info">
   <% if service_record = @request_record.service_record %>
       <h4>Service #<%= service_record.id %></h4>
       <% if current_user.active? %>
         <div class="action-menu">
-          <button class="action-button" onclick="location.href='/service_record/edit/<%= @request_record.service_record.id %>';">
+          <button class="action-button" onclick="location.href='/service_records/edit/<%= @request_record.service_record.id %>';">
             Edit Service
           </button>
         </div>
