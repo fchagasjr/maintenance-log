@@ -1,13 +1,14 @@
 <h2>New Service Request</h2>
 <form class="form new-element" method="post" action="/request_records">
   <label for="entity_id">Entity</label>
-  <select name="entity_id">
+  <input list="entity_id" name="entity_id">
+  <datalist id="entity_id">
     <% @entities.each do |entity| %>
       <option value=<%= entity.id %>>
-        <%= entity.id %> | <%= entity.description %>
+        <%= entity.description %>
       </option>
     <% end %>
-  </select><br>
+  </datalist><br>
   <label for="request_type_id">Type</label>
   <select name="request_type_id">
     <% @request_types.each do |request_type| %>

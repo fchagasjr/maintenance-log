@@ -222,6 +222,7 @@ class App < Sinatra::Base
                            description: params[:request_description],
                            user_id: current_user.id
                            )
+    flash[:alert] = @request_record.errors.full_messages  unless @request_record.valid?
     redirect "/request_records/#{@request_record.id}"
   end
 
@@ -260,6 +261,7 @@ class App < Sinatra::Base
                            closed_at: params[:closed_at],
                            user_id: current_user.id
                            )
+    flash[:alert] = @service_record.errors.full_messages unless @service_record.valid?
     redirect "/request_records/#{@service_record.request_record.id}"
   end
 end

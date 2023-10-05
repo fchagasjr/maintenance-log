@@ -1,18 +1,13 @@
 <h2>Edit Request Record</h2>
 <form class="form edit-element" method="post" action="/request_records/edit/<%= @request_record.id %>">
-  <select name="entity_id">
+  <input list="entity_id" name="entity_id" value=<%= @request_record.entity.id %>>
+  <datalist id="entity_id">
     <% @entities.each do |entity| %>
-      <% if @request_record.entity == entity %>
-        <option selected value=<%= entity.id %>>
-          <%= entity.id %> | <%= entity.description %>
-        </option>
-      <% else %>
-        <option value=<%= entity.id %>>
-          <%= entity.id %> | <%= entity.description %>
-        </option>
-      <% end %>
+      <option value=<%= entity.id %>>
+        <%= entity.description %>
+      </option>
     <% end %>
-  </select><br>
+  </datalist><br>
   <select name="request_type_id">
     <% @request_types.each do |request_type| %>
       <% if request_type == @request_record.request_type %>

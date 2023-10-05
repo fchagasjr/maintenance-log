@@ -7,6 +7,10 @@ class RequestRecord < ActiveRecord::Base
   validates :entity_id, presence: true
   validates :request_type, presence: true
   validates :user_id, presence: true
+  validate :entity_exists
+
+  before_validation :upcase_entity_id
+
 
   def self.by_assembly(assembly)
     self.joins(:entity)
@@ -28,5 +32,17 @@ class RequestRecord < ActiveRecord::Base
         "closed_at DESC NULLS LAST"
         )
       )
+  end
+
+  private
+
+  def entity_exists
+    if Entity.find_by(id: self.entity_id).nil?
+      errors.add(:entity_id, "not found")
+    end
+  end
+
+  def upcase_entity_id
+    self.entity_id.upcase!
   end
 end
