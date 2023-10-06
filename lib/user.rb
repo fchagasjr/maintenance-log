@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true, presence: true, format: { with: VALID_EMAIL_REGEX, message: "email format not valid" }
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :password, length: { minimum: 6 }, presence: true
+  validates :password, length: { minimum: 6 }, allow_nil: true
 
   has_many :request_records
   has_many :service_records

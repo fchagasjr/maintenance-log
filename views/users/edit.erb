@@ -1,16 +1,16 @@
 <h1>Edit account</h1>
 <form class="form user-form" method="POST" action="/users/edit">
   <label for="first_name">First Name:</label>
-  <input type="text" id="first_name" name="first_name" value="<%= current_user.first_name %>"><br>
+  <input type="text" id="first_name" name="first_name" value="<%= current_user.first_name %>" required><br>
 
   <label for="last_name">Last Name:</label>
-  <input type="text" id="last_name" name="last_name" value="<%= current_user.last_name %>"><br>
+  <input type="text" id="last_name" name="last_name" value="<%= current_user.last_name %>" required><br>
 
   <label for="email">Email:</label>
-  <input type="email" id="email" name="email" value=<%= current_user.email %>><br>
+  <input type="email" id="email" name="email" value=<%= current_user.email %> required><br>
 
-  <label for="password">Confirm with Password:</label>
-  <input type="password" id="password" name="password" required><br>
+  <label for="check_password">Confirm with Password:</label>
+  <input type="password" id="check_password" name="check_password" required><br>
 
   <input type="submit" value="Submit">
 </form>

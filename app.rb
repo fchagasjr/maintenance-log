@@ -121,7 +121,7 @@ class App < Sinatra::Base
   end
 
   post "/users/edit" do
-    unless current_user.authenticate(params[:password])
+    unless current_user.authenticate(params[:check_password])
       flash[:alert] = "Wrong password"
       redirect "/users/edit"
     end
