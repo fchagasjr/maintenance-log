@@ -121,16 +121,40 @@ class App < Sinatra::Base
   end
 
   post "/users/edit" do
+    unless current_user.authenticate(params[:password])
+      flash[:alert] = "Wrong password"
+      redirect "/users/edit"
+    end
     current_user.update(first_name: params[:first_name],
                         last_name: params[:last_name],
                         email: params[:email])
     if current_user.valid?
       flash[:info] = "User account updated"
-      redirect "/"
+      redirect "/users/account"
     else
       flash[:alert] = current_user.errors.full_messages
       current_user.reload
       redirect "/users/edit"
+    end
+  end
+
+  get "/users/password" do
+    erb :"users/password"
+  end
+
+  post "/users/password" do
+    unless current_user.authenticate(params[:password])
+      flash[:alert] = "Wrong actual password"
+      redirect "/users/password"
+    end
+    current_user.update(password: params[:new_password],
+                        password_confirmation: params[:new_password_confirmation])
+    if current_user.valid?
+      flash[:info] = "New password updated"
+      redirect "/users/account"
+    else
+      flash[:alert] = current_user.errors.full_messages
+      redirect "/users/password"
     end
   end
 

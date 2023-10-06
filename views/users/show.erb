@@ -1,17 +1,14 @@
-<h1>User account</h1>
+<h4>User account</h4>
 <div class="action-menu">
   <button class="action-button" onclick="location.href='/users/edit';">
     Edit Info
   </button>
-  <button class="action-button" onclick="location.href='/users/change_password';">
+  <button class="action-button" onclick="location.href='/users/password';">
     Change Password
   </button>
 </div>
-<h5>First Name</h5>
-<p><%= current_user.first_name %></p>
-<h5>Last Name</h5>
-<p><%= current_user.last_name %></p>
-<h5>Email</h5>
-<p><%= current_user.email %></p>
+<p><strong>First Name: </strong><%= current_user.first_name %></p>
+<p><strong>Last Name: </strong><%= current_user.last_name %></p>
+<p><strong>Email: </strong><%= current_user.email %></p>
 
 
