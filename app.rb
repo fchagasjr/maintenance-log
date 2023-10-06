@@ -112,6 +112,28 @@ class App < Sinatra::Base
     end
   end
 
+  get "/users/account" do
+    erb :"users/show"
+  end
+
+  get "/users/edit" do
+    erb :"users/edit"
+  end
+
+  post "/users/edit" do
+    current_user.update(first_name: params[:first_name],
+                        last_name: params[:last_name],
+                        email: params[:email])
+    if current_user.valid?
+      flash[:info] = "User account updated"
+      redirect "/"
+    else
+      flash[:alert] = current_user.errors.full_messages
+      current_user.reload
+      redirect "/users/edit"
+    end
+  end
+
   # Assembly routes
 
   get "/assemblies" do
