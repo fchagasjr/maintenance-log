@@ -26,6 +26,7 @@ class App < Sinatra::Base
 
     def logout
       session[:user_id] = nil
+      session[:log_id] = nil
     end
 
     def logged_in?
