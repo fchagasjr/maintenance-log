@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_29_041436) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_07_135852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_041436) do
     t.string "description", null: false
     t.string "manufacturer"
     t.string "model"
+    t.bigint "log_id"
+    t.index ["log_id"], name: "index_assemblies_on_log_id"
   end
 
   create_table "entities", id: :string, force: :cascade do |t|
@@ -25,6 +27,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_041436) do
     t.bigint "assembly_id", null: false
     t.string "serial"
     t.index ["assembly_id"], name: "index_entities_on_assembly_id"
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "request_records", force: :cascade do |t|
@@ -72,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_041436) do
     t.boolean "active", default: false
   end
 
+  add_foreign_key "assemblies", "logs"
   add_foreign_key "entities", "assemblies"
   add_foreign_key "request_records", "entities"
   add_foreign_key "request_records", "request_types"

@@ -8,5 +8,5 @@
   Model: <%= @assembly.model %>
 </h3>
 
-<% @request_records = RequestRecord.by_assembly(@assembly) %>
+<% @request_records = request_records&.by_assembly(@assembly) %>
 <%= erb :"shared/log_table" %>

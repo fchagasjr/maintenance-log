@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
 require_relative 'lib/user'
+require_relative 'lib/log'
 require_relative 'lib/assembly'
 require_relative 'lib/entity'
 require_relative 'lib/request_record'
@@ -20,6 +21,7 @@ class App < Sinatra::Base
 
     def login(user)
       session[:user_id] = user.id
+      session[:log_id] = 1
     end
 
     def logout
@@ -32,6 +34,19 @@ class App < Sinatra::Base
 
     def current_user
       @current_user ||= User.find_by(id: session[:user_id])
+    end
+
+    def assemblies
+      @assemblies ||= Assembly.where(log_id: session[:log_id])
+    end
+
+    def entities
+      @entities ||= Entity.joins(:assembly).where(assembly: { log_id: session[:log_id] })
+    end
+
+    def request_records
+      @request_records ||= RequestRecord.joins(:entity)
+                                        .where(entity: { assembly_id: assemblies.ids })
     end
   end
 
@@ -54,7 +69,6 @@ class App < Sinatra::Base
   end
 
   get "/" do
-    @request_records = RequestRecord.all
     erb :index
   end
 
@@ -161,7 +175,6 @@ class App < Sinatra::Base
   # Assembly routes
 
   get "/assemblies" do
-    @assemblies = Assembly.all
     erb :"assemblies/index"
   end
 
@@ -171,7 +184,7 @@ class App < Sinatra::Base
   end
 
   get "/assemblies/:id" do
-    @assembly = Assembly.find(params[:id])
+    @assembly = assemblies.find(params[:id])
     erb :"assemblies/show"
   end
 
@@ -179,7 +192,8 @@ class App < Sinatra::Base
     check_permission(:admin)
     @assembly = Assembly.new(description: params[:description],
                                manufacturer: params[:manufacturer],
-                               model: params[:model])
+                               model: params[:model],
+                               log_id: session[:log_id])
     unless @assembly.valid?
       flash[:alert] = @assembly.errors.full_messages
       redirect "/assemblies/new"
@@ -192,17 +206,15 @@ class App < Sinatra::Base
   # Entities routes
 
   get "/entities" do
-    @entities = Entity.all
     erb :"entities/index"
   end
 
   get "/entities/new" do
-    @assemblies = Assembly.all
     erb :"entities/new"
   end
 
   get "/entities/:id" do
-    @entity = Entity.find(params["id"].to_s)
+    @entity = entities.find(params["id"].to_s)
     erb :"entities/show"
   end
 
@@ -227,12 +239,11 @@ class App < Sinatra::Base
   get "/request_records/new" do
     check_permission(:active)
     @request_types = RequestType.all
-    @entities = Entity.all
     erb :"requests/new"
   end
 
   get "/request_records/:id" do
-    @request_record = RequestRecord.find(params[:id])
+    @request_record = request_records.find(params[:id])
     erb :"requests/show"
   end
 
@@ -254,15 +265,14 @@ class App < Sinatra::Base
   end
 
   get "/request_records/edit/:id" do
-    @entities = Entity.all
     @request_types = RequestType.all
-    @request_record = RequestRecord.find(params[:id])
+    @request_record = request_records.find(params[:id])
     erb :"requests/edit"
   end
 
   post "/request_records/edit/:id" do
     check_permission(:active)
-    @request_record = RequestRecord.find(params[:id])
+    @request_record = request_records.find(params[:id])
     @request_record.update(entity_id: params[:entity_id],
                            request_type_id: params[:request_type_id],
                            description: params[:request_description],
@@ -275,14 +285,14 @@ class App < Sinatra::Base
   # Service routes
 
   get "/service_records/new" do
-    @request_record = RequestRecord.find(params[:request_record_id])
+    @request_record = request_records.find(params[:request_record_id])
     @service_types = ServiceType.all
     erb :"services/new"
   end
 
   post "/service_records" do
     check_permission(:active)
-    @request_record = RequestRecord.find(params[:request_record_id])
+    @request_record = request_records.find(params[:request_record_id])
     @service_record = @request_record
                         .create_service_record(service_type_id: params[:service_type_id],
                                                description: params[:service_description],

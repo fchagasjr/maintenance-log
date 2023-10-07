@@ -12,5 +12,5 @@
   Serial Number: <%= @entity.serial %>
 </h3>
 
-<% @request_records = RequestRecord.by_entity(@entity) %>
+<% @request_records = request_records&.by_entity(@entity) %>
 <%= erb :"shared/log_table" %>

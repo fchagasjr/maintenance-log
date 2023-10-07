@@ -1,3 +1,3 @@
 <p class="logged-user">Logged in as <strong><%= current_user.full_name %></strong></p>
-<p class="total-entries">Total entries: <%= @request_records.count %></p>
+<p class="total-entries">Total entries: <%= @request_records&.count %></p>
 <%= erb :"shared/log_table" %>
