@@ -43,6 +43,6 @@ class RequestRecord < ActiveRecord::Base
   end
 
   def upcase_entity_id
-    self.entity_id.upcase!
+    self.entity_id&.upcase!
   end
 end

@@ -18,7 +18,7 @@
 <div class="information service-info">
   <% if service_record = @request_record.service_record %>
       <h4>Service #<%= service_record.id %></h4>
-      <% if current_user.active? %>
+      <% if current_key.active? %>
         <div class="action-menu">
           <button class="action-button" onclick="location.href='/service_records/edit/<%= @request_record.service_record.id %>';">
             Edit Service
@@ -34,7 +34,7 @@
       <p class="last-user">Last modified by: <%= service_record.user.full_name %></p>
   <% else %>
     <h4>No service for this request</h4>
-    <% if current_user.active? %>
+    <% if current_key.active? %>
       <div class="action-menu">
         <form method="get" action="/service_records/new">
           <input type="hidden" name="request_record_id" value=<%=@request_record.id%>>

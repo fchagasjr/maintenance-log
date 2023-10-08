@@ -10,5 +10,19 @@
 <p><strong>First Name: </strong><%= current_user.first_name %></p>
 <p><strong>Last Name: </strong><%= current_user.last_name %></p>
 <p><strong>Email: </strong><%= current_user.email %></p>
+<div class="user-logs">
+  <h5>Current associated user logs:</h5>
+  <% current_user.keys.each do |key| %>
+    <a href="/logs/<%= key.log_id %>"><%= key.log.name %></a>
+  <% end %>
+  <h5>Create new log:</h5>
+  <form class="form new-element" method="post" action="/logs">
+    <label for="name">Name</label>
+    <input type="text" name="name" required><br>
+    <label for="description"></label>
+    <input type="text" name="decription"><br>
+    <input type="submit" name="submit">
+  </form>
+</div>
 
 

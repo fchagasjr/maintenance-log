@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require_relative 'lib/user'
 require_relative 'lib/log'
+require_relative 'lib/key'
 require_relative 'lib/assembly'
 require_relative 'lib/entity'
 require_relative 'lib/request_record'
@@ -13,7 +14,7 @@ require_relative 'lib/service_type'
 class App < Sinatra::Base
   helpers do
     def check_permission(status)
-      unless current_user.send(:"#{status}?")
+      unless current_key.send(:"#{status}?")
         flash[:info] = "Operation cancelled! Only #{status} users can perform this action"
         redirect back
       end
@@ -21,7 +22,7 @@ class App < Sinatra::Base
 
     def login(user)
       session[:user_id] = user.id
-      session[:log_id] = 1
+      session[:log_id] = user.keys&.first&.log_id
     end
 
     def logout
@@ -37,12 +38,16 @@ class App < Sinatra::Base
       @current_user ||= User.find_by(id: session[:user_id])
     end
 
+    def current_key
+      @current_key ||= Key.find_by(user_id: session[:user_id], log_id: session[:log_id])
+    end
+
     def assemblies
-      @assemblies ||= Assembly.where(log_id: session[:log_id])
+      @assemblies ||= Assembly.where(log_id: current_key&.log_id)
     end
 
     def entities
-      @entities ||= Entity.joins(:assembly).where(assembly: { log_id: session[:log_id] })
+      @entities ||= Entity.joins(:assembly).where(assembly: { log_id: current_key&.log_id })
     end
 
     def request_records
@@ -173,6 +178,30 @@ class App < Sinatra::Base
     end
   end
 
+  # Log routes
+
+  post "/logs" do
+    @log = Log.new(name: params[:name],
+                   description: params[:description])
+    if @log.valid?
+      @log.save
+      @log.keys.create(user_id: current_user.id,
+                       admin: true,
+                       active: true)
+      flash[:info] = "Log #{@log.name} was successfully created"
+    else
+      flash[:alert] = @log.errors.full_messages
+    end
+    redirect "/users/account"
+  end
+
+  get "/logs/:id" do
+    session[:log_id] = params[:id]
+    @log = Log.find_by(id: session[:log_id])
+    flash[:info] = "Log #{@log.name} is now selected"
+    redirect "/"
+  end
+
   # Assembly routes
 
   get "/assemblies" do
@@ -192,9 +221,9 @@ class App < Sinatra::Base
   post "/assemblies" do
     check_permission(:admin)
     @assembly = Assembly.new(description: params[:description],
-                               manufacturer: params[:manufacturer],
-                               model: params[:model],
-                               log_id: session[:log_id])
+                             manufacturer: params[:manufacturer],
+                             model: params[:model],
+                             log_id: session[:log_id])
     unless @assembly.valid?
       flash[:alert] = @assembly.errors.full_messages
       redirect "/assemblies/new"
@@ -250,7 +279,8 @@ class App < Sinatra::Base
 
   post "/request_records" do
     check_permission(:active)
-    @request_record = RequestRecord.new(entity_id: params[:entity_id],
+    entity = entities.find_by(id: params[:entity_id])
+    @request_record = RequestRecord.new(entity_id: entity&.id,
                                         request_type_id: params[:request_type_id],
                                         description: params[:description],
                                         user_id: current_user.id
@@ -274,7 +304,8 @@ class App < Sinatra::Base
   post "/request_records/edit/:id" do
     check_permission(:active)
     @request_record = request_records.find(params[:id])
-    @request_record.update(entity_id: params[:entity_id],
+    entity = entities.find_by(id: params[:entity_id])
+    @request_record.update(entity_id: entity&.id,
                            request_type_id: params[:request_type_id],
                            description: params[:request_description],
                            user_id: current_user.id

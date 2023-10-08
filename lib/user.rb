@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
+  has_many :keys
   has_many :request_records
   has_many :service_records
 
