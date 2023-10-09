@@ -1,6 +1,6 @@
 <div class="information request-info">
   <h4>Request #<%= @request_record.id %></h4>
-  <% if current_user.active? %>
+  <% if current_key.active? %>
     <div class="action-menu">
       <button class="action-button" onclick="location.href='/request_records/edit/<%= @request_record.id %>';">
         Edit Request
