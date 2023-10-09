@@ -206,7 +206,7 @@ class App < Sinatra::Base
     redirect "/users/account"
   end
 
-  get "/logs/:id" do
+  get "/logs/access/:id" do
     # Check if user has permission to access the log
     @load_key = Key.find_by(user_id: current_user.id, log_id: params[:id])
     if @load_key

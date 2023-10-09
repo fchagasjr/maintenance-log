@@ -14,7 +14,7 @@
   <h5>Current associated user logs:</h5>
   <ul class="user-logs-list">
     <% current_user.keys.each do |key| %>
-      <li><a href="/logs/<%= key.log_id %>"><%= key.log.name %></a></li>
+      <li><a href="/logs/access/<%= key.log_id %>"><%= key.log.name %></a></li>
     <% end %>
   </ul>
   <form class="form new-element" method="post" action="/logs">
