@@ -1,3 +1,10 @@
+<% if current_key&.admin? %>
+  <div class="action-menu">
+    <button class="action-button" onclick="location.href='/assemblies/new';">
+      New Assembly
+    </button>
+  </div>
+<% end%>
 <table class="table">
   <tr class="table-row">
     <th class="header-cell">Assembly</th>

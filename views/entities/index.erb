@@ -1,3 +1,10 @@
+<% if current_key&.admin? %>
+  <div class="action-menu">
+    <button class="action-button" onclick="location.href='/entities/new';">
+      New Entity
+    </button>
+  </div>
+<% end%>
 <table class="table entities-table">
   <tr class="table-row">
     <th class="header-cell">Entity</th>

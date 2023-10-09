@@ -13,6 +13,8 @@ require_relative 'lib/service_type'
 
 class App < Sinatra::Base
   helpers do
+
+    # Check permissions current user has for the current log
     def check_permission(status)
       unless current_key.send(:"#{status}?")
         flash[:info] = "Operation cancelled! Only #{status} users can perform this action"
@@ -22,7 +24,11 @@ class App < Sinatra::Base
 
     def login(user)
       session[:user_id] = user.id
-      session[:log_id] = user.keys&.first&.log_id
+      load_user_log
+    end
+
+    def load_user_log
+      session[:log_id] = current_user.log_id
     end
 
     def logout
@@ -38,18 +44,22 @@ class App < Sinatra::Base
       @current_user ||= User.find_by(id: session[:user_id])
     end
 
+    # Returns the user access keys for the current log
     def current_key
       @current_key ||= Key.find_by(user_id: session[:user_id], log_id: session[:log_id])
     end
 
+    # Returns the assemblies for the current log
     def assemblies
       @assemblies ||= Assembly.where(log_id: current_key&.log_id)
     end
 
+    # Returns the entities for the current log
     def entities
       @entities ||= Entity.joins(:assembly).where(assembly: { log_id: current_key&.log_id })
     end
 
+    # Returns the request records for the current log
     def request_records
       @request_records ||= RequestRecord.joins(:entity)
                                         .where(entity: { assembly_id: assemblies.ids })
@@ -65,6 +75,7 @@ class App < Sinatra::Base
       flash.now[:info] = "You need to login first!"
       halt erb :"users/login"
     end
+
   end
 
   # Shared routes
@@ -196,10 +207,17 @@ class App < Sinatra::Base
   end
 
   get "/logs/:id" do
-    session[:log_id] = params[:id]
-    @log = Log.find_by(id: session[:log_id])
-    flash[:info] = "Log #{@log.name} is now selected"
-    redirect "/"
+    # Check if user has permission to access the log
+    @load_key = Key.find_by(user_id: current_user.id, log_id: params[:id])
+    if @load_key
+      current_user.update_attribute(:log_id, @load_key.log_id)
+      load_user_log
+      flash[:info] = "Log #{@load_key.log.name} is now selected"
+      redirect "/"
+    else
+      flash[:alert] = "No log found or no access granted"
+      redirect back
+    end
   end
 
   # Assembly routes
@@ -279,8 +297,8 @@ class App < Sinatra::Base
 
   post "/request_records" do
     check_permission(:active)
-    entity = entities.find_by(id: params[:entity_id])
-    @request_record = RequestRecord.new(entity_id: entity&.id,
+    entity = entities.find_by(id: params[:entity_id]) # Check entities within current log
+    @request_record = RequestRecord.new(entity_id: entity&.id, #Safe operator in case no entity is found
                                         request_type_id: params[:request_type_id],
                                         description: params[:description],
                                         user_id: current_user.id
@@ -304,8 +322,8 @@ class App < Sinatra::Base
   post "/request_records/edit/:id" do
     check_permission(:active)
     @request_record = request_records.find(params[:id])
-    entity = entities.find_by(id: params[:entity_id])
-    @request_record.update(entity_id: entity&.id,
+    entity = entities.find_by(id: params[:entity_id]) # Check entities within current log
+    @request_record.update(entity_id: entity&.id, #Safe operator in case no entity is found
                            request_type_id: params[:request_type_id],
                            description: params[:request_description],
                            user_id: current_user.id

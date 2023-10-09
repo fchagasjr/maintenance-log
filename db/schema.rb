@@ -87,8 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_221341) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "admin", default: false
-    t.boolean "active", default: false
+    t.bigint "log_id"
+    t.index ["log_id"], name: "index_users_on_log_id"
   end
 
   add_foreign_key "assemblies", "logs"
@@ -101,4 +101,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_221341) do
   add_foreign_key "service_records", "request_records"
   add_foreign_key "service_records", "service_types"
   add_foreign_key "service_records", "users"
+  add_foreign_key "users", "logs"
 end
