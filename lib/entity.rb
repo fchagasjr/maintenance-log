@@ -3,7 +3,7 @@ class Entity < ActiveRecord::Base
   has_many :request_records
 
   validates :number, presence: true
-  validate_uniqueness_of :number, scope: :assembly_id
+  validates_uniqueness_of :number, scope: :assembly_id
   validates :description, presence: true
   validates :assembly_id, presence: true
 
