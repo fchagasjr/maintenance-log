@@ -2,7 +2,7 @@ class Entity < ActiveRecord::Base
   belongs_to :assembly
   has_many :request_records
 
-  validates :number, presence: true
+  validates :number, presence: true, uniqueness: { scope: :assembly_id }
   validates :description, presence: true
   validates :assembly_id, presence: true
 
