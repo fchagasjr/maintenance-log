@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_09_033045) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_09_042812) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_033045) do
     t.index ["log_id"], name: "index_assemblies_on_log_id"
   end
 
-  create_table "entities", id: :string, force: :cascade do |t|
+  create_table "entities", force: :cascade do |t|
     t.string "description", null: false
     t.bigint "assembly_id", null: false
     t.string "serial"
@@ -48,13 +48,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_033045) do
   end
 
   create_table "request_records", force: :cascade do |t|
-    t.string "entity_id", null: false
     t.bigint "request_type_id", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.string "number"
+    t.bigint "entity_id"
     t.index ["created_at"], name: "index_request_records_on_created_at", order: :desc
     t.index ["entity_id"], name: "index_request_records_on_entity_id"
     t.index ["request_type_id"], name: "index_request_records_on_request_type_id"
