@@ -210,7 +210,7 @@ class App < Sinatra::Base
     # Check if user has permission to access the log
     @load_key = Key.find_by(user_id: current_user.id, log_id: params[:id])
     if @load_key
-      current_user.update_attribute(:log_id, @load_key.log_id)
+      current_user.update(log_id: @load_key.log_id)
       load_user_log
       flash[:info] = "Log #{@load_key.log.name} is now selected"
       redirect "/"
