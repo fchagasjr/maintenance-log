@@ -9,7 +9,7 @@ class RequestRecord < ActiveRecord::Base
   validates :user_id, presence: true
   validate :entity_exists
 
-  before_validation :upcase_entity_id
+  # before_validation :upcase_entity_id
 
 
   def self.by_assembly(assembly)
