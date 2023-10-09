@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_09_042812) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_09_045552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,8 +26,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_042812) do
     t.string "description", null: false
     t.bigint "assembly_id", null: false
     t.string "serial"
-    t.string "number"
+    t.string "number", null: false
     t.index ["assembly_id"], name: "index_entities_on_assembly_id"
+    t.index ["number", "assembly_id"], name: "index_entities_on_number_and_assembly_id", unique: true
   end
 
   create_table "keys", force: :cascade do |t|
@@ -53,8 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_042812) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.string "number"
-    t.bigint "entity_id"
+    t.bigint "entity_id", null: false
     t.index ["created_at"], name: "index_request_records_on_created_at", order: :desc
     t.index ["entity_id"], name: "index_request_records_on_entity_id"
     t.index ["request_type_id"], name: "index_request_records_on_request_type_id"

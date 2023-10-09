@@ -9,9 +9,6 @@ class RequestRecord < ActiveRecord::Base
   validates :user_id, presence: true
   validate :entity_exists
 
-  # before_validation :upcase_entity_id
-
-
   def self.by_assembly(assembly)
     self.joins(:entity)
         .where(entity: { assembly_id: assembly.id })
@@ -40,9 +37,5 @@ class RequestRecord < ActiveRecord::Base
     if Entity.find_by(id: self.entity_id).nil?
       errors.add(:entity_id, "not found")
     end
-  end
-
-  def upcase_entity_id
-    self.entity_id&.upcase!
   end
 end

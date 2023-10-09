@@ -1,9 +1,9 @@
 <h2>Edit Request Record</h2>
 <form class="form edit-element" method="post" action="/request_records/edit/<%= @request_record.id %>">
-  <input list="entity_id" name="entity_id" value=<%= @request_record.entity.id %>>
-  <datalist id="entity_id">
+  <input list="entity_number" name="entity_number" value=<%= @request_record.entity.number %>>
+  <datalist id="entity_number">
     <% entities.each do |entity| %>
-      <option value=<%= entity.id %>>
+      <option value=<%= entity.number %>>
         <%= entity.description %>
       </option>
     <% end %>

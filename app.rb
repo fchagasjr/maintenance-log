@@ -268,7 +268,7 @@ class App < Sinatra::Base
 
   post "/entities" do
     check_permission(:admin)
-    @entity = Entity.new(id: params[:id],
+    @entity = Entity.new(number: params[:number],
                          description: params[:description],
                          assembly_id: params[:assembly_id],
                          serial: params[:serial])
@@ -297,7 +297,7 @@ class App < Sinatra::Base
 
   post "/request_records" do
     check_permission(:active)
-    entity = entities.find_by(id: params[:entity_id]) # Check entities within current log
+    entity = entities.find_by(number: params[:entity_number]) # Check entities within current log
     @request_record = RequestRecord.new(entity_id: entity&.id, #Safe operator in case no entity is found
                                         request_type_id: params[:request_type_id],
                                         description: params[:description],
@@ -322,7 +322,7 @@ class App < Sinatra::Base
   post "/request_records/edit/:id" do
     check_permission(:active)
     @request_record = request_records.find(params[:id])
-    entity = entities.find_by(id: params[:entity_id]) # Check entities within current log
+    entity = entities.find_by(number: params[:entity_number].upcase) # Check entities within current log
     @request_record.update(entity_id: entity&.id, #Safe operator in case no entity is found
                            request_type_id: params[:request_type_id],
                            description: params[:request_description],

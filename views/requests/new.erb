@@ -1,10 +1,10 @@
 <h2>New Service Request</h2>
 <form class="form new-element" method="post" action="/request_records">
-  <label for="entity_id">Entity</label>
-  <input list="entity_id" name="entity_id">
-  <datalist id="entity_id">
+  <label for="entity_number">Entity</label>
+  <input list="entity_number" name="entity_number">
+  <datalist id="entity_number">
     <% entities.each do |entity| %>
-      <option value=<%= entity.id %>>
+      <option value=<%= entity.number %>>
         <%= entity.description %>
       </option>
     <% end %>
