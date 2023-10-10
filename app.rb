@@ -251,6 +251,20 @@ class App < Sinatra::Base
     end
   end
 
+  get "/assemblies/edit/:id" do
+    @assembly = assemblies.find_by(id: params[:id])
+    erb :"assemblies/edit"
+  end
+
+  post "/assemblies/edit/:id" do
+    @assembly = assemblies.find_by(id: params[:id])
+    @assembly.update(description: params[:description],
+                     manufacturer: params[:manufacturer],
+                     model: params[:model])
+    flash[:alert] = @assembly.errors.full_messages unless @assembly.valid?
+    redirect "/assemblies/#{@assembly.id}"
+  end
+
   # Entities routes
 
   get "/entities" do

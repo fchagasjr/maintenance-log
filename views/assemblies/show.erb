@@ -1,6 +1,11 @@
-<h1>
-  <%= @assembly.manufacturer %>
-</h1>
+<h1><%= @assembly.manufacturer %></h1>
+<% if current_key.admin? %>
+  <div class="action-menu">
+    <button class="action-button" onclick="location.href='/assemblies/edit/<%= @assembly.id %>';">
+      Edit Assembly
+    </button>
+  </div>
+<% end %>
 <h3>
   Description: <%= @assembly.description %>
 </h3>

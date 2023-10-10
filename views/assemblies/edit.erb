@@ -1,0 +1,10 @@
+<h2>Edit Assembly</h2>
+<form class="form new-element" method="post" action="/assemblies/edit/<%= @assembly.id %>">
+  <label for="description">Description</label>
+  <input type="text" name="description" value="<%= @assembly.description %>"><br>
+  <label for="manufacturer">Manufacturer</label>
+  <input type="text" name="manufacturer" value="<%= @assembly.manufacturer %>"><br>
+  <label for="model">Model</label>
+  <input type="text" name="model" value="<%= @assembly.model %>"><br>
+  <input type="submit" name="submit">
+</form>
