@@ -252,11 +252,13 @@ class App < Sinatra::Base
   end
 
   get "/assemblies/edit/:id" do
+    check_permission(:admin)
     @assembly = assemblies.find_by(id: params[:id])
     erb :"assemblies/edit"
   end
 
   post "/assemblies/edit/:id" do
+    check_permission(:admin)
     @assembly = assemblies.find_by(id: params[:id])
     @assembly.update(description: params[:description],
                      manufacturer: params[:manufacturer],
@@ -272,6 +274,7 @@ class App < Sinatra::Base
   end
 
   get "/entities/new" do
+    check_permission(:admin)
     erb :"entities/new"
   end
 
@@ -297,6 +300,7 @@ class App < Sinatra::Base
   end
 
   get "/entities/edit/:id" do
+    check_permission(:admin)
     @entity = entities.find_by(id: params[:id])
     erb :"entities/edit"
   end
