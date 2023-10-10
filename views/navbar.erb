@@ -5,16 +5,18 @@
   <div class="navbar-right">
     <ul class="navbar-list">
       <% if logged_in? %>
-        <li class="navbar-item">
-          <a class="navbar-link" href="/entities">Entities</a>
-        </li>
-        <li class="navbar-item">
-          <a class="navbar-link" href="/assemblies">Assemblies</a>
-        </li>
-        <% if current_key&.active? %>
+        <% if current_key %>
           <li class="navbar-item">
-            <a class="navbar-link" href="/request_records/new">New Request</a>
+            <a class="navbar-link" href="/entities">Entities</a>
           </li>
+          <li class="navbar-item">
+            <a class="navbar-link" href="/assemblies">Assemblies</a>
+          </li>
+          <% if current_key.active? %>
+            <li class="navbar-item">
+              <a class="navbar-link" href="/request_records/new">New Request</a>
+            </li>
+          <% end %>
         <% end %>
         <li class="navbar-item">
           <a class="navbar-link" href="/users/account">Account</a>

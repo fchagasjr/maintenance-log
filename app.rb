@@ -16,9 +16,17 @@ class App < Sinatra::Base
 
     # Check permissions current user has for the current log
     def check_permission(status)
+      check_current_key
       unless current_key.send(:"#{status}?")
         flash[:info] = "Operation cancelled! Only #{status} users can perform this action"
         redirect back
+      end
+    end
+
+    def check_current_key
+      if current_key.nil?
+        flash[:alert] = "Please select a log you have an access key associated"
+        redirect "/users/account"
       end
     end
 
