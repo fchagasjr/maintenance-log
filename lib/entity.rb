@@ -20,7 +20,8 @@ class Entity < ActiveRecord::Base
   def uniq_number_per_log
     entity_log = self.assembly.log
     entity_log.assemblies.each do |assembly|
-      if assembly.entities.find_by(number: self.number)
+      same_number_entity = assembly.entities.find_by(number: self.number)
+      unless same_number_entity.nil? || same_number_entity == self
         errors.add(:number, "was found in the log")
       end
     end

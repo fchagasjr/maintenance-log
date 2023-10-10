@@ -282,6 +282,22 @@ class App < Sinatra::Base
     end
   end
 
+  get "/entities/edit/:id" do
+    @entity = entities.find_by(id: params[:id])
+    erb :"entities/edit"
+  end
+
+  post "/entities/edit/:id" do
+    check_permission(:admin)
+    @entity = entities.find_by(id: params[:id])
+    @entity.update(number: params[:number],
+                   description: params[:description],
+                   assembly_id: params[:assembly_id],
+                   serial: params[:serial])
+    flash[:alert] = @entity.errors.full_messages unless @entity.valid?
+    redirect "/entities/#{@entity.id}"
+  end
+
   # Requests routes
 
   get "/request_records/new" do

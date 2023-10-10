@@ -1,4 +1,11 @@
 <h1><%= @entity.number %> | <%= @entity.description %></h1>
+<% if current_key.admin? %>
+  <div class="action-menu">
+    <button class="action-button" onclick="location.href='/entities/edit/<%= @entity.id %>';">
+      Edit Entity
+    </button>
+  </div>
+<% end %>
 <h3>
   Assembly: <%= @entity.assembly.description %>
 </h3>
