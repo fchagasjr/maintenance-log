@@ -224,6 +224,18 @@ h1, h2, h3 {
   padding: 0.5em;
 }
 
+.user-permissions input {
+  display: inline;
+  max-width: unset;
+  min-width: unset;
+}
+
+.user-permissions label {
+  display: inline;
+}
+
+
+
 /* Action Menu */
 .action-menu {
   display: flex;

@@ -17,6 +17,11 @@
               <a class="navbar-link" href="/request_records/new">New Request</a>
             </li>
           <% end %>
+          <% if current_key.admin? %>
+            <li class="navbar-item">
+              <a class="navbar-link" href="/logs">Log</a>
+            </li>
+          <% end %>
         <% end %>
         <li class="navbar-item">
           <a class="navbar-link" href="/users/account">Account</a>

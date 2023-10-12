@@ -228,6 +228,31 @@ class App < Sinatra::Base
     end
   end
 
+  get "/logs" do
+    check_permission(:admin)
+    @log = current_key.log
+    erb :"logs/index"
+  end
+
+  post "/logs/add_key" do
+    check_permission(:admin)
+    @user = User.find_by(email: params[:email])
+    if @user
+      @key = Key.create(log_id: current_key.log.id,
+                     user_id: @user.id,
+                     admin: params[:admin],
+                     active: params[:active])
+      if @key.valid?
+        flash[:info] = "An access key was created for #{@user.full_name}"
+      else
+        flash[:alert] = @key.errors.full_messages
+      end
+    else
+      flash[:alert] = "User not found"
+    end
+    redirect "/logs"
+  end
+
   # Assembly routes
 
   get "/assemblies" do

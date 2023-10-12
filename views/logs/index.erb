@@ -1,0 +1,32 @@
+<h2><%= @log.name %></h2>
+<p><%= @log.description %></p>
+<h4>Administrators</h4>
+<ul class="users-list">
+  <% @log.keys.where(admin: true).each do |admin_key| %>
+    <li class="user-info">
+      <%= admin_key.user.full_name %>
+    </li>
+  <% end %>
+</ul>
+<h4>Active Users</h4>
+<ul class="users-list">
+  <% @log.keys.where(active: true).each do |active_key| %>
+    <li class="user-info">
+      <%= active_key.user.full_name %>
+    </li>
+  <% end %>
+</ul>
+<form class="form new-log-user" method="post" action="/logs/add_key">
+  <h4>Add New User:</h4>
+  <label for="email">User email</label>
+  <input type="text" name="email" required><br>
+  <div class="user-permissions">
+    <div class="option-checkbox">
+      <input type="checkbox" name="active">
+      <label for="active">Active</label>
+    </div>
+    <input type="checkbox" name="admin">
+    <label for="admin">Administrator</label>
+  </div>
+  <input type="submit" name="submit">
+</form>
