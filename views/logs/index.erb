@@ -1,21 +1,32 @@
 <h2><%= @log.name %></h2>
 <p><%= @log.description %></p>
-<h4>Administrators</h4>
-<ul class="users-list">
-  <% @log.keys.where(admin: true).each do |admin_key| %>
-    <li class="user-info">
-      <%= admin_key.user.full_name %>
-    </li>
-  <% end %>
-</ul>
-<h4>Active Users</h4>
-<ul class="users-list">
-  <% @log.keys.where(active: true).each do |active_key| %>
-    <li class="user-info">
-      <%= active_key.user.full_name %>
-    </li>
-  <% end %>
-</ul>
+<h4>Log Users</h4>
+<table class="table users-table">
+<tr class="table-row users-head">
+  <th class="header-cell users-header-cell">
+    Full Name
+  </th>
+  <th class="header-cell users-header-cell">
+    Active
+  </th>
+  <th class="header-cell users-header-cell">
+    Admin
+  </th>
+</tr>
+<% @log.keys.each do |key| %>
+  <tr class="table-row users-row">
+    <td class="table-cell users-cell users-name">
+      <%= key.user.full_name %>
+    </td>
+    <td class="table-cell users-cell users-permission">
+      <%= key.active? ? "yes" : "no" %>
+    </td>
+    <td class="table-cell users-cell users-permission">
+      <%= key.admin? ? "yes" : "no" %>
+    </td>
+  </tr>
+<% end %>
+</table>
 <form class="form new-log-user" method="post" action="/logs/add_key">
   <h4>Add New User:</h4>
   <label for="email">User email</label>
