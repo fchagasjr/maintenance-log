@@ -7,28 +7,28 @@
     Full Name
   </th>
   <th class="header-cell users-header-cell">
-    Active
+    Email
   </th>
   <th class="header-cell users-header-cell">
-    Admin
+    Permissions
   </th>
 </tr>
 <% @log.keys.each do |key| %>
   <tr class="table-row users-row">
-    <td class="table-cell users-cell users-name">
+    <td class="table-cell users-cell">
       <%= key.user.full_name %>
     </td>
-    <td class="table-cell users-cell users-permission">
-      <%= key.active? ? "yes" : "no" %>
+    <td class="table-cell users-cell">
+      <%= key.user.email %>
     </td>
-    <td class="table-cell users-cell users-permission">
-      <%= key.admin? ? "yes" : "no" %>
+    <td class="table-cell users-cell">
+      <%= key.permissions  %>
     </td>
   </tr>
 <% end %>
 </table>
 <form class="form new-log-user" method="post" action="/logs/add_key">
-  <h4>Add New User:</h4>
+  <h4 class="form-title">Add New User</h4>
   <label for="email">User email</label>
   <input type="text" name="email" required><br>
   <div class="user-permissions">

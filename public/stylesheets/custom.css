@@ -1,5 +1,7 @@
 body {
   margin: 0.3vw;
+  background-color: #acd0e6;
+  color: #35373b
 }
 h1, h2, h3 {
   text-transform: uppercase;
@@ -166,13 +168,15 @@ h1, h2, h3 {
   text-decoration: none;
 }
 
-.users-permission {
+.users-cell {
   text-align: center;
 }
 
 /* Information Display */
 .information {
+  background-color: #92c7e8;
   border: 1px solid;
+  color: #2a3136;
   margin: 1vw;
   padding: 1vw;
   overflow: auto;
@@ -194,18 +198,26 @@ h1, h2, h3 {
 /* Forms */
 
 .form {
-  background-color: lightgray;
+  background-color: #78a3fa;
+  color: #50555e;
+}
+
+.form .form-title {
+  color: #876829;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .form label {
   display: block;
-  padding: 1em 1em 0.5em;
+  font-size: 0.7em;
+  padding: 1em 1em 0.2em;
   text-transform: uppercase;
 }
 
 .form input {
   border: 1px solid;
-  margin: 0.5em 1em;
+  margin: 0.2em 1em;
   max-width: 80vw;
   min-width: 40vw;
   padding: 0.5em;
@@ -237,9 +249,8 @@ h1, h2, h3 {
   display: inline;
 }
 
-
-
 /* Action Menu */
+
 .action-menu {
   display: flex;
   float: right;
