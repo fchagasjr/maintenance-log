@@ -1,12 +1,20 @@
 body {
   margin: 0.3vw;
-  background-color: #acd0e6;
+  background-color: #acd1f2;
   color: #35373b
 }
 h1, h2, h3 {
   text-transform: uppercase;
   padding: 0.2vw;
 }
+
+.title {
+  color: #FFF;
+  text-align: center;
+  text-shadow: 0.1em 0.1em #50555e;
+  text-transform: uppercase;
+}
+
 
 /* Navbar */
 
@@ -38,6 +46,7 @@ h1, h2, h3 {
   display: inline-block;
   font-size: 1.8vw;
 	padding: 0.2em;
+  text-shadow: 0.1em 0.1em #50555e;
 	text-transform: uppercase;
 }
 .navbar-item:first-child {
@@ -63,6 +72,7 @@ h1, h2, h3 {
   float: left;
   padding: 0.2em 0.3em;
   font-size: 2.5vw;
+  text-shadow: 0.1em 0.1em #50555e;
   text-transform: uppercase;
 }
 
@@ -98,6 +108,7 @@ h1, h2, h3 {
   border: none;
   padding: 2vw;
   font-size: 1.5vw;
+  text-shadow: 0.1em 0.1em #50555e;
   text-transform: uppercase;
 }
 
@@ -149,10 +160,11 @@ h1, h2, h3 {
 }
 
 .table {
-  font-size: 1.65vw;
-  width: 100%;
-  padding: 0.1vw;
+  background-color: #dfe8f0;
   border: solid;
+  font-size: 1.65vw;
+  padding: 0.1vw;
+  width: 100%;
 }
 
 .table th {
@@ -199,13 +211,8 @@ h1, h2, h3 {
 
 .form {
   background-color: #78a3fa;
-  color: #50555e;
-}
-
-.form .form-title {
-  color: #876829;
-  text-align: center;
-  text-transform: uppercase;
+  color: #FFF;
+  text-shadow: 0.1em 0.1em #50555e;
 }
 
 .form label {

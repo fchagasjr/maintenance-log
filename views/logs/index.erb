@@ -1,6 +1,6 @@
-<h2><%= @log.name %></h2>
+<h3 class="title"><%= @log.name %></h3>
 <p><%= @log.description %></p>
-<h4>Log Users</h4>
+<h4 class="title">Log Users</h4>
 <table class="table users-table">
 <tr class="table-row users-head">
   <th class="header-cell users-header-cell">
@@ -28,7 +28,7 @@
 <% end %>
 </table>
 <form class="form new-log-user" method="post" action="/logs/add_key">
-  <h4 class="form-title">Add New User</h4>
+  <h4 class="title">Add New User</h4>
   <label for="email">User email</label>
   <input type="text" name="email" required><br>
   <div class="user-permissions">

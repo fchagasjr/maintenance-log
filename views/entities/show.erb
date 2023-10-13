@@ -1,4 +1,4 @@
-<h1><%= @entity.number %> | <%= @entity.description %></h1>
+<h3 class="title"><%= @entity.number %> | <%= @entity.description %></h3>
 <% if current_key.admin? %>
   <div class="action-menu">
     <button class="action-button" onclick="location.href='/entities/edit/<%= @entity.id %>';">
@@ -6,18 +6,18 @@
     </button>
   </div>
 <% end %>
-<h3>
-  Assembly: <%= @entity.assembly.description %>
-</h3>
-<h3>
-  Manufacturer: <%= @entity.assembly.manufacturer %>
-</h3>
-<h3>
-  Model: <%= @entity.assembly.model %>
-</h3>
-<h3>
-  Serial Number: <%= @entity.serial %>
-</h3>
+<p>
+  <strong>Assembly:</strong> <%= @entity.assembly.description %>
+</p>
+<p>
+  <strong>Manufacturer:</strong> <%= @entity.assembly.manufacturer %>
+</p>
+<p>
+  <strong>Model:</strong> <%= @entity.assembly.model %>
+</p>
+<p>
+  <strong>Serial Number:</strong> <%= @entity.serial %>
+</p>
 
 <% @request_records = request_records&.by_entity(@entity) %>
 <%= erb :"shared/log_table" %>
