@@ -9,8 +9,8 @@
   <th class="header-cell users-header-cell">
     Email
   </th>
-  <th class="header-cell users-header-cell">
-    Permissions
+  <th colspan="2" class="header-cell users-header-cell">
+    Key Permissions
   </th>
 </tr>
 <% @log.keys.each do |key| %>
@@ -24,6 +24,11 @@
     <td class="table-cell users-cell">
       <%= key.permissions  %>
     </td>
+    <% unless key.user == current_user %>
+      <td class="table-cell users-cell revoke-cell">
+        <a class="revoke-action" href="/logs/revoke_key/<%= key.id %>">Revoke Key</a>
+      </td>
+    <% end %>
   </tr>
 <% end %>
 </table>
@@ -39,5 +44,7 @@
     <input type="checkbox" name="admin">
     <label for="admin">Administrator</label>
   </div>
+  <label for="check_password">Confirm with Password:</label>
+  <input type="password" id="check_password" name="check_password" required><br>
   <input type="submit" name="submit">
 </form>

@@ -236,20 +236,31 @@ class App < Sinatra::Base
 
   post "/logs/add_key" do
     check_permission(:admin)
-    @user = User.find_by(email: params[:email])
-    if @user
-      @key = Key.create(log_id: current_key.log.id,
-                     user_id: @user.id,
-                     admin: params[:admin],
-                     active: params[:active])
-      if @key.valid?
-        flash[:info] = "An access key was created for #{@user.full_name}"
+    if current_user.authenticate(params[:check_password])
+      @user = User.find_by(email: params[:email])
+      if @user
+        @key = Key.create(log_id: current_key.log.id,
+                       user_id: @user.id,
+                       admin: params[:admin],
+                       active: params[:active])
+        if @key.valid?
+          flash[:info] = "An access key was created for #{@user.full_name}"
+        else
+          flash[:alert] = @key.errors.full_messages
+        end
       else
-        flash[:alert] = @key.errors.full_messages
+        flash[:alert] = "User not found"
       end
     else
-      flash[:alert] = "User not found"
+      flash[:alert] = "Wrong password"
     end
+    redirect "/logs"
+  end
+
+  get "/logs/revoke_key/:id" do
+    @key = Key.find_by(id: params[:id])
+    @key.destroy
+    flash[:info] = "Revoked key for #{@key.user.email}"
     redirect "/logs"
   end
 

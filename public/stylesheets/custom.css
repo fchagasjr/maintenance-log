@@ -184,6 +184,15 @@ h1, h2, h3 {
   text-align: center;
 }
 
+.revoke-cell {
+  background-color: #F00;
+}
+
+a.revoke-action {
+  color: #FFF;
+  text-decoration: none;
+}
+
 /* Information Display */
 .information {
   background-color: #92c7e8;
