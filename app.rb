@@ -237,7 +237,7 @@ class App < Sinatra::Base
   post "/logs/add_key" do
     check_permission(:admin)
     if current_user.authenticate(params[:check_password])
-      @user = User.find_by(email: params[:email])
+      @user = User.find_by(email: params[:user_email])
       if @user
         @key = Key.create(log_id: current_key.log.id,
                        user_id: @user.id,
