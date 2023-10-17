@@ -258,9 +258,19 @@ class App < Sinatra::Base
   end
 
   get "/logs/revoke_key/:id" do
+    check_permission(:admin)
     @key = Key.find_by(id: params[:id])
-    @key.destroy
-    flash[:info] = "Revoked key for #{@key.user.email}"
+    if @key.log == current_key.log
+      @key.destroy
+      # Corfirm the key is destroyed
+      unless Key.all.include?(@key)
+        flash[:info] = "Revoked key for #{@key.user.email}"
+      else
+        flash[:alert] = "Key for #{@key.user.email} was not destroyed"
+      end
+    else
+      flash[:alert] = "This key does not belong to the actual log"
+    end
     redirect "/logs"
   end
 
