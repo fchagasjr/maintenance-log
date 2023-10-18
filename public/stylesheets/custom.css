@@ -9,9 +9,9 @@ h1, h2, h3 {
 }
 
 .title {
-  color: #FFF;
+  color: #000080;
   text-align: center;
-  text-shadow: 0.1em 0.1em #50555e;
+  text-shadow: 0.1em 0.1em #FFF;
   text-transform: uppercase;
 }
 
@@ -216,6 +216,14 @@ a.revoke-action {
   float: right;
   font-size: 0.8rem;
 }
+
+.user-logs-list {
+  list-style-type: none;
+}
+
+.user-logs-list .log-name {
+  text-decoration: none;
+}
 /* Forms */
 
 .form {
@@ -255,6 +263,17 @@ a.revoke-action {
   padding: 0.5em;
 }
 
+.form .submit-button {
+  margin-top: 3vw;
+  min-width: 20vw;
+  background: #4682B4;
+  border-style: outset;
+  border-color: #0066A2;
+  color: #FFF;
+  text-shadow: 0.1em 0.1em #50555e;
+  text-transform: uppercase;
+}
+
 .user-permissions input {
   display: inline;
   max-width: unset;
@@ -273,8 +292,8 @@ a.revoke-action {
   flex-direction: column;
 }
 .action-button {
-  margin: 0.25vw;
-  padding: 0.25vw;
+  margin: 1vw;
+  padding: 0.5vw;
 }
 
 
@@ -288,7 +307,7 @@ a.revoke-action {
 
   .navbar-list {
     padding: 0px;
-    margin: 1vw;
+    margin: 0.8vw;
     float: none;
     list-style-type: none;
     text-align: center;

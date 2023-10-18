@@ -11,19 +11,34 @@
 <p><strong>Last Name: </strong><%= current_user.last_name %></p>
 <p><strong>Email: </strong><%= current_user.email %></p>
 <div class="user-logs">
-  <h5>Current associated user logs:</h5>
-  <ul class="user-logs-list">
+  <h4 class="title">User Logs</h4>
+  <table class="table">
+    <tr class="table-row">
+      <th class="header-cell">Name</th>
+      <th class="header-cell">Description</th>
+      <th class="header-cell">Permissions</th>
+    </tr>
     <% current_user.keys.each do |key| %>
-      <li><a href="/logs/access/<%= key.log_id %>"><%= key.log.name %></a></li>
+    <tr class="table-row">
+      <td class="table-cell">
+        <a href="/logs/access/<%= key.log_id %>"><%= key.log.name %></a>
+      </td>
+      <td class="table-cell">
+        <a href="/logs/access/<%= key.log_id %>"><%= key.log.description %></a>
+      </td>
+      <td class="table-cell">
+        <a href="/logs/access/<%= key.log_id %>"><%= key.permissions %></a>
+      </td>
+    </tr>
     <% end %>
-  </ul>
+  </table>
   <form class="form new-element" method="post" action="/logs">
     <h4 class="title">Create new log</h4>
     <label for="name">Name</label>
     <input type="text" name="name" required><br>
     <label for="description">Description</label>
     <input type="text" name="description"><br>
-    <input type="submit" name="submit">
+    <input class="submit-button" type="submit" name="submit">
   </form>
 </div>
 
