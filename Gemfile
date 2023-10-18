@@ -8,6 +8,9 @@ gem "puma"
 gem "rake"
 gem "sinatra-flash"
 
+# Testing
+gem "rack-test"
+
 # Encryption
 gem "bcrypt"
 
