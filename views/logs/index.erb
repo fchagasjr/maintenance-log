@@ -1,5 +1,5 @@
-<h3 class="title"><%= @log.name %></h3>
-<p><%= @log.description %></p>
+<h3 class="title"><%= current_log.name %></h3>
+<p><%= current_log.description %></p>
 <h4 class="title">Log Users</h4>
 <table class="table users-table">
 <tr class="table-row users-head">
@@ -13,7 +13,7 @@
     Key Permissions
   </th>
 </tr>
-<% @log.keys.each do |key| %>
+<% current_log.keys.each do |key| %>
   <tr class="table-row users-row">
     <td class="table-cell users-cell">
       <%= key.user.full_name %>

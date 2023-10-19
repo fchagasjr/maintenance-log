@@ -57,6 +57,10 @@ class App < Sinatra::Base
       @current_key ||= Key.find_by(user_id: session[:user_id], log_id: session[:log_id])
     end
 
+    def current_log
+      @current_log ||= Log.find_by(id: session[:log_id])
+    end
+
     # Returns the assemblies for the current log
     def assemblies
       @assemblies ||= Assembly.where(log_id: current_key&.log_id)
@@ -230,7 +234,6 @@ class App < Sinatra::Base
 
   get "/logs" do
     check_permission(:admin)
-    @log = current_key.log
     erb :"logs/index"
   end
 
@@ -239,7 +242,7 @@ class App < Sinatra::Base
     if current_user.authenticate(params[:check_password])
       @user = User.find_by(email: params[:user_email])
       if @user
-        @key = Key.create(log_id: current_key.log.id,
+        @key = Key.create(log_id: current_log.id,
                        user_id: @user.id,
                        admin: params[:admin],
                        active: params[:active])
@@ -260,7 +263,7 @@ class App < Sinatra::Base
   get "/logs/revoke_key/:id" do
     check_permission(:admin)
     @key = Key.find_by(id: params[:id])
-    if @key.log == current_key.log
+    if @key.log == current_log
       @key.destroy
       # Corfirm the key is destroyed
       unless Key.all.include?(@key)
