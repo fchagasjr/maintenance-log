@@ -9,12 +9,12 @@
   <th class="header-cell users-header-cell">
     Email
   </th>
-  <th colspan="2" class="header-cell users-header-cell">
+  <th class="header-cell users-header-cell">
     Key Permissions
   </th>
 </tr>
 <% current_log.keys.each do |key| %>
-  <tr class="table-row users-row" id="user-key-<%= key.id %>">
+  <tr class="table-row users-row" id="userKey<%= key.id %>">
     <td class="table-cell users-cell">
       <%= key.user.full_name %>
     </td>
@@ -23,12 +23,10 @@
     </td>
     <td class="table-cell users-cell">
       <%= key.permissions  %>
+      <% unless key.user == current_user %>
+        <a class="revoke-action" id="revoke-userKey<%= key.id %>" href="/logs/revoke_key/<%= key.id %>">Revoke Key</a>
+      <% end %>
     </td>
-    <% unless key.user == current_user %>
-      <td class="table-cell users-cell revoke-cell" id="revoke-user-key-<%= key.id %>">
-        <a class="revoke-action" href="/logs/revoke_key/<%= key.id %>">Revoke Key</a>
-      </td>
-    <% end %>
   </tr>
 <% end %>
 </table>

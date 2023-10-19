@@ -3,6 +3,7 @@ body {
   background-color: #acd1f2;
   color: #35373b
 }
+
 h1, h2, h3 {
   text-transform: uppercase;
   padding: 0.2vw;
@@ -14,7 +15,6 @@ h1, h2, h3 {
   text-shadow: 0.1em 0.1em #FFF;
   text-transform: uppercase;
 }
-
 
 /* Navbar */
 
@@ -95,6 +95,7 @@ h1, h2, h3 {
 }
 
 /* Footer */
+
 .footer {
   background-color: #000080;
   overflow: hidden;
@@ -123,6 +124,7 @@ h1, h2, h3 {
 }
 
 /* Flash messages */
+
 .flash {
   margin: 0.5vw;
   text-align: center;
@@ -148,6 +150,34 @@ h1, h2, h3 {
 
 /* Tables */
 
+.table {
+  background-color: #dfe8f0;
+  border-collapse: collapse;
+  font-size: 1.65vw;
+  padding: 0.1vw;
+  width: 100%;
+}
+
+.table th {
+  background-color: #dfe8f0;
+  border: 2px solid;
+}
+
+.table .table-row {
+  border: 1px solid;
+}
+
+.table-row td {
+  border: 1px dashed;
+}
+
+.table-cell a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Logs Table */
+
 .request-open {
   background-color: rgba(255, 0, 0, 0.3);
 }
@@ -160,32 +190,15 @@ h1, h2, h3 {
   background-color: rgba(0, 255, 0, 0.3);
 }
 
-.table {
-  background-color: #dfe8f0;
-/*  border: solid;*/
-  border-collapse: collapse;
-  font-size: 1.65vw;
-  padding: 0.1vw;
-  width: 100%;
+/* Elements Table */
+
+.elements-table .table-row {
+  border: none;
 }
 
-.table th {
-  background-color: #dfe8f0;
-  border: 2px solid;
-}
-
-.table tr {
-  border: 1px solid;
-}
-
-
-.table-row td {
-  border: 1px dashed;
-}
-
-.table-cell a {
-  color: inherit;
-  text-decoration: none;
+.elements-table .table-cell {
+  border: none;
+  text-align: center;
 }
 
 .elements-table .table-row:hover {
@@ -193,20 +206,18 @@ h1, h2, h3 {
   color: #dfe8f0;
 }
 
-.users-cell {
-  text-align: center;
-}
-
-.revoke-cell {
-  background-color: #F00;
-}
-
 a.revoke-action {
+  background-color: #F00;
+  border-radius: 0.5vw;
   color: #FFF;
+  display: none;
+  margin: 0.2vw;
+  padding: 0.2vw;
   text-decoration: none;
 }
 
 /* Information Display */
+
 .information {
   background-color: #92c7e8;
   border: 1px solid;
@@ -237,6 +248,7 @@ a.revoke-action {
 .user-logs-list .log-name {
   text-decoration: none;
 }
+
 /* Forms */
 
 .form {
