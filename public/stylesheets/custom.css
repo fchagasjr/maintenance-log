@@ -145,6 +145,7 @@ h1, h2, h3 {
   color: lightgray;
   padding: 0.5vw;
 }
+
 /* Tables */
 
 .request-open {
@@ -161,23 +162,35 @@ h1, h2, h3 {
 
 .table {
   background-color: #dfe8f0;
-  border: solid;
+/*  border: solid;*/
+  border-collapse: collapse;
   font-size: 1.65vw;
   padding: 0.1vw;
   width: 100%;
 }
 
 .table th {
+  background-color: #dfe8f0;
   border: 2px solid;
 }
 
-.table-row td {
+.table tr {
   border: 1px solid;
 }
 
+
+.table-row td {
+  border: 1px dashed;
+}
+
 .table-cell a {
-  color: #000;
+  color: inherit;
   text-decoration: none;
+}
+
+.elements-table tr:hover {
+  background-color: #000080;
+  color: #dfe8f0;
 }
 
 .users-cell {
