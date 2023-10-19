@@ -2,7 +2,7 @@
 <p><%= current_log.description %></p>
 <h4 class="title">Log Users</h4>
 <table class="table elements-table keys-table">
-<tr class="table-row users-head">
+<tr class="table-header users-head">
   <th class="header-cell users-header-cell">
     Full Name
   </th>
@@ -14,7 +14,7 @@
   </th>
 </tr>
 <% current_log.keys.each do |key| %>
-  <tr class="table-row users-row">
+  <tr class="table-row users-row" id="user-key-<%= key.id %>">
     <td class="table-cell users-cell">
       <%= key.user.full_name %>
     </td>
@@ -25,7 +25,7 @@
       <%= key.permissions  %>
     </td>
     <% unless key.user == current_user %>
-      <td class="table-cell users-cell revoke-cell">
+      <td class="table-cell users-cell revoke-cell" id="revoke-user-key-<%= key.id %>">
         <a class="revoke-action" href="/logs/revoke_key/<%= key.id %>">Revoke Key</a>
       </td>
     <% end %>

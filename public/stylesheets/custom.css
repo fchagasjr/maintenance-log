@@ -188,7 +188,7 @@ h1, h2, h3 {
   text-decoration: none;
 }
 
-.elements-table tr:hover {
+.elements-table .table-row:hover {
   background-color: #000080;
   color: #dfe8f0;
 }
