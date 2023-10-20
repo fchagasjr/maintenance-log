@@ -6,4 +6,5 @@ class Log < ActiveRecord::Base
   has_many :assemblies
 
   validates :name, presence: true
+  validates :user_id, presence: true
 end
