@@ -16,10 +16,12 @@ class App < Sinatra::Base
 
     # Check permissions current user has for the current log
     def check_permission(status)
-      check_current_key
-      unless current_key.send(:"#{status}?")
-        flash[:info] = "Operation cancelled! Only #{status} users can perform this action"
-        redirect back
+      unless current_log.owner_user == current_user
+        check_current_key
+        unless current_key.send(:"#{status}?")
+          flash[:info] = "Operation cancelled! Only #{status} users can perform this action"
+          redirect back
+        end
       end
     end
 
@@ -32,11 +34,11 @@ class App < Sinatra::Base
 
     def login(user)
       session[:user_id] = user.id
-      load_user_log
+      load_logged_log
     end
 
-    def load_user_log
-      session[:log_id] = current_user.log_id
+    def load_logged_log
+      session[:log_id] = current_user.logged_log&.id
     end
 
     def logout
@@ -204,7 +206,7 @@ class App < Sinatra::Base
   # Log routes
 
   post "/logs" do
-    @log = Log.new(name: params[:name],
+    @log = current_user.personal_logs.create(name: params[:name],
                    description: params[:description])
     if @log.valid?
       @log.save
@@ -223,7 +225,7 @@ class App < Sinatra::Base
     @load_key = Key.find_by(user_id: current_user.id, log_id: params[:id])
     if @load_key
       current_user.update(log_id: @load_key.log_id)
-      load_user_log
+      load_logged_log
       flash[:info] = "Log #{@load_key.log.name} is now selected"
       redirect "/"
     else

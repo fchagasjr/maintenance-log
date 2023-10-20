@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_09_045552) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_20_144953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_045552) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "request_records", force: :cascade do |t|
@@ -97,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_045552) do
   add_foreign_key "entities", "assemblies"
   add_foreign_key "keys", "logs"
   add_foreign_key "keys", "users"
+  add_foreign_key "logs", "users"
   add_foreign_key "request_records", "entities"
   add_foreign_key "request_records", "request_types"
   add_foreign_key "request_records", "users"
