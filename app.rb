@@ -331,6 +331,21 @@ class App < Sinatra::Base
     redirect "/assemblies/#{@assembly.id}"
   end
 
+  post "/assemblies/delete/:id" do
+    if current_log.owner_user == current_user
+      assembly = assemblies.find_by(id: params[:id])
+      if current_user.authenticate(params[:password])
+        assembly.destroy
+        flash[:info] = "#{assembly.description} was deleted"
+        redirect "/assemblies"
+      else
+        flash[:alert] = "Password is incorrect!"
+        redirect "/assemblies/#{assembly.id}"
+      end
+    end
+  end
+
+
   # Entities routes
 
   get "/entities" do

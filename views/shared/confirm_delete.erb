@@ -1,6 +1,7 @@
-<h3>This operation is irreversible. All data associated to it will be deleted.</h3>
-<h3>If you are sure to continue, enter password below and confirm.</h3>
-<form class="form password-confirmation" method="delete" action="/<%= @table %>/delete/<%= @id %>">
+<h3 class="title">Confirm Deletion</h3>
+<p>All data associated to it will be deleted.</p>
+<p>If you are sure to continue, enter password below and confirm.</p>
+<form class="form password-confirmation" method="post" action="/<%= @table %>/delete/<%= @id %>">
   <label for="password"></label>
   <input type="password" name="password">
   <input class="submit-button" type="submit" name="Confirm">
