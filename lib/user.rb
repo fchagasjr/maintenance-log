@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   belongs_to :logged_log, class_name: "Log", foreign_key: "log_id"
   has_many :personal_logs, class_name: "Log", foreign_key: "user_id", dependent: :destroy
   has_many :keys, dependent: :destroy
-  has_many :request_records
-  has_many :service_records
+  has_many :request_records, dependent: :nullify
+  has_many :service_records, dependent: :nullify
 
   before_save :downcase_email
 

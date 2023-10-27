@@ -1,7 +1,7 @@
 <h3 class="title">Edit Assembly</h3>
 <% if current_log.owner_user == current_user %>
   <div class="action-menu">
-    <button class="action-button" onclick="location.href='/confirm_delete/assemblies/<%= @assembly.id %>';">
+    <button class="action-button delete-button" onclick="location.href='/confirm_delete/assemblies/<%= @assembly.id %>';">
       Delete Assembly
     </button>
   </div>

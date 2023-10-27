@@ -321,6 +321,11 @@ a.revoke-action {
   padding: 0.5vw;
 }
 
+.delete-button {
+  background-color: #F00 !important;
+  color: #FF0 !important;
+}
+
 
 @media screen and (max-width: 600px) {
   /* For screens smaller than 600px (e.g., mobile devices) */
