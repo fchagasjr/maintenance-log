@@ -1,6 +1,6 @@
 class Entity < ActiveRecord::Base
   belongs_to :assembly
-  has_many :request_records
+  has_many :request_records, dependent: :destroy
 
   validates :number, presence: true
   validates_uniqueness_of :number, scope: :assembly_id

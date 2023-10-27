@@ -89,7 +89,6 @@ class App < Sinatra::Base
       flash.now[:info] = "You need to login first!"
       halt erb :"users/login"
     end
-
   end
 
   # Shared routes
@@ -101,6 +100,12 @@ class App < Sinatra::Base
 
   get "/" do
     erb :index
+  end
+
+  get "/confirm_delete/:table/:id" do
+    @table = params[:table]
+    @id = params[:id]
+    erb :"shared/confirm_delete"
   end
 
   # Users routes
@@ -373,6 +378,20 @@ class App < Sinatra::Base
                    serial: params[:serial])
     flash[:alert] = @entity.errors.full_messages unless @entity.valid?
     redirect "/entities/#{@entity.id}"
+  end
+
+  post "/entities/delete/:id" do
+    if current_log.owner_user == current_user
+      entity = entities.find_by(id: params[:id])
+      if current_user.authenticate(params[:password])
+        entity.destroy
+        flash[:info] = "#{entity.number} was deleted"
+        redirect "/entities"
+      else
+        flash[:alert] = "Password is incorrect!"
+        redirect "/entities/#{entity.id}"
+      end
+    end
   end
 
   # Requests routes

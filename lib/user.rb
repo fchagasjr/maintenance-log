@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, allow_nil: true
 
   belongs_to :logged_log, class_name: "Log", foreign_key: "log_id"
-  has_many :personal_logs, class_name: "Log", foreign_key: "user_id"
+  has_many :personal_logs, class_name: "Log", foreign_key: "user_id", dependent: :destroy
   has_many :keys, dependent: :destroy
   has_many :request_records
   has_many :service_records

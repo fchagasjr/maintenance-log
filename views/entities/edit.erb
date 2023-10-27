@@ -1,4 +1,11 @@
 <h3 class="title">Edit Entity</h3>
+<% if current_log.owner_user == current_user %>
+  <div class="action-menu">
+    <button class="action-button" onclick="location.href='/confirm_delete/entities/<%= @entity.id %>';">
+      Delete Entity
+    </button>
+  </div>
+<% end %>
 <form class="form new-element" method="post" action="/entities/edit/<%= @entity.id %>">
   <label for="number">Number</label>
   <input type="text" name="number" value="<%= @entity.number %>"><br>
