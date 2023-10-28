@@ -1,6 +1,7 @@
 class Entity < ActiveRecord::Base
   belongs_to :assembly
   has_many :request_records, dependent: :destroy
+  has_one :log, through: :assembly
 
   validates :number, presence: true
   validates_uniqueness_of :number, scope: :assembly_id
@@ -18,12 +19,10 @@ class Entity < ActiveRecord::Base
   end
 
   def uniq_number_per_log
-    entity_log = self.assembly.log
-    entity_log.assemblies.each do |assembly|
-      same_number_entity = assembly.entities.find_by(number: self.number)
-      unless same_number_entity.nil? || same_number_entity == self
-        errors.add(:number, "was found in the log")
-      end
+    entity_log = self.log
+    same_number_entity = entity_log.entities.find_by(number: self.number)
+    unless same_number_entity.nil? || same_number_entity == self
+      errors.add(:number, "was found in the log")
     end
   end
 end

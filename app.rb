@@ -16,13 +16,17 @@ class App < Sinatra::Base
 
     # Check permissions current user has for the current log
     def check_permission(status)
-      unless current_log.owner_user == current_user
+      unless current_log_owner?
         check_current_key
         unless current_key.send(:"#{status}?")
           flash[:info] = "Operation cancelled! Only #{status} users can perform this action"
           redirect back
         end
       end
+    end
+
+    def current_log_owner?
+      current_log.owner_user == current_user
     end
 
     def check_current_key
@@ -65,12 +69,12 @@ class App < Sinatra::Base
 
     # Returns the assemblies for the current log
     def assemblies
-      @assemblies ||= Assembly.where(log_id: current_key&.log_id)
+      @assemblies ||= current_log&.assemblies
     end
 
     # Returns the entities for the current log
     def entities
-      @entities ||= Entity.joins(:assembly).where(assembly: { log_id: current_key&.log_id })
+      @entities ||= current_log&.entities
     end
 
     # Returns the request records for the current log
@@ -332,7 +336,7 @@ class App < Sinatra::Base
   end
 
   post "/assemblies/delete/:id" do
-    if current_log.owner_user == current_user
+    if current_log_owner?
       assembly = assemblies.find_by(id: params[:id])
       if current_user.authenticate(params[:password])
         assembly.destroy
@@ -396,7 +400,7 @@ class App < Sinatra::Base
   end
 
   post "/entities/delete/:id" do
-    if current_log.owner_user == current_user
+    if current_log_owner?
       entity = entities.find_by(id: params[:id])
       if current_user.authenticate(params[:password])
         entity.destroy
