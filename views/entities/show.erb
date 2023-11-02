@@ -7,16 +7,22 @@
   </div>
 <% end %>
 <p>
-  <strong>Assembly:</strong> <%= @entity.assembly.description %>
+  <strong>Assembly:</strong>
+  <a href="/assemblies/<%= @entity.assembly.id %>">
+    <%= @entity.assembly.description %>
+  </a>
 </p>
 <p>
-  <strong>Manufacturer:</strong> <%= @entity.assembly.manufacturer %>
+  <strong>Manufacturer:</strong>
+  <%= @entity.assembly.manufacturer %>
 </p>
 <p>
-  <strong>Model:</strong> <%= @entity.assembly.model %>
+  <strong>Model:</strong>
+  <%= @entity.assembly.model %>
 </p>
 <p>
-  <strong>Serial Number:</strong> <%= @entity.serial %>
+  <strong>Serial Number:</strong>
+  <%= @entity.serial %>
 </p>
 
 <% @request_records = request_records&.by_entity(@entity) %>

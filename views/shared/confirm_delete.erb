@@ -1,7 +1,7 @@
 <h3 class="title">Confirm Deletion</h3>
 <p>All data associated to it will be deleted.</p>
 <p>If you are sure to continue, enter password below and confirm.</p>
-<form class="form password-confirmation" method="post" action="/<%= @table %>/delete/<%= @id %>">
+<form class="form password-confirmation" method="post" action="/delete/<%= @table %>/<%= @id %>">
   <label for="password">Enter Password to Confirm:</label>
   <input type="password" name="password">
   <input class="submit-button delete-button" type="submit" value="Confirm">

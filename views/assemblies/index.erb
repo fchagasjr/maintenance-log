@@ -12,21 +12,15 @@
     <th class="header-cell">Model</th>
   </tr>
   <% assemblies.order(:description, :manufacturer).each do |assembly| %>
-  <tr class="table-row">
+  <tr class="table-row" ondblclick="location.href='/assemblies/<%= assembly.id %>';">
     <td class="table-cell">
-      <a href="assemblies/<%= assembly.id %>" >
-        <%= assembly.description %>
-      </a>
+      <%= assembly.description %>
     </td>
     <td class="table-cell">
-      <a href="assemblies/<%= assembly.id %>" >
-        <%= assembly.manufacturer %>
-      </a>
+      <%= assembly.manufacturer %>
     </td>
     <td class="table-cell">
-      <a href="assemblies/<%= assembly.id %>" >
-        <%= assembly.model %>
-      </a>
+      <%= assembly.model %>
     </td>
   </tr>
   <% end %>

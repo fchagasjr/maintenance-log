@@ -14,31 +14,21 @@
     <th class="header-cell">Model</th>
   </tr>
   <% entities.each do |entity| %>
-  <tr class="table-row">
+  <tr class="table-row" ondblclick="location.href='/entities/<%= entity.id %>';">
     <td class="table-cell">
-      <a href="entities/<%= entity.id %>">
-        <%= entity.number %>
-      </a>
+      <%= entity.number %>
     </td>
     <td class="table-cell">
-      <a href="entities/<%= entity.id %>">
-        <%= entity.description %>
-      </a>
+      <%= entity.description %>
     </td>
     <td class="table-cell">
-      <a href="entities/<%= entity.id %>">
-        <%= entity.assembly&.description %>
-      </a>
+      <%= entity.assembly&.description %>
     </td>
     <td class="table-cell">
-      <a href="entities/<%= entity.id %>">
-        <%= entity.assembly&.manufacturer %>
-      </a>
+      <%= entity.assembly&.manufacturer %>
     </td>
     <td class="table-cell">
-      <a href="entities/<%= entity.id %>">
-        <%= entity.assembly&.model %>
-      </a>
+      <%= entity.assembly&.model %>
     </td>
   </tr>
   <% end %>

@@ -1,50 +1,40 @@
 <table class="table log_entries-table">
   <tr class="table-row log-header">
     <th class="header-cell log-header-cell">Entity</th>
-    <th class="header-cell log-header-cell">Request Type</th>
-    <th class="header-cell log-header-cell">Request Information</th>
-    <th class="header-cell log-header-cell">Service Type</th>
-    <th class="header-cell log-header-cell">Service Information</th>
+    <th class="header-cell log-header-cell">Type</th>
+    <th class="header-cell log-header-cell">Information</th>
     <th class="header-cell log-header-cell">Closed at</th>
   </tr>
   <% @request_records ||= request_records %>
   <% @request_records.by_priority.each do |request_record| %>
     <% if request_record.service_record %>
+      <% type = request_record.service_record.service_type.description %>
+      <% information = request_record.service_record.description %>
       <% if request_record.service_record.closed_at %>
-        <tr class="log-row table-row service-closed">
+        <% status = "service-closed" %>
+        <% close_date = request_record.service_record.closed_at %>
       <% else %>
-        <tr class="log-row table-row service-open">
+        <% status = "service-open" %>
+        <% close_date = nil %>
       <% end %>
     <% else %>
-      <tr class="log-row table-row request-open">
+      <% status = "request-open" %>
+      <% type = request_record.request_type.description %>
+      <% information = request_record.description %>
+      <% close_date = nil %>
     <% end %>
+    <tr class="log-row table-row <%= status %>" ondblclick="location.href='/request_records/<%= request_record.id %>';">
       <td class="table-cell log-cell">
-        <a class="table-link" href="/entities/<%= request_record.entity.id %>" ><%= request_record.entity.number %></a>
+        <%= request_record.entity.number %>
       </td>
       <td class="table-cell log-cell">
-        <a class="table-link" href="/request_records/<%= request_record.id %>">
-          <%= request_record.request_type.description %>
-        </a>
+        <%= type %>
       </td>
       <td class="table-cell log-cell description-cell">
-        <a class="table-link" href="/request_records/<%= request_record.id %>">
-          <%= request_record.description %>
-        </a>
+        <%= information %>
       </td>
       <td class="table-cell log-cell">
-        <a class="table-link" href="/request_records/<%= request_record.id %>">
-          <%= request_record.service_record&.service_type&.description %>
-        </a>
-      </td>
-      <td class="table-cell log-cell description-cell">
-        <a class="table-link" href="/request_records/<%= request_record.id %>">
-          <%= request_record.service_record&.description %>
-        </a>
-      </td>
-      <td class="table-cell log-cell">
-        <a class="table-link" href="/request_records/<%= request_record.id %>">
-          <%= request_record.service_record&.closed_at %>
-        </a>
+        <%= close_date %>
       </td>
     </tr>
   <% end %>

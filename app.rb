@@ -106,10 +106,30 @@ class App < Sinatra::Base
     erb :index
   end
 
+  # Get the commom confirm deletion page for tables
   get "/confirm_delete/:table/:id" do
     @table = params[:table]
     @id = params[:id]
     erb :"shared/confirm_delete"
+  end
+
+
+  # Post/executes deletion from the table assigned
+  post "/delete/:table/:id" do
+    table = params[:table]
+    element = send(table).find_by(id: params[:id])
+    if current_log_owner?
+      if current_user.authenticate(params[:password])
+        element.destroy
+        flash[:info] = "#{element.description} was deleted"
+        redirect "/#{table}"
+      else
+        flash[:alert] = "Password is incorrect!"
+      end
+    else
+      flash[:alert] = "Only the log owner can perform this action"
+    end
+    redirect "/#{table}/#{element.id}"
   end
 
   # Users routes
@@ -335,21 +355,6 @@ class App < Sinatra::Base
     redirect "/assemblies/#{@assembly.id}"
   end
 
-  post "/assemblies/delete/:id" do
-    if current_log_owner?
-      assembly = assemblies.find_by(id: params[:id])
-      if current_user.authenticate(params[:password])
-        assembly.destroy
-        flash[:info] = "#{assembly.description} was deleted"
-        redirect "/assemblies"
-      else
-        flash[:alert] = "Password is incorrect!"
-        redirect "/assemblies/#{assembly.id}"
-      end
-    end
-  end
-
-
   # Entities routes
 
   get "/entities" do
@@ -397,20 +402,6 @@ class App < Sinatra::Base
                    serial: params[:serial])
     flash[:alert] = @entity.errors.full_messages unless @entity.valid?
     redirect "/entities/#{@entity.id}"
-  end
-
-  post "/entities/delete/:id" do
-    if current_log_owner?
-      entity = entities.find_by(id: params[:id])
-      if current_user.authenticate(params[:password])
-        entity.destroy
-        flash[:info] = "#{entity.number} was deleted"
-        redirect "/entities"
-      else
-        flash[:alert] = "Password is incorrect!"
-        redirect "/entities/#{entity.id}"
-      end
-    end
   end
 
   # Requests routes
