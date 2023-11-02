@@ -154,7 +154,7 @@ h1, h2, h3 {
   background-color: #dfe8f0;
   border: 2px solid;
   border-collapse: collapse;
-  font-size: 1.65vw;
+  font-size: 1.8vw;
   padding: 0.1vw;
   width: 100%;
 }
@@ -179,23 +179,30 @@ h1, h2, h3 {
   background-color: rgba(255, 0, 0, 0.3);
 }
 
+.request-open:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
 .service-open {
   background-color: rgba(255, 255, 0, 0.3);
+}
+
+.service-open:hover {
+  background-color: rgba(255, 255, 0, 0.5);
 }
 
 .service-closed {
   background-color: rgba(0, 255, 0, 0.3);
 }
 
+.service-closed:hover {
+  background-color: rgba(0, 255, 0, 0.5);
+}
+
 /* Elements Table */
 
 .elements-table .table-row {
   border: none;
-}
-
-.elements-table .table-cell {
-  border: none;
-  text-align: center;
 }
 
 .elements-table .table-row:hover {
