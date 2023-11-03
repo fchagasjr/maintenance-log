@@ -80,7 +80,7 @@ class App < Sinatra::Base
     # Returns the request records for the current log
     def request_records
       @request_records ||= RequestRecord.joins(:entity)
-                                        .where(entity: { assembly_id: assemblies.ids })
+                                        .where(entity: { assembly_id: assemblies&.ids })
     end
   end
 
