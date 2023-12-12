@@ -5,6 +5,13 @@ development:
   pool: 2
   username: postgres
 
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: maintenance_log_dev
+  pool: 2
+  username: postgres
+
 production:
   adapter: postgresql
   encoding: unicode
