@@ -11,11 +11,22 @@ class ViewsTest < Test::Unit::TestCase
     Rack::Builder.parse_file("config.ru").first
   end
 
-  def test_home_page
-    AppHelpers.login(User.first)
+  def login(user)
+    post "/login", params={email: user.email, password: "foobar"}
+  end
+
+  def test_not_logged_user_home_page
     get "/"
     assert last_response.ok?
-    puts last_response.body
+    assert last_response.body.include?("Login")
+  end
+
+
+  def test_logged_user_home_page
+    login(User.first)
+    get "/"
+    assert last_response.ok?
+    assert last_response.body.include?(User.first.first_name)
   end
 
   def test_login_page
