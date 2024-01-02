@@ -8,8 +8,9 @@ class ViewsTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    Rack::Builder.parse_file("config.ru").first
+    App
   end
+
 
   def login(user)
     post "/login", params={email: user.email, password: "foobar"}

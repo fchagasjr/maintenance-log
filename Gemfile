@@ -10,6 +10,7 @@ gem "sinatra-flash"
 
 # Testing
 gem "rack-test"
+gem "test-unit"
 
 # Encryption
 gem "bcrypt"

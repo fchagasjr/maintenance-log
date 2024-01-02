@@ -19,7 +19,7 @@ class App < Sinatra::Base
   register Sinatra::Flash
 
   # Redirect not logged users from unauthorized pages
-  before /\/(?!(login|logout|signup)).*/ do
+  before (/\/(?!(login|logout|signup)).*/) do
     unless logged_in?
       flash.now[:info] = "You need to login first!"
       halt erb :"users/login"
