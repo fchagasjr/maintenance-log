@@ -15,7 +15,7 @@ require_relative 'helpers/session_helpers'
 class App < Sinatra::Base
   helpers SessionHelpers
 
-  enable :sessions
+  enable :sessions unless test?
   register Sinatra::Flash
 
   # Redirect not logged users from unauthorized pages
