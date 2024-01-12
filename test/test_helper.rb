@@ -12,10 +12,10 @@ class AppTest < Test::Unit::TestCase
   end
 
   def login(user)
-    post "/login", params={email: user.email, password: "foobar"}, 'rack.session' => session
+    env "rack.session", { :user_id => user.id }
   end
 
-  def session
-    @session ||= {}
+  def logout
+    env "rack.session", { :user_id => nil }
   end
 end

@@ -10,8 +10,11 @@ class ViewsTest < AppTest
   def test_logged_user_home_page
     user = User.first
     login(user)
-    get "/", {}, 'rack.session' => session # Passing the session to the request through rack.session
+    get "/"
     assert last_response.body.include?(user.first_name)
+    logout
+    get "/"
+    refute last_response.body.include?(user.first_name)
   end
 
   def test_login_page
