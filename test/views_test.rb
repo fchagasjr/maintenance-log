@@ -1,6 +1,12 @@
 require_relative 'test_helper'
 
 class ViewsTest < AppTest
+  attr_reader :user
+
+  def setup
+    @user = User.first
+  end
+
   def test_not_logged_user_home_page
     get "/"
     assert last_response.ok?
@@ -8,7 +14,6 @@ class ViewsTest < AppTest
   end
 
   def test_logged_user_home_page
-    user = User.first
     login(user)
     get "/"
     assert last_response.body.include?(user.first_name)

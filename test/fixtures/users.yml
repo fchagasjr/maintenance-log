@@ -1,0 +1,16 @@
+user1:
+  id: 1
+  first_name: First
+  last_name: User
+  email: first@user.com
+  log_id: 1
+  password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>
+
+user2:
+  id: 2
+  first_name: Second
+  last_name: User
+  email: second@user.com
+  log_id: null
+  password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>
+

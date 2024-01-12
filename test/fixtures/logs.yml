@@ -1,0 +1,5 @@
+log1:
+  id: 1
+  name: "Test Log"
+  description: "For test purpose"
+  user_id: 1
