@@ -5,8 +5,20 @@ require 'rake'
 require 'rake/testtask'
 
 
-Rake::TestTask.new do |t|
-  t.pattern = "test/**/*_test.rb"
+task :test do
+
+  APP_ENV = 'test' # Force the environment to test
+
+  #  Recreate the test database
+  Rake::Task['db:test:prepare'].invoke
+
+  # Seed the database with fixtures
+  Rake::Task['db:fixtures:load'].invoke
+
+  # Executing Tests
+  Rake::TestTask.new do |t|
+    t.pattern = "test/**/*_test.rb"
+  end
 end
 
 task default: :test

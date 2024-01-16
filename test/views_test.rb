@@ -3,6 +3,8 @@ require_relative 'test_helper'
 class ViewsTest < AppTest
   attr_reader :user
 
+  fixtures :all
+
   def setup
     @user = User.first
   end

@@ -1,16 +1,25 @@
-user1:
+foo:
   id: 1
-  first_name: First
-  last_name: User
-  email: first@user.com
+  first_name: Foo
+  last_name: Bar
+  email: foobar@user.com
   log_id: 1
   password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>
 
-user2:
+bar:
   id: 2
-  first_name: Second
-  last_name: User
-  email: second@user.com
-  log_id: null
+  first_name: Bar
+  last_name: Foo
+  email: foobar@user.com
+  log_id: 2
   password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>
 
+<% 10.times do |n| %>
+user_<%= n %>:
+  id: <%= n + 3 %>
+  first_name: Test_<%= n %>
+  last_name: User_<%= n %>
+  email: test_<%= n %>@user.com
+  log_id: <%= rand(1..8) %>
+  password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>
+<% end %>

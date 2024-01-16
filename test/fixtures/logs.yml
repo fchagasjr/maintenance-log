@@ -1,5 +1,19 @@
-log1:
+log_foo:
   id: 1
-  name: "Test Log"
-  description: "For test purpose"
+  name: "Foo Log"
+  description: "Foo log for testing"
   user_id: 1
+
+log_bar:
+  id: 2
+  name: "Bar Log"
+  description: "Bar log for testing"
+  user_id: 2
+
+<% 8.times do |n| %>
+log_<%= n %>:
+  id: <%= n + 3 %>
+  name: "Log <%= n %>"
+  description: "Test log #<%= n %>"
+  user_id: <%= rand(1..12) %>
+<% end %>

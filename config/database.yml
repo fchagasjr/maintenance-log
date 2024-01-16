@@ -1,20 +1,23 @@
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: maintenance_log_dev
+
+local: &local
   pool: 2
   username: postgres
+
+development:
+  <<: *default
+  <<: *local
+  database: maintenance_log_dev
 
 test:
-  adapter: postgresql
-  encoding: unicode
-  database: maintenance_log_dev
-  pool: 2
-  username: postgres
+  <<: *default
+  <<: *local
+  database: maintenance_log_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   pool: 5
   host: <%= ENV['DATABASE_HOST'] %>
   database: <%= ENV['DATABASE_NAME'] %>
