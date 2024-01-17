@@ -13,12 +13,14 @@ The Maintenance Log is a web application built with Sinatra, designed to help yo
 
 The app contains the following database tables:
 
-- `users`: Stores user information for authentication.
-- `assemblies`: Belongs to entities and stores general equipment descriptions, including manufacturer, model, and equipment description.
-- `entities`: Belongs to assemblies and represents individual pieces of equipment. Stores serial numbers and descriptions related to the use of that equipment within the process.
-- `request_records`: Contains maintenance request information and belongs to `request_types`. Also has one `service_record`.
+- `users`: Stores user information for authentication. Each user can have multiple logs and multiple access keys.
+- `logs`: Created by a user to track services on a particular group of equipment. Can be shared by `keys`.
+- `keys`: Required to gain access to a log, if you are not the log owner.
+- `assemblies`: Belongs to a log and stores general equipment descriptions, including manufacturer, model, and equipment description.
+- `entities`: Representes each invidual piece of equipment from an assembly. Stores serial numbers and descriptions related to the use of that equipment within the process.
+- `request_records`: Contains maintenance request information and belongs to an `entity`.
 - `request_types`: Categorizes maintenance requests.
-- `service_records`: Contains service record information and belongs to `service_types`.
+- `service_records`: Contains service record information and belongs to a `request_record`.
 - `service_types`: Categorizes service records.
 
 ## Development Setup
