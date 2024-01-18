@@ -1,0 +1,14 @@
+<% users_id = (1..10).to_a %>
+<% logs_id = (1..12).to_a %>
+<% keys = users_id.product(logs_id).sample(25) %>
+
+<% n = 0 %>
+<% keys.each do |key| %>
+<% n += 1 %>
+key_<%= n %>:
+  id: <%= n  %>
+  user_id: <%= key.first %>
+  log_id: <%= key.last %>
+  admin: <%= [true, false].sample %>
+  active: <%= [true, false].sample %>
+<% end %>

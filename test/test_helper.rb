@@ -14,7 +14,7 @@ class AppTest < Test::Unit::TestCase
   class << self
     def fixtures(*fixture_set_names)
       self.fixture_path = 'test/fixtures/'
-      super *fixture_set_names
+      super(*fixture_set_names)
     end
   end
 
