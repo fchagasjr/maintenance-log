@@ -9,13 +9,13 @@ task :test do
 
   APP_ENV = 'test' # Force the environment to test
 
-  #  Recreate the test database
+  puts  "** Recreating the test database **"
   Rake::Task['db:test:prepare'].invoke
 
-  # Seed the database with fixtures
+  puts "** Seeding the database with fixtures **"
   Rake::Task['db:fixtures:load'].invoke
 
-  # Executing Tests
+  puts "** Executing Tests **"
   Rake::TestTask.new do |t|
     t.pattern = "test/**/*_test.rb"
   end

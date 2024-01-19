@@ -1,9 +1,9 @@
-<% 30.times do |n| %>
+<% 15.times do |n| %>
 <% id = n + 1 %>
 assembly_<%= id %>:
   id: <%= id %>
   description: "Assembly <%= id %>"
   manufacturer: "No manufacturer" 
   model: "No model"
-  log_id: <%= rand(1..10) %>
+  log_id: <%= rand(1..4) %>
 <% end %>

@@ -1,32 +1,41 @@
 require_relative 'test_helper'
 
 class ViewsTest < AppTest
-  attr_reader :user
+  attr_reader :foo_user, :bar_user
 
   fixtures :all
 
   def setup
-    @user = User.first
+    @foo_user = User.find_by(first_name: "Foo")
+    @bar_user = User.find_by(first_name: "Bar")
   end
 
   def test_not_logged_user_home_page
     get "/"
     assert last_response.ok?
-    assert last_response.body.include?("Login")
+
   end
 
-  def test_logged_user_home_page
-    login(user)
+  def test_logged_and_unlogged_user_home_page
+    login(foo_user)
     get "/"
-    assert last_response.body.include?(user.first_name)
+    assert last_response.body.include?(foo_user.first_name)
+    refute last_response.body.include?("Login")
     logout
     get "/"
-    refute last_response.body.include?(user.first_name)
+    refute last_response.body.include?(foo_user.first_name)
+    assert last_response.body.include?("Login")
   end
 
   def test_login_page
     get "/login"
     assert last_response.ok?
-    assert last_response.body.include?("Login")
+    assert last_response.body.include?("<h2 class=\"title\">Login</h2>")
+  end
+
+  def test_signup_page
+    get "/signup"
+    assert last_response.ok?
+    assert last_response.body.include?("<h2 class=\"title\">Sign Up</h2>")
   end
 end

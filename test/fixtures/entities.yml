@@ -1,9 +1,9 @@
-<% 90.times do |n| %>
+<% 30.times do |n| %>
 <% id = n + 1 %>
 entity_<%= id %>:
   id: <%= id %>
   description: "Entity <%= id %>"
   number: "ENT-<%= rand(100..999) %>"
   serial: "ABC-<%= rand(100..999) %>" 
-  assembly_id: <%= rand(1..30) %>
+  assembly_id: <%= rand(1..15) %>
 <% end %>

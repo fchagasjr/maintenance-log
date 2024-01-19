@@ -1,9 +1,13 @@
-<% 12.times do |n| %>
-user_<%= n %>:
+<% users = ["foo", "bar", "baz", "qux"] %>
+<% n = 1 %>
+
+<% users.each do |user| %>
+user_<%= user %>:
   id: <%= n %>
-  first_name: Test_<%= n %>
-  last_name: User_<%= n %>
+  first_name: <%= user.capitalize %>
+  last_name: <%= user.reverse.capitalize %>
   email: test_<%= n %>@user.com
-  log_id: <%= rand(1..8) %>
+  log_id: <%= n %>
   password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>
+  <% n += 1 %>
 <% end %>

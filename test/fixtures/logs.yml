@@ -1,7 +1,11 @@
-<% 10.times do |n| %>
-log_<%= n %>:
+<% users = ["foo", "bar", "baz", "qux"] %>
+<% n = 1 %>
+
+<% users.each do |user| %>
+log_<%= user %>:
   id: <%= n  %>
-  name: "Log <%= n %>"
+  name: "<%= user %>'s Log"
   description: "Test log #<%= n %>"
-  user_id: <%= rand(1..12) %>
+  user_id: <%= n %>
+  <% n += 1 %>
 <% end %>
