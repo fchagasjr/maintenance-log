@@ -3,26 +3,21 @@ require_relative 'test_helper'
 class ViewsTest < AppTest
   attr_reader :foo_user, :bar_user
 
-  fixtures :all
-
   def setup
     @foo_user = User.find_by(first_name: "Foo")
     @bar_user = User.find_by(first_name: "Bar")
   end
 
-  def test_not_logged_user_home_page
-    get "/"
-    assert last_response.ok?
-
-  end
-
   def test_logged_and_unlogged_user_home_page
     login(foo_user)
     get "/"
+    assert last_response.ok?
     assert last_response.body.include?(foo_user.first_name)
+    assert last_response.body.include?(foo_user.logged_log.name)
     refute last_response.body.include?("Login")
     logout
     get "/"
+    assert last_response.ok?
     refute last_response.body.include?(foo_user.first_name)
     assert last_response.body.include?("Login")
   end
