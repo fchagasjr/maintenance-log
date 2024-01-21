@@ -1,6 +1,12 @@
 # Maintenance Log
 
-The Maintenance Log is a web application built with Sinatra, designed to help you manage maintenance requests and service records for equipment assemblies and individual equipment pieces (entities). It allows users to log in, create maintenance requests, and record service information.
+A web application for keeping track of equipment maintenance request and service information through personal and sharable logs.
+
+## Description
+
+The Maintenance Log is built with Sinatra and designed to help you manage maintenance requests and service records for equipment.
+It allows users to create their own logs, add assemblies and individual equipment pieces (entities) to it and then create maintenance requests, and record service information.
+Each log can be shared among other users by using keys that allow different level access permissions.
 
 ## Features
 

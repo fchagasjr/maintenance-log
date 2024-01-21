@@ -105,10 +105,15 @@ h1, h2, h3 {
   width: 100%;
 }
 
+.footer-list {
+  list-style-type: none;
+  text-align: center;
+}
+
 .footer-item-logo {
   border: none;
   padding: 2vw;
-  font-size: 1.5vw;
+  font-size: 1.6vw;
   text-shadow: 0.1em 0.1em #50555e;
   text-transform: uppercase;
 }
@@ -121,6 +126,21 @@ h1, h2, h3 {
 
 .footer-item-logo .footer-link:hover {
   color: #FFF;
+}
+
+.footer-producer-info {
+  color: #FF8C00;
+  font-size: 1.5vw;
+}
+
+.footer-producer-info img {
+  border-radius: 50%;
+  width: 1.2vw;
+}
+
+.footer-producer-info a {
+  color: #FFF;
+  text-decoration: none;
 }
 
 /* Flash messages */
