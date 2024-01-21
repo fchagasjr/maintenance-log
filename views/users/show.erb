@@ -18,6 +18,19 @@
       <th class="header-cell">Description</th>
       <th class="header-cell">Permissions</th>
     </tr>
+    <% current_user.personal_logs.each do |log| %>
+    <tr class="table-row">
+      <td class="table-cell">
+        <a href="/logs/access/<%= log.id %>"><%= log.name %></a>
+      </td>
+      <td class="table-cell">
+        <a href="/logs/access/<%= log.id %>"><%= log.description %></a>
+      </td>
+      <td class="table-cell">
+        <a href="/logs/access/<%= log.id %>">owner</a>
+      </td>
+    </tr>
+    <% end %>
     <% current_user.keys.each do |key| %>
     <tr class="table-row">
       <td class="table-cell">

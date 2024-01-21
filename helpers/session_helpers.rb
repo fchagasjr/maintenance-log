@@ -45,7 +45,16 @@ module SessionHelpers
 
   # Returns the user access keys for the current log
   def current_key
-    @current_key ||= Key.find_by(user_id: session[:user_id], log_id: session[:log_id])
+    @current_key ||= load_key(session[:log_id])
+  end
+
+  def load_key(log_id)
+    log = Log.find(log_id)
+    if log.owner_user == current_user
+      Key.new(user_id: current_user.id, log_id: log_id, active: true, admin: true)
+    else
+      Key.find_by(user_id: current_user.id, log_id: log_id)
+    end
   end
 
   def current_log

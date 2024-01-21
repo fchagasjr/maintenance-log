@@ -182,11 +182,11 @@ class App < Sinatra::Base
 
   get "/logs/access/:id" do
     # Check if user has permission to access the log
-    @load_key = Key.find_by(user_id: current_user.id, log_id: params[:id])
-    if @load_key
-      current_user.update(log_id: @load_key.log_id)
+    @loading_key = load_key(params[:id])
+    if @loading_key
+      current_user.update(log_id: @loading_key.log_id)
       load_logged_log
-      flash[:info] = "Log #{@load_key.log.name} is now selected"
+      flash[:info] = "Log #{@loading_key.log.name} is now selected"
       redirect "/"
     else
       flash[:alert] = "No log found or no access granted"
