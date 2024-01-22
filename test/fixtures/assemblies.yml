@@ -1,5 +1,4 @@
-<% 15.times do |n| %>
-<% id = n + 1 %>
+<% (1..15).each do |id| %>
 assembly_<%= id %>:
   id: <%= id %>
   description: "Assembly <%= id %>"

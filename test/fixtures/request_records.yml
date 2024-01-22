@@ -1,0 +1,8 @@
+<% (1..90).each do |id| %>
+request_<%= id %>:
+  id: <%= id %>
+  entity_id: <%= rand(1..30) %>
+  user_id: <%= rand(1..4) %>
+  description: "This is request entry #<%= id %>"
+  request_type_id: <%= rand(1..3) %>
+<% end %>

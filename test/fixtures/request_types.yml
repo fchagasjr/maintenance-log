@@ -1,0 +1,7 @@
+<% request_types = ["Leaking", "Abnormal Noise", "Electrical Fault"] %>
+
+<% (1..3).each do |id| %>
+request_type_<%= id %>:
+  id: <%= id %>
+  description: <%= request_types.shuffle!.pop %>
+<% end %>

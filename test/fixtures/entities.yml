@@ -1,5 +1,4 @@
-<% 30.times do |n| %>
-<% id = n + 1 %>
+<% (1..30).each do |id| %>
 entity_<%= id %>:
   id: <%= id %>
   description: "Entity <%= id %>"

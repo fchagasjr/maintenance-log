@@ -23,7 +23,7 @@
       <% information = request_record.description %>
       <% close_date = nil %>
     <% end %>
-    <tr class="log-row table-row <%= status %>" ondblclick="location.href='/request_records/<%= request_record.id %>';">
+    <tr class="log-row table-row <%= status %>" id="reqRec<%= request_record.id %>" ondblclick="location.href='/request_records/<%= request_record.id %>';">
       <td class="table-cell log-cell">
         <%= request_record.entity.number %>
       </td>

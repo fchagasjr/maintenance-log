@@ -40,8 +40,10 @@
       <input type="checkbox" name="active">
       <label for="active">Active</label>
     </div>
-    <input type="checkbox" name="admin">
-    <label for="admin">Administrator</label>
+    <% if current_log_owner? %>
+      <input type="checkbox" name="admin">
+      <label for="admin">Administrator</label>
+    <% end %>
   </div>
   <label for="check_password">Confirm with Password:</label>
   <input type="password" id="check_password" name="check_password" required><br>

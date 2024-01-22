@@ -5,7 +5,7 @@ class Key < ActiveRecord::Base
   validates :user_id, presence: true
   validates :log_id, presence: true
   validates_uniqueness_of :user_id, scope: :log_id
-  before_destroy :min_one_admin
+  validate :no_owner_key
 
   def permissions
     permissions = []
@@ -14,10 +14,10 @@ class Key < ActiveRecord::Base
     permissions.join("/")
   end
 
-  def min_one_admin
-    admin_keys = self.log.keys.where(admin: true)
-    if admin_keys.one? && admin_keys.include?(self)
-      throw(:abort)
+  private
+  def no_owner_key
+    if self.log.owner_user == self.user
+      errors.add(:user_id, "is already the owner of the log")
     end
   end
 end
