@@ -86,6 +86,10 @@ h1, h2, h3 {
   color: #FFF;
 }
 
+.navbar-item-logo .image-logo {
+  width: 25vw;
+}
+
 .navbar-admin .navbar-link {
   color: #F00;
 }
@@ -126,6 +130,10 @@ h1, h2, h3 {
 
 .footer-item-logo .footer-link:hover {
   color: #FFF;
+}
+
+.footer-item-logo .image-logo {
+  width: 15vw;
 }
 
 .footer-producer-info {

@@ -13,13 +13,31 @@ GEM
       tzinfo (~> 2.0)
     bcrypt (3.1.19)
     concurrent-ruby (1.2.2)
+    date (3.3.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    mail (2.8.1)
+      mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
+    mini_mime (1.1.5)
     minitest (5.20.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
+    net-imap (0.4.9.1)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.4.0.1)
+      net-protocol
     nio4r (2.5.9)
     pg (1.5.4)
+    pony (1.13.1)
+      mail (>= 2.0)
     power_assert (2.0.3)
     puma (6.3.1)
       nio4r (~> 2.0)
@@ -43,6 +61,7 @@ GEM
     test-unit (3.6.1)
       power_assert
     tilt (2.2.0)
+    timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
 
@@ -53,6 +72,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   pg
+  pony
   puma
   rack-test
   rake

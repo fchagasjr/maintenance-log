@@ -1,7 +1,7 @@
 <h3 class="title">New Service Record</h3>
 <div class="request-info"><h4>Request #<%= @request_record.id %></h4>
   <h5>Entity:</h5>
-  <p><%= @request_record.entity.id %></p>
+  <p><%= @request_record.entity.number %> - <%= @request_record.entity.description %></p>
   <h5>Type:</h5>
   <p><%= @request_record.request_type.description %></p>
   <h5>Description:</h5>

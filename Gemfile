@@ -8,6 +8,9 @@ gem "puma"
 gem "rake"
 gem "sinatra-flash"
 
+# Mailer
+gem "pony"
+
 # Testing
 gem "rack-test"
 gem "test-unit"
