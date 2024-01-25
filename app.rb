@@ -12,9 +12,11 @@ require_relative 'lib/service_record'
 require_relative 'lib/service_type'
 require_relative 'lib/mailer'
 require_relative 'helpers/session_helpers'
+require_relative 'helpers/log_helpers'
+require_relative 'helpers/rendering_helpers'
 
 class App < Sinatra::Base
-  helpers SessionHelpers
+  helpers SessionHelpers, LogHelpers, RenderingHelpers
 
   enable :sessions unless test?
   register Sinatra::Flash
