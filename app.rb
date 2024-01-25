@@ -22,7 +22,7 @@ class App < Sinatra::Base
   register Sinatra::Flash
 
   # Redirect not logged users from unauthorized pages
-  before (/\/(?!(login|logout|signup)).*/) do
+  before (/\/(?!(login|logout|signup|forgot_password|reset_password)).*/) do
     unless logged_in?
       flash.now[:info] = "You need to login first!"
       halt erb :"users/login"
@@ -166,23 +166,39 @@ class App < Sinatra::Base
     end
   end
 
-  get "/users/reset_password/:user_id/:token" do
-    @user = User.find(params[:user_id])
+  get "/forgot_password" do
+    erb :"users/forgot_password"
+  end
+
+  post "/forgot_password" do
+    user = User.find_by(email: params[:email])
+    if user
+      user.regenerate_reset_token
+      token = user.reset_token
+      reset_link = "http://localhost:9292/reset_password/#{user.id}/#{token}"
+      ResetPasswordMailer.new(email: user.email, link: reset_link).send
+    end
+    redirect "/"
+  end
+
+
+  get "/reset_password/:user_id/:token" do
+    @user = User.find(params[:user_id].to_i)
     @token = params[:token]
-    if @user.token == @token
+    if @user.validate_reset_token(@token)
       erb :"users/reset_password"
     else
       flash[:info] = "Invalid reset password credentials"
-      redirect "/"
+      redirect "/login"
     end
   end
 
-  post "/users/reset_password/:user_id/:token" do
-    @user = User.find(params[:user_id])
+  post "/reset_password/:user_id/:token" do
+    @user = User.find(params[:user_id].to_i)
     @token = params[:token]
-    unless @user.token == @token
+    unless @user.validate_reset_token(@token)
       flash[:alert] = "Invalid reset password credentials"
-      redirect "/"
+      redirect "/login"
     end
     @user.update(password: params[:new_password],
                         password_confirmation: params[:new_password_confirmation])
@@ -191,7 +207,7 @@ class App < Sinatra::Base
       redirect "/login"
     else
       flash[:alert] = @user.errors.full_messages
-      redirect "/users/reset_password/#{@user.id}/#{token}"
+      redirect "/reset_password/#{@user.id}/#{@token}"
     end
   end
 

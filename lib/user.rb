@@ -15,11 +15,17 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  has_secure_token :reset_token
+
   def downcase_email
     self.email.downcase!
   end
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def validate_reset_token(token)
+    self.reset_token == token
   end
 end
