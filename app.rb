@@ -146,14 +146,14 @@ class App < Sinatra::Base
     end
   end
 
-  get "/users/password" do
-    erb :"users/password"
+  get "/users/change_password" do
+    erb :"users/change_password"
   end
 
-  post "/users/password" do
+  post "/users/change_password" do
     unless current_user.authenticate(params[:password])
       flash[:alert] = "Wrong actual password"
-      redirect "/users/password"
+      redirect "/users/change_password"
     end
     current_user.update(password: params[:new_password],
                         password_confirmation: params[:new_password_confirmation])
@@ -162,9 +162,39 @@ class App < Sinatra::Base
       redirect "/users/account"
     else
       flash[:alert] = current_user.errors.full_messages
-      redirect "/users/password"
+      redirect "/users/change_password"
     end
   end
+
+  get "/users/reset_password/:user_id/:token" do
+    @user = User.find(params[:user_id])
+    @token = params[:token]
+    if @user.token == @token
+      erb :"users/reset_password"
+    else
+      flash[:info] = "Invalid reset password credentials"
+      redirect "/"
+    end
+  end
+
+  post "/users/reset_password/:user_id/:token" do
+    @user = User.find(params[:user_id])
+    @token = params[:token]
+    unless @user.token == @token
+      flash[:alert] = "Invalid reset password credentials"
+      redirect "/"
+    end
+    @user.update(password: params[:new_password],
+                        password_confirmation: params[:new_password_confirmation])
+    if @user.valid?
+      flash[:info] = "New password updated"
+      redirect "/login"
+    else
+      flash[:alert] = @user.errors.full_messages
+      redirect "/users/reset_password/#{@user.id}/#{token}"
+    end
+  end
+
 
   # Log routes
 
