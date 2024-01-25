@@ -22,7 +22,7 @@ class App < Sinatra::Base
   register Sinatra::Flash
 
   # Redirect not logged users from unauthorized pages
-  before (/\/(?!(login|logout|signup)).*/) do
+  before (/\/(?!(login|logout|signup|forgot_password|reset_password)).*/) do
     unless logged_in?
       flash.now[:info] = "You need to login first!"
       halt erb :"users/login"
@@ -146,14 +146,14 @@ class App < Sinatra::Base
     end
   end
 
-  get "/users/password" do
-    erb :"users/password"
+  get "/users/change_password" do
+    erb :"users/change_password"
   end
 
-  post "/users/password" do
+  post "/users/change_password" do
     unless current_user.authenticate(params[:password])
       flash[:alert] = "Wrong actual password"
-      redirect "/users/password"
+      redirect "/users/change_password"
     end
     current_user.update(password: params[:new_password],
                         password_confirmation: params[:new_password_confirmation])
@@ -162,9 +162,55 @@ class App < Sinatra::Base
       redirect "/users/account"
     else
       flash[:alert] = current_user.errors.full_messages
-      redirect "/users/password"
+      redirect "/users/change_password"
     end
   end
+
+  get "/forgot_password" do
+    erb :"users/forgot_password"
+  end
+
+  post "/forgot_password" do
+    user = User.find_by(email: params[:email])
+    if user
+      user.regenerate_reset_token
+      token = user.reset_token
+      reset_link = uri("/reset_password/#{user.id}/#{token}")
+      ResetPasswordMailer.new(email: user.email, link: reset_link).send
+    end
+    redirect "/"
+  end
+
+
+  get "/reset_password/:user_id/:token" do
+    @user = User.find(params[:user_id].to_i)
+    @token = params[:token]
+    if @user.validate_reset_token(@token)
+      erb :"users/reset_password"
+    else
+      flash[:info] = "Invalid reset password credentials"
+      redirect "/login"
+    end
+  end
+
+  post "/reset_password/:user_id/:token" do
+    @user = User.find(params[:user_id].to_i)
+    @token = params[:token]
+    unless @user.validate_reset_token(@token)
+      flash[:alert] = "Invalid reset password credentials"
+      redirect "/login"
+    end
+    @user.update(password: params[:new_password],
+                        password_confirmation: params[:new_password_confirmation])
+    if @user.valid?
+      flash[:info] = "New password updated"
+      redirect "/login"
+    else
+      flash[:alert] = @user.errors.full_messages
+      redirect "/reset_password/#{@user.id}/#{@token}"
+    end
+  end
+
 
   # Log routes
 
