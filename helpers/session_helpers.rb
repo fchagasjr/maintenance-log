@@ -49,6 +49,8 @@ module SessionHelpers
   end
 
   def load_key(log_id)
+    return nil unless log_id
+
     log = Log.find(log_id)
     if log.owner_user == current_user
       Key.new(user_id: current_user.id, log_id: log_id, active: true, admin: true)
