@@ -175,7 +175,7 @@ class App < Sinatra::Base
     if user
       user.regenerate_reset_token
       token = user.reset_token
-      reset_link = "http://localhost:9292/reset_password/#{user.id}/#{token}"
+      reset_link = uri("/reset_password/#{user.id}/#{token}")
       ResetPasswordMailer.new(email: user.email, link: reset_link).send
     end
     redirect "/"

@@ -39,7 +39,7 @@ class ResetPasswordMailer < Mailer
 
   def html_body
     "<h3>Your link to reset your password:</h3>" +
-    "<a href='#{@link}'>Click here!</a>" +
+    "<a href=#{@link}>Click here!</a>" +
     "<br>" +
     "<p>Ignore this message if you didn't request the reset</p>"
   end

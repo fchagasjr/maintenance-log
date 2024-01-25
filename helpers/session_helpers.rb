@@ -32,8 +32,7 @@ module SessionHelpers
   end
 
   def logout
-    session[:user_id] = nil
-    session[:log_id] = nil
+    session.clear
   end
 
   def logged_in?
@@ -50,9 +49,9 @@ module SessionHelpers
   end
 
   def load_key(log_id)
-    return nil unless log_id
+    log = Log.find_by(id: log_id)
+    return nil unless log
 
-    log = Log.find(log_id)
     if log.owner_user == current_user
       Key.new(user_id: current_user.id, log_id: log_id, active: true, admin: true)
     else
