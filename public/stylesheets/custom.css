@@ -71,19 +71,6 @@ h1, h2, h3 {
 	border: none;
   float: left;
   padding: 0.2em 0.3em;
-  font-size: 2.5vw;
-  text-shadow: 0.1em 0.1em #50555e;
-  text-transform: uppercase;
-}
-
-.navbar-item-logo .navbar-link {
-  color: #FF8C00;
-  display: block;
-  text-decoration: none;
-}
-
-.navbar-item-logo .navbar-link:hover {
-  color: #FFF;
 }
 
 .navbar-item-logo .image-logo {
@@ -104,39 +91,18 @@ h1, h2, h3 {
   background-color: #000080;
   overflow: hidden;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.footer-list {
-  list-style-type: none;
-  text-align: center;
-}
-
-.footer-item-logo {
-  border: none;
-  padding: 2vw;
-  font-size: 1.6vw;
-  text-shadow: 0.1em 0.1em #50555e;
-  text-transform: uppercase;
-}
-
-.footer-item-logo .footer-link {
-  color: #FF8C00;
-  display: block;
-  text-decoration: none;
-}
-
-.footer-item-logo .footer-link:hover {
-  color: #FFF;
-}
 
 .footer-item-logo .image-logo {
   width: 15vw;
 }
 
 .footer-producer-info {
+  padding: 0.2em;
   color: #FF8C00;
   font-size: 1.5vw;
 }
@@ -390,5 +356,21 @@ a.revoke-action {
 
   .table {
     font-size: 2.8vw;
+  }
+
+  .navbar-item-logo .image-logo {
+    width: 35vw;
+  }
+
+  .footer-item-logo .image-logo {
+    width: 25vw;
+  }
+
+  .footer-producer-info {
+    font-size: 2.5vw;
+  }
+
+  .footer-producer-info img {
+    width: 2vw;
   }
 }

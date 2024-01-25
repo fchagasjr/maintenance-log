@@ -10,6 +10,7 @@ require_relative 'lib/request_record'
 require_relative 'lib/request_type'
 require_relative 'lib/service_record'
 require_relative 'lib/service_type'
+require_relative 'lib/mailer'
 require_relative 'helpers/session_helpers'
 
 class App < Sinatra::Base
